@@ -1,4 +1,5 @@
 'use strict';
+const graphql = require('./graphql');
 const vehicles = require('./vehicles');
 const authentication = require('./authentication');
 const user = require('./user');
@@ -15,4 +16,5 @@ module.exports = function() {
   app.configure(authentication);
   app.configure(user);
   app.configure(vehicles);
+  app.configure(graphql);
 };

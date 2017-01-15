@@ -16,9 +16,10 @@
     "node": ">= 0.12.0"
   },
   "scripts": {
+    "build": "tsc",
     "test": "npm run jshint && npm run mocha",
     "jshint": "jshint src/. test/. --config",
-    "start": "node src/",
+    "start": "npm run build && node ./dist/index.js",
     "mocha": "mocha test/ --recursive"
   },
   "dependencies": {
@@ -42,6 +43,7 @@
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.29.0",
     "serve-favicon": "^2.3.2",
+    "typescript": "^2.1.5",
     "winston": "^2.3.0"
   },
   "devDependencies": {
