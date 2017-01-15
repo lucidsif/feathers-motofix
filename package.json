@@ -23,9 +23,11 @@
     "mocha": "mocha test/ --recursive"
   },
   "dependencies": {
+    "apollo-server": "^0.3.3",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "cors": "^2.8.1",
+    "dataloader": "^1.2.0",
     "feathers": "^2.0.3",
     "feathers-authentication": "^0.7.12",
     "feathers-configuration": "^0.3.3",
@@ -34,6 +36,10 @@
     "feathers-rest": "^1.6.0",
     "feathers-sequelize": "^1.4.0",
     "feathers-socketio": "^1.4.2",
+    "graphql": "^0.8.2",
+    "graphql-tools": "^0.9.0",
+    "knex": "^0.12.6",
+    "optics-agent": "^1.0.5",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-facebook-token": "^3.3.0",
@@ -41,8 +47,10 @@
     "passport-google-token": "^0.1.2",
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
+    "request": "^2.79.0",
     "sequelize": "^3.29.0",
     "serve-favicon": "^2.3.2",
+    "ts-node": "^2.0.0",
     "typescript": "^2.1.5",
     "winston": "^2.3.0"
   },
