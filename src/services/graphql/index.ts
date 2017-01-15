@@ -57,7 +57,9 @@ module.exports = function(){
   app.use(OpticsAgent.middleware());
   app.use(bodyParser.json())
 
-  app.use('/graphql', apollo.apolloExpress((req) => ({
+  app.use('/graphql', apollo.apolloExpress((req) => {
+    console.log(req['feathers']['token'])
+    return ({
       pretty: true,
       schema: schema,
       context: {
@@ -66,9 +68,10 @@ module.exports = function(){
         part: new PartModel(ebayConnector),
         labor: new LaborModel(autoDataConnector),
         vehicle: new VehicleModel,
-        opticsContext: OpticsAgent.context(req)
+        opticsContext: OpticsAgent.context(req),
+        token: req['feathers']['token']
       },
-    })));
+    })}));
 
   app.use('/', apollo.graphiqlExpress({
     endpointURL: '/graphql',
