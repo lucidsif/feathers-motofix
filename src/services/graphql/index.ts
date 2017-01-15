@@ -58,7 +58,9 @@ module.exports = function(){
   app.use(bodyParser.json())
 
   app.use('/graphql', apollo.apolloExpress((req) => {
+    let {token, provider} = req['feathers'];
     console.log(req['feathers']['token'])
+    console.log(req['feathers']['provider'])
     return ({
       pretty: true,
       schema: schema,
@@ -69,7 +71,8 @@ module.exports = function(){
         labor: new LaborModel(autoDataConnector),
         vehicle: new VehicleModel,
         opticsContext: OpticsAgent.context(req),
-        token: req['feathers']['token']
+        token: req['feathers']['token'],
+        provider: req['feathers']['provider']
       },
     })}));
 
