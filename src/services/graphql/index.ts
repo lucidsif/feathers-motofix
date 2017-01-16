@@ -4,7 +4,6 @@ import * as bodyParser from 'body-parser'
 import * as apollo from 'apollo-server'
 const gqlTools = require('graphql-tools');
 
-
 import typeDefs from './schema/index'
 import resolvers from './resolvers/index'
 import SWAPIConnector from './connectors/swapi'
@@ -16,7 +15,8 @@ import LaborModel from './models/labor'
 import StarshipModel from './models/starship'
 import MotorcycleModel from './models/motorcycle'
 import PartModel from './models/part'
-import { VehicleModel } from './models/sql';
+import { VehicleModel } from './models/sql'
+import UserModel from './models/feathersUser'
 
 import OpticsAgent from 'optics-agent';
 OpticsAgent.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q'})
@@ -31,18 +31,10 @@ const motofixConnector = new MOTOFIXConnector(motofixHost);
 const ebayConnector = new EBAYConnector(ebayHost);
 const autoDataConnector = new AUTODATAConnector(autoDataHost);
 
-//const expressPort = process.env.EXPRESS_PORT || 5000
-//const app = express()
-
-/*
-app.listen(expressPort, () => {
-  console.log(`Express server is listen on ${expressPort}`)
-})
-*/
-
 
 module.exports = function(){
   const app = this;
+ // console.log(app)
 
   const logger = { log: (e) => console.log(e) };
 
@@ -58,9 +50,12 @@ module.exports = function(){
   app.use(bodyParser.json())
 
   app.use('/graphql', apollo.apolloExpress((req) => {
+
     let {token, provider} = req['feathers'];
-    console.log(req['feathers']['token'])
-    console.log(req['feathers']['provider'])
+    console.log('token is: ' + req['feathers']['token'])
+    console.log('provider is: ' + req['feathers']['provider'])
+    var email = 'sif100@gmail.com'
+    var password = 'balls'
     return ({
       pretty: true,
       schema: schema,
@@ -72,7 +67,8 @@ module.exports = function(){
         vehicle: new VehicleModel,
         opticsContext: OpticsAgent.context(req),
         token: req['feathers']['token'],
-        provider: req['feathers']['provider']
+        provider: req['feathers']['provider'],
+        user: new UserModel(app)
       },
     })}));
 

@@ -6,6 +6,12 @@ const searchParts = (_, params, context) => context.part.getParts(params.vehicle
 const laborEstimates = (_, params, context) => context.labor.getEstimates(params.vehicle, params.service)
 const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.offset, params.limit, params.filterByYear, params.filterByMake)
 const node = (id: number) => ({})
+const viewer = (_, params, context) => context.viewer.getViewer(params.limit) // write a model that calls Viewer.find
+
+const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
+const logIn = (_, params, context) => context.auth.verifyPassword(params.username, params.password)
+
+
 
 // const allFilms = (_, params, context) => context.film.getFilms(params.offset, params.limit)
 // const film = (_, params, context) => context.film.getFilm(params.id, params.filmID)
@@ -28,6 +34,7 @@ export default {
     laborEstimates,
     allVehicles,
     node,
+    viewer,
 //    allFilms,
 //    film,
 //    allPeople,
@@ -39,4 +46,7 @@ export default {
 //    allVehicles,
 //    vehicle,
   },
+  RootMutation: {
+    signUp,
+  }
 }
