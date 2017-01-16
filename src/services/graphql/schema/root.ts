@@ -18,14 +18,12 @@ type RootQuery {
 
 type RootMutation {
   signUp (
-    userName: String!
+    email: String!
     password: String!
-    firstName: String
-    lastName: String
   ): User
   
   logIn (
-    userName: String!
+    email: String!
     password: String!
   ): AuthPayload
 }
