@@ -44,18 +44,29 @@ export default class User {
       })
   }
 
-  // viewer service.find() did not get any arguments
+  // TODO: figure out how to automatically extract jwt from feathers and use it - maybe first has something to do with tokenKey which is extracted from localstorage?
   public getViewer(token?: any){
-    let Viewer = this.app['service']('viewer')
-    console.log(`getViewer function called with token: ${token}`)
-    //console.log(Viewer);
-    return Viewer.find('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiaWF0IjoxNDg0NjMwMzYwLCJleHAiOjE0ODQ3MTY3NjAsImlzcyI6ImZlYXRoZXJzIn0.4sl9r4qZ47AYZ6_zsRzE7ni-hJ0eKiHGE_xxMcphPRQ')
+    let Users = this.app['service']('users')
+    console.log(Users);
+
+    const jwtOptions = {
+      method: 'POST',
+      uri: `http://localhost:3030/auth/token`,
+      headers: {
+        authorization: token
+      },
+      json: true
+    }
+
+    return rp(jwtOptions)
       .then((response) => {
+        console.log('getViewer query success')
         console.log(response)
-        return response
+
+        return response.data
       })
-      .catch((err) => {
-      console.log(err)
+      .catch((e) => {
+        console.log(e)
       })
   }
 

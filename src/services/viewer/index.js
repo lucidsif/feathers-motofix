@@ -9,7 +9,7 @@ class Service {
 
   find(params) {
     console.log('params inside viewer/index: ')
-    console.log(params)
+    console.log(token)
     return Promise.resolve(params);
   }
 

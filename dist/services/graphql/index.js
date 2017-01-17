@@ -32,7 +32,7 @@ module.exports = function () {
         typeDefs: index_1.default,
         resolvers: index_2.default,
         logger: logger,
-        allowUndefinedInResolve: false
+        allowUndefinedInResolve: true,
     });
     optics_agent_1.default.instrumentSchema(schema);
     app.use(optics_agent_1.default.middleware());
