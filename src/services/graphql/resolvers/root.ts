@@ -9,7 +9,7 @@ const node = (id: number) => ({})
 const viewer = (_, params, context) => context.viewer.getViewer(params.limit) // write a model that calls Viewer.find
 
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
-const logIn = (_, params, context) => context.auth.verifyPassword(params.username, params.password)
+const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
 
 
 
@@ -48,5 +48,6 @@ export default {
   },
   RootMutation: {
     signUp,
+    logIn
   }
 }

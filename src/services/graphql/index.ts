@@ -42,7 +42,7 @@ module.exports = function(){
     typeDefs: typeDefs,
     resolvers: resolvers,
     logger: logger,
-    allowUndefinedInResolve: false,
+    allowUndefinedInResolve: true,
   })
 
   OpticsAgent.instrumentSchema(schema);
@@ -54,8 +54,6 @@ module.exports = function(){
     let {token, provider} = req['feathers'];
     console.log('token is: ' + req['feathers']['token'])
     console.log('provider is: ' + req['feathers']['provider'])
-    var email = 'sif100@gmail.com'
-    var password = 'balls'
     return ({
       pretty: true,
       schema: schema,

@@ -14,6 +14,7 @@ const starship_1 = require("./models/starship");
 const motorcycle_1 = require("./models/motorcycle");
 const part_1 = require("./models/part");
 const sql_1 = require("./models/sql");
+const feathersUser_1 = require("./models/feathersUser");
 const optics_agent_1 = require("optics-agent");
 optics_agent_1.default.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q' });
 const swapiHost = process.env.SWAPI_HOST ? `${process.env.API_HOST}/api` : 'http://swapi.co/api';
@@ -31,15 +32,15 @@ module.exports = function () {
         typeDefs: index_1.default,
         resolvers: index_2.default,
         logger: logger,
-        allowUndefinedInResolve: false,
+        allowUndefinedInResolve: true,
     });
     optics_agent_1.default.instrumentSchema(schema);
     app.use(optics_agent_1.default.middleware());
     app.use(bodyParser.json());
     app.use('/graphql', apollo.apolloExpress((req) => {
         let { token, provider } = req['feathers'];
-        console.log(req['feathers']['token']);
-        console.log(req['feathers']['provider']);
+        console.log('token is: ' + req['feathers']['token']);
+        console.log('provider is: ' + req['feathers']['provider']);
         return ({
             pretty: true,
             schema: schema,
@@ -51,7 +52,8 @@ module.exports = function () {
                 vehicle: new sql_1.VehicleModel,
                 opticsContext: optics_agent_1.default.context(req),
                 token: req['feathers']['token'],
-                provider: req['feathers']['provider']
+                provider: req['feathers']['provider'],
+                user: new feathersUser_1.default(app)
             },
         });
     }));

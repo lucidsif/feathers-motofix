@@ -1,3 +1,5 @@
+import * as rp from 'request-promise';
+
 // TODO: change names to more clearly define what this does
 
 export default class User {
@@ -8,11 +10,9 @@ export default class User {
   }
 
   public createUser(email?: string, password?: string){
-    console.log('parameters: ' + email + ',' + password);
-    //console.log(this.app)
+    console.log('createuser parameters: ' + email + ',' + password);
     let Users = this.app['service']('users')
     let args = { email, password };
-    //let args = {email: 'sif2@gmail.com', password: 'calls'};
 
     return Users.create(args).then((response) => {
       console.log(response);
@@ -22,4 +22,23 @@ export default class User {
         console.log(e)
       })
   }
+
+  public logIn(email?: string, password?:string){
+    console.log('login parameters: ' + email + ',' + password);
+    const options = {
+      method: 'POST',
+      uri: `http://${this.app.get('host')}:${this.app.get('port')}/auth/local}`,
+      body: { email, password },
+      json: true
+    }
+    console.log(options)
+    rp(options)
+      .then((response) => {
+        return response
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  }
+
 }
