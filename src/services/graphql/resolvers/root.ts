@@ -1,3 +1,4 @@
+//query
 const allStarships = (_, params, context) => context.starship.getStarships(params.offset, params.limit)
 const starship = (_, params, context) => context.starship.getStarship(params.id, params.starshipID)
 const allMotorcycles = (_, params, context) => context.motorcycle.getMotorcycles(params.offset, params.limit, params.filterByYear, params.filterByMake)
@@ -8,6 +9,7 @@ const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.o
 const node = (id: number) => ({})
 const validateToken = (_, params, context) => context.user.postToken(params.token)
 
+//mutation
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
 
