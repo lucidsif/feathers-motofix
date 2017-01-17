@@ -32,7 +32,7 @@ export default class User {
       json: true
     }
     //console.log(options)
-    rp(options)
+    return rp(options)
       .then((response) => {
         console.log('login mutation success')
         console.log(response)
@@ -46,11 +46,12 @@ export default class User {
   public getViewer(context: any){
     let Viewer = this.app['service']('viewer')
     console.log('getViewer function called')
-    console.log(Viewer);
+    //console.log(Viewer);
     console.log(`token from context: ${context}`);
     return Viewer.find(context)
       .then((response) => {
-      console.log(response)
+      console.log('view success')
+      //console.log(response)
       })
       .catch((err) => {
       console.log(err)

@@ -32,12 +32,13 @@ module.exports = function () {
         typeDefs: index_1.default,
         resolvers: index_2.default,
         logger: logger,
-        allowUndefinedInResolve: true,
+        allowUndefinedInResolve: false
     });
     optics_agent_1.default.instrumentSchema(schema);
     app.use(optics_agent_1.default.middleware());
     app.use(bodyParser.json());
     app.use('/graphql', apollo.apolloExpress((req) => {
+        console.log(req['feathers']);
         let { token, provider } = req['feathers'];
         console.log('token is: ' + req['feathers']['token']);
         console.log('provider is: ' + req['feathers']['provider']);

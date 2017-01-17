@@ -42,7 +42,7 @@ module.exports = function(){
     typeDefs: typeDefs,
     resolvers: resolvers,
     logger: logger,
-    allowUndefinedInResolve: true,
+    allowUndefinedInResolve: false
   })
 
   OpticsAgent.instrumentSchema(schema);
@@ -50,7 +50,7 @@ module.exports = function(){
   app.use(bodyParser.json())
 
   app.use('/graphql', apollo.apolloExpress((req) => {
-
+    console.log(req['feathers'])
     let {token, provider} = req['feathers'];
     console.log('token is: ' + req['feathers']['token'])
     console.log('provider is: ' + req['feathers']['provider'])
