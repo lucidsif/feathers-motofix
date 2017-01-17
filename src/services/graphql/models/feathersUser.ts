@@ -34,10 +34,23 @@ export default class User {
     console.log(options)
     rp(options)
       .then((response) => {
+        console.log('login mutation success')
         return response
       })
       .catch((e) => {
         console.log(e)
+      })
+  }
+
+  public getViewer(context?: any){
+    let Viewer = this.app['service']('viewer')
+    console.log(Viewer);
+    return Viewer.find(context)
+      .then((response) => {
+      console.log(response)
+      })
+      .catch((err) => {
+      console.log(err)
       })
   }
 
