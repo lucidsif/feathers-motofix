@@ -10,7 +10,7 @@ class Service {
   find(params) {
     console.log('params inside viewer/index: ')
     console.log(params)
-    return Promise.resolve(params.user);
+    return Promise.resolve(params);
   }
 
   get(id, params) {

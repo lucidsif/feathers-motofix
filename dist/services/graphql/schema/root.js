@@ -15,7 +15,7 @@ type RootQuery {
   searchParts(vehicle: String, service: String): [Part]
   laborEstimates(vehicle: String, service: String): Labor
   allVehicles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Motorcycle]
-  viewer: User
+  viewer(token: String): User
 }
 
 type RootMutation {

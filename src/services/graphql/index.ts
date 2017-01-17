@@ -42,7 +42,7 @@ module.exports = function(){
     typeDefs: typeDefs,
     resolvers: resolvers,
     logger: logger,
-    allowUndefinedInResolve: false
+    allowUndefinedInResolve: true,
   })
 
   OpticsAgent.instrumentSchema(schema);
@@ -50,10 +50,8 @@ module.exports = function(){
   app.use(bodyParser.json())
 
   app.use('/graphql', apollo.apolloExpress((req) => {
-    console.log(req['feathers'])
     let {token, provider} = req['feathers'];
-    console.log('token is: ' + req['feathers']['token'])
-    console.log('provider is: ' + req['feathers']['provider'])
+    console.log(provider, token)
     return ({
       pretty: true,
       schema: schema,
@@ -64,8 +62,8 @@ module.exports = function(){
         labor: new LaborModel(autoDataConnector),
         vehicle: new VehicleModel,
         opticsContext: OpticsAgent.context(req),
-        token: req['feathers']['token'],
-        provider: req['feathers']['provider'],
+        token,
+        provider,
         user: new UserModel(app)
       },
     })}));

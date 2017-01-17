@@ -23,7 +23,7 @@ export default class User {
       })
   }
 
-  public logIn(email?: string, password?:string){
+  public logIn(email?: string, password?: string){
     console.log('login parameters: ' + email + ',' + password);
     const options = {
       method: 'POST',
@@ -36,6 +36,7 @@ export default class User {
       .then((response) => {
         console.log('login mutation success')
         console.log(response)
+
         return response
       })
       .catch((e) => {
@@ -43,15 +44,15 @@ export default class User {
       })
   }
 
-  public getViewer(context: any){
+  // viewer service.find() did not get any arguments
+  public getViewer(token?: any){
     let Viewer = this.app['service']('viewer')
-    console.log('getViewer function called')
+    console.log(`getViewer function called with token: ${token}`)
     //console.log(Viewer);
-    console.log(`token from context: ${context}`);
-    return Viewer.find(context)
+    return Viewer.find('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6OSwiaWF0IjoxNDg0NjMwMzYwLCJleHAiOjE0ODQ3MTY3NjAsImlzcyI6ImZlYXRoZXJzIn0.4sl9r4qZ47AYZ6_zsRzE7ni-hJ0eKiHGE_xxMcphPRQ')
       .then((response) => {
-      console.log('view success')
-      //console.log(response)
+        console.log(response)
+        return response
       })
       .catch((err) => {
       console.log(err)

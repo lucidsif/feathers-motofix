@@ -38,10 +38,8 @@ module.exports = function () {
     app.use(optics_agent_1.default.middleware());
     app.use(bodyParser.json());
     app.use('/graphql', apollo.apolloExpress((req) => {
-        console.log(req['feathers']);
         let { token, provider } = req['feathers'];
-        console.log('token is: ' + req['feathers']['token']);
-        console.log('provider is: ' + req['feathers']['provider']);
+        console.log(provider, token);
         return ({
             pretty: true,
             schema: schema,
@@ -52,8 +50,8 @@ module.exports = function () {
                 labor: new labor_1.default(autoDataConnector),
                 vehicle: new sql_1.VehicleModel,
                 opticsContext: optics_agent_1.default.context(req),
-                token: req['feathers']['token'],
-                provider: req['feathers']['provider'],
+                token,
+                provider,
                 user: new feathersUser_1.default(app)
             },
         });
