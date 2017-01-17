@@ -6,7 +6,7 @@ const searchParts = (_, params, context) => context.part.getParts(params.vehicle
 const laborEstimates = (_, params, context) => context.labor.getEstimates(params.vehicle, params.service)
 const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.offset, params.limit, params.filterByYear, params.filterByMake)
 const node = (id: number) => ({})
-const viewer = (_, params, context) => context.user.getViewer(params.token) // write a model that calls Viewer.find
+const validateToken = (_, params, context) => context.user.postToken(params.token)
 
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
@@ -34,7 +34,7 @@ export default {
     laborEstimates,
     allVehicles,
     node,
-    viewer,
+    validateToken,
 //    allFilms,
 //    film,
 //    allPeople,

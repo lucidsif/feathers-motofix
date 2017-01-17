@@ -43,9 +43,9 @@ export default class User {
         console.log(e)
       })
   }
-
+  // TODO: get user id from token
   // TODO: figure out how to automatically extract jwt from feathers and use it - maybe first has something to do with tokenKey which is extracted from localstorage?
-  public getViewer(token?: any){
+  public postToken(token?: any){
     let Users = this.app['service']('users')
     console.log(Users);
 
