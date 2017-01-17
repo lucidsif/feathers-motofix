@@ -57,7 +57,7 @@ module.exports = function () {
             },
         });
     }));
-    app.use('/', apollo.graphiqlExpress({
+    app.use('/graphiql', apollo.graphiqlExpress({
         endpointURL: '/graphql',
     }));
 };

@@ -8,7 +8,9 @@ class Service {
   }
 
   find(params) {
-    return Promise.resolve(params.user);
+    console.log('params inside viewer/index: ')
+    console.log(params)
+    return Promise.resolve(params.email);
   }
 
   get(id, params) {

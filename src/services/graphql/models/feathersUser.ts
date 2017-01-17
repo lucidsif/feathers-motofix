@@ -27,14 +27,15 @@ export default class User {
     console.log('login parameters: ' + email + ',' + password);
     const options = {
       method: 'POST',
-      uri: `http://${this.app.get('host')}:${this.app.get('port')}/auth/local}`,
+      uri: `http://localhost:3030/auth/local`,
       body: { email, password },
       json: true
     }
-    console.log(options)
+    //console.log(options)
     rp(options)
       .then((response) => {
         console.log('login mutation success')
+        console.log(response)
         return response
       })
       .catch((e) => {
@@ -42,9 +43,11 @@ export default class User {
       })
   }
 
-  public getViewer(context?: any){
+  public getViewer(context: any){
     let Viewer = this.app['service']('viewer')
+    console.log('getViewer function called')
     console.log(Viewer);
+    console.log(`token from context: ${context}`);
     return Viewer.find(context)
       .then((response) => {
       console.log(response)
