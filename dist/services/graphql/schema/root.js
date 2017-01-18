@@ -13,7 +13,7 @@ type RootQuery {
   allMotorcycles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Motorcycle]
   motorcycle(id: ID, motorcycleID: ID): Motorcycle
   searchParts(vehicle: String, service: String): [Part]
-  laborEstimates(vehicle: String, service: String): Labor
+  laborEstimates(year: String, make: String, model: String, service: String): Labor
   allVehicles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Motorcycle]
   validateToken(token: String): User
 }

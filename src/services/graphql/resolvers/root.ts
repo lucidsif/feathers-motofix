@@ -4,7 +4,7 @@ const starship = (_, params, context) => context.starship.getStarship(params.id,
 const allMotorcycles = (_, params, context) => context.motorcycle.getMotorcycles(params.offset, params.limit, params.filterByYear, params.filterByMake)
 const motorcycle = (_, params, context) => context.motorcycle.getMotorcycle(params.id, params.motorcycleID)
 const searchParts = (_, params, context) => context.part.getParts(params.vehicle, params.service)
-const laborEstimates = (_, params, context) => context.labor.getEstimates(params.vehicle, params.service)
+const laborEstimates = (_, params, context) => context.labor.getEstimates(params.year, params.make, params.model, params.service)
 const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.offset, params.limit, params.filterByYear, params.filterByMake)
 const node = (id: number) => ({})
 const validateToken = (_, params, context) => context.user.postToken(params.token)
