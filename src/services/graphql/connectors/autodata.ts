@@ -1,7 +1,7 @@
 import * as request from 'request'
 const DataLoader = require('dataloader')
 const manufacturerCodes =  [{"Aprilia":"APR"},{"Arctic Cat":"ARC"},{"Benelli":"BEN"},{"BMW":"BMM"},{"BSA":"BSA"},{"Buell":"BUE"},{"Cagiva":"CAG"},{"Can-Am":"CAA"},{"Cannondale":"CAN"},{"CZ":"CZ-"},{"Derbi":"DER"},{"Ducati":"DUC"},{"EBR Motorcycles":"EBR"},{"Enfield":"ENF"},{"Eurospeed":"EUR"},{"Gas Gas":"GGS"},{"Harley-Davidson":"HAR"},{"Honda":"HDA"},{"Husqvarna":"HUS"},{"Hyosung":"HYO"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"}]
-
+const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
 export default class AUTODATAConnector {
   public loader
   private rootURL: string
@@ -35,8 +35,13 @@ constructor(rootURL: string) {
     const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
     console.log(`resource is: ${resource}, service paramater is ${service} for year:${year}, make:${make}, model:${model}`);
 
-    let manufacturerID = new Promise((resolve, reject) => {
-      var code;
+    // filter for manufacturer id
+    // get and filter modelId using manufacturer id
+    // get and filter mid using modelId
+
+
+    let manufacturerID = () => {
+      var code
       manufacturerCodes.filter((tuple) => {
         for (var manufacturerName in tuple) {
           if (manufacturerName === make) {
@@ -44,10 +49,23 @@ constructor(rootURL: string) {
           }
         }
       })
-      resolve(code)
-    })
-    manufacturerID.then((val) => console.log(val))
+      return code
+    }
+    console.log(manufacturerID());
 
+    /*
+    let modelID = new Promise((resolve, reject) => {
+      var modelid;
+      this.fetch(`${baseURL}manufacturers/KAW?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`).then((result) => {
+        result.data.models.filter((triple) => {
+          if(triple.model === model){
+            modelid = triple.model_id
+          }
+        })
+        resolve(modelid);
+      })
+    })
+*/
 
       return new Promise<any>((resolve, reject) => {
 
