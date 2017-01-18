@@ -25,7 +25,7 @@ class AUTODATAConnector {
     fetchPage(resource, year, make, model, service) {
         const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
         console.log(`resource is: ${resource}, service paramater is ${service} for year:${year}, make:${make}, model:${model}`);
-        let modelID = function getManufacturerCode() {
+        let manufacturerID = new Promise((resolve, reject) => {
             var code;
             manufacturerCodes.filter((tuple) => {
                 for (var manufacturerName in tuple) {
@@ -34,10 +34,9 @@ class AUTODATAConnector {
                     }
                 }
             });
-            return code;
-        };
-        console.log(modelID());
-        let selectedModelCode;
+            resolve(code);
+        });
+        manufacturerID.then((val) => console.log(val));
         return new Promise((resolve, reject) => {
             this.fetch(`${resource}`).then((data) => {
                 if (service === 'OilChange') {
