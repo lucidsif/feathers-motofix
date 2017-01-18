@@ -1,7 +1,7 @@
 import * as request from 'request'
 const DataLoader = require('dataloader')
 const manufacturerCodes =  [{"Aprilia":"APR"},{"Arctic Cat":"ARC"},{"Benelli":"BEN"},{"BMW":"BMM"},{"BSA":"BSA"},{"Buell":"BUE"},{"Cagiva":"CAG"},{"Can-Am":"CAA"},{"Cannondale":"CAN"},{"CZ":"CZ-"},{"Derbi":"DER"},{"Ducati":"DUC"},{"EBR Motorcycles":"EBR"},{"Enfield":"ENF"},{"Eurospeed":"EUR"},{"Gas Gas":"GGS"},{"Harley-Davidson":"HAR"},{"Honda":"HDA"},{"Husqvarna":"HUS"},{"Hyosung":"HYO"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"}]
-const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
+
 export default class AUTODATAConnector {
   public loader
   private rootURL: string
@@ -40,7 +40,7 @@ constructor(rootURL: string) {
     // get and filter mid using modelId
 
 
-    let manufacturerID = () => {
+    let manufacturerID = function() {
       var code
       manufacturerCodes.filter((tuple) => {
         for (var manufacturerName in tuple) {
@@ -50,23 +50,30 @@ constructor(rootURL: string) {
         }
       })
       return code
-    }
-    console.log(manufacturerID());
+    }()
+    console.log(manufacturerID)
 
     /*
-    let modelID = new Promise((resolve, reject) => {
+    let modelID = () => {
       var modelid;
-      this.fetch(`${baseURL}manufacturers/KAW?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`).then((result) => {
+      this.fetch(`${resource}/manufacturers/${manufacturerID()}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`).then((result) => {
         result.data.models.filter((triple) => {
-          if(triple.model === model){
+          if (triple.model === model) {
             modelid = triple.model_id
           }
         })
-        resolve(modelid);
+        console.log(modelid)
+        return modelid;
       })
-    })
-*/
+        .catch((err) => {
+        console.log(err)
+        })
+    }
+    */
 
+    return JSON.stringify({service: 'oil change', time: 1})
+
+    /*
       return new Promise<any>((resolve, reject) => {
 
         this.fetch(`${resource}`).then((data) => {
@@ -79,6 +86,8 @@ constructor(rootURL: string) {
           resolve(data);
             })
           })
+    */
   }
+
 }
 

@@ -20,7 +20,7 @@ optics_agent_1.default.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eu
 const swapiHost = process.env.SWAPI_HOST ? `${process.env.API_HOST}/api` : 'http://swapi.co/api';
 const motofixHost = process.env.MOTOFIX_HOST ? `${process.env.API_HOST}/api` : `http://localhost:3030`;
 const ebayHost = process.env.EBAY_HOST ? `${process.env.API_HOST}/api` : `http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&`;
-const autoDataHost = process.env.AUTODATA_HOST ? `${process.env.API_HOST}/api` : `https://reqres.in/api`;
+const autoDataHost = process.env.AUTODATA_HOST ? `${process.env.API_HOST}/api` : `https://api.autodata-group.com/docs/motorcycles/v1`;
 const swapiConnector = new swapi_1.default(swapiHost);
 const motofixConnector = new motofix_1.default(motofixHost);
 const ebayConnector = new ebay_1.default(ebayHost);
