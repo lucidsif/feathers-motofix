@@ -26,8 +26,8 @@
       <file leaf-file-name="autodata.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="226">
+              <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -42,6 +42,9 @@
       <find>f</find>
       <find>manufacturer</find>
     </findStrings>
+    <replaceStrings>
+      <replace>selectedModelCode</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -396,7 +399,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66244000" />
+    <option name="totallyTimeSpent" value="68014000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
@@ -765,8 +768,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        <state relative-caret-position="226">
+          <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -35,15 +35,20 @@ constructor(rootURL: string) {
     const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
     console.log(`resource is: ${resource}, service paramater is ${service} for year:${year}, make:${make}, model:${model}`);
 
-    let selectedManufacturerCode;
-    manufacturerCodes.filter((tuple) => {
-      for (var manufacturerName in tuple) {
-        if (manufacturerName === make) {
-          selectedManufacturerCode = tuple[manufacturerName];
+    let manufacturerID = function getManufacturerCode() {
+      var code;
+      manufacturerCodes.filter((tuple) => {
+        for (var manufacturerName in tuple) {
+          if (manufacturerName === make) {
+            code = tuple[manufacturerName]
+          }
         }
-      }
-    })
-    console.log(selectedManufacturerCode);
+      })
+      return code
+    }
+    console.log(manufacturerID())
+
+
 
 
       return new Promise<any>((resolve, reject) => {
