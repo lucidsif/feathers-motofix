@@ -5,16 +5,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/models/labor.js" afterPath="$PROJECT_DIR$/dist/services/graphql/models/labor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/models/labor.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/models/labor.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js" afterPath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/schema/root.js" afterPath="$PROJECT_DIR$/dist/services/graphql/schema/root.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/models/labor.ts" afterPath="$PROJECT_DIR$/src/services/graphql/models/labor.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" afterPath="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/schema/root.ts" afterPath="$PROJECT_DIR$/src/services/graphql/schema/root.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,38 +26,8 @@
       <file leaf-file-name="autodata.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="labor.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/graphql/models/labor.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="root.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/graphql/schema/root.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="44" selection-end-line="9" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="root.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/root.ts">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="142" lean-forward="false" selection-start-line="7" selection-start-column="142" selection-end-line="7" selection-end-column="142" />
+            <state relative-caret-position="282">
+              <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -435,7 +396,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="65062000" />
+    <option name="totallyTimeSpent" value="66244000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
@@ -568,7 +529,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="26" lean-forward="false" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -735,7 +695,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
           <caret line="39" column="30" lean-forward="true" selection-start-line="39" selection-start-column="30" selection-end-line="39" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -767,7 +726,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -807,8 +765,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="39" column="0" lean-forward="true" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state relative-caret-position="282">
+          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding />
         </state>
       </provider>
