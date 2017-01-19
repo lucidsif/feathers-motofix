@@ -37,41 +37,52 @@ class AUTODATAConnector {
             return code;
         }();
         console.log(manufacturerID);
-        var modelID = () => {
+        return new Promise((resolve, reject) => {
             var modelid;
             var mid;
-            return new Promise((resolve, reject) => {
-                this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
+            var yearRange;
+            var links;
+            this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
+                .then((result) => {
+                let parsedResult = JSON.parse(result);
+                parsedResult.data.models.filter((triple) => {
+                    if (triple.model === model) {
+                        console.log('model found: ' + triple.model);
+                        modelid = triple.model_id;
+                    }
+                });
+            })
+                .then(() => {
+                console.log(modelid);
+                this.fetch(`${resource}vehicles?model_id=${modelid}&country-code=us&page=1&limit=90&api_key=z66tkk6dh45n5a8mq4hvga6j`)
                     .then((result) => {
                     let parsedResult = JSON.parse(result);
-                    parsedResult.data.models.filter((triple) => {
-                        if (triple.model === model) {
-                            console.log('model found: ' + triple.model);
-                            modelid = triple.model_id;
+                    parsedResult.data.filter((submodel) => {
+                        if (submodel.model_variant === model) {
+                            console.log('submodel variant found:' + submodel.model_variant);
                         }
+                        mid = 'KAW01359';
                     });
                 })
                     .then(() => {
-                    console.log(modelid);
-                    this.fetch(`${resource}vehicles?model_id=${modelid}&country-code=us&page=1&limit=90&api_key=z66tkk6dh45n5a8mq4hvga6j`)
+                    this.fetch(`${resource}vehicles/${mid}?links=yes&country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
                         .then((result) => {
                         let parsedResult = JSON.parse(result);
-                        console.log(parsedResult);
-                        mid = parsedResult.data.filter((submodel) => {
-                            if (submodel.model_variant === model) {
-                                console.log(submodel.model_variant);
-                                mid = submodel.model_variant;
-                            }
-                        });
-                        resolve(JSON.stringify({ service: 'oil change', time: 1 }));
+                        yearRange = { startYear: parsedResult.data.start_year, endYear: parsedResult.data.end_year };
+                        console.log('yearRange below: ');
+                        console.log(yearRange);
+                        links = parsedResult.data.links;
+                    })
+                        .catch((err) => {
+                        console.log(err);
                     });
-                })
-                    .catch((err) => {
-                    console.log(err);
                 });
+            })
+                .catch((err) => {
+                console.log(err);
             });
-        };
-        modelID();
+            resolve(JSON.stringify({ service: 'oil change', time: 1 }));
+        });
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });

@@ -41,7 +41,7 @@ constructor(rootURL: string) {
 
 
     var manufacturerID = function() {
-      var code
+      var code// get manufacturer codes by manufacturer name
       manufacturerCodes.filter((tuple) => {
         for (var manufacturerName in tuple) {
           if (manufacturerName === make) {
@@ -53,10 +53,12 @@ constructor(rootURL: string) {
     }()
     console.log(manufacturerID)
 
-    var modelID = () => {
-        var modelid;
-        var mid;
         return new Promise((resolve, reject) => {
+          var modelid
+          var mid
+          var yearRange
+          var links
+          // get model ids by manufacturer id
         this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
           .then((result) => {
           let parsedResult = JSON.parse(result)
@@ -68,44 +70,37 @@ constructor(rootURL: string) {
           })
         })
           .then(() => {
-            console.log(modelid)
+            console.log(modelid)// get mids by modelid
             this.fetch(`${resource}vehicles?model_id=${modelid}&country-code=us&page=1&limit=90&api_key=z66tkk6dh45n5a8mq4hvga6j`)
             .then((result) => {
             let parsedResult = JSON.parse(result)
-            mid = parsedResult.data.filter((submodel) => {
-              if(submodel.model_variant === model) {
-                console.log(submodel.model_variant)
-                mid = submodel.model_variant
+              parsedResult.data.filter((submodel) => {
+              if(submodel.model_variant === model) { // seems to be failing here because model variants are like '250 (KL 250D)' search approximation here
+                console.log('submodel variant found:' + submodel.model_variant)
               }
+                mid = 'KAW01359'
+              })
             })
-            resolve(JSON.stringify({service: 'oil change', time: 1}))
+              .then(() => { // get vehicle details by mid
+                this.fetch(`${resource}vehicles/${mid}?links=yes&country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
+                  .then((result) => {
+                  let parsedResult = JSON.parse(result)
+                    yearRange = { startYear: parsedResult.data.start_year, endYear: parsedResult.data.end_year }
+                    console.log('yearRange below: ')
+                    console.log(yearRange)
+                    links = parsedResult.data.links
+                  })
+                  .catch((err) => {
+                  console.log(err)
+                  })
+              })
         })
-          })
           .catch((err) => {
             console.log(err)
           })
-      })
-    }
-
-    modelID()
-
-
-
-
-    /*
-      return new Promise<any>((resolve, reject) => {
-
-        this.fetch(`${resource}`).then((data) => {
-          if(service === 'OilChange'){
-            resolve(JSON.stringify({service: 'oil change', time: 1}))
-          }
-          if(service === 'Winterization'){
-            resolve(JSON.stringify({service: 'winterization', time: 3.5}))
-          }
-          resolve(data);
-            })
-          })
-    */
+          resolve(JSON.stringify({service: 'oil change', time: 1}))
+        })
+    // where ddoes catch go?
   }
 
 }
