@@ -40,7 +40,7 @@ constructor(rootURL: string) {
     // get and filter mid using modelId
 
 
-    let manufacturerID = function() {
+    var manufacturerID = function() {
       var code
       manufacturerCodes.filter((tuple) => {
         for (var manufacturerName in tuple) {
@@ -53,25 +53,44 @@ constructor(rootURL: string) {
     }()
     console.log(manufacturerID)
 
-    /*
-    let modelID = () => {
-      var modelid;
-      this.fetch(`${resource}/manufacturers/${manufacturerID()}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`).then((result) => {
-        result.data.models.filter((triple) => {
-          if (triple.model === model) {
-            modelid = triple.model_id
-          }
+    var modelID = () => {
+        var modelid;
+        var mid;
+        return new Promise((resolve, reject) => {
+        this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
+          .then((result) => {
+          let parsedResult = JSON.parse(result)
+            parsedResult.data.models.filter((triple) => {
+            if (triple.model === model) {
+              console.log('model found: ' + triple.model)
+              modelid = triple.model_id
+            }
+          })
         })
-        console.log(modelid)
-        return modelid;
+          .then(() => {
+            console.log(modelid)
+            this.fetch(`${resource}vehicles?model_id=${modelid}&country-code=us&page=1&limit=90&api_key=z66tkk6dh45n5a8mq4hvga6j`)
+            .then((result) => {
+            let parsedResult = JSON.parse(result)
+            mid = parsedResult.data.filter((submodel) => {
+              if(submodel.model_variant === model) {
+                console.log(submodel.model_variant)
+                mid = submodel.model_variant
+              }
+            })
+            resolve(JSON.stringify({service: 'oil change', time: 1}))
+        })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
       })
-        .catch((err) => {
-        console.log(err)
-        })
     }
-    */
 
-    return JSON.stringify({service: 'oil change', time: 1})
+    modelID()
+
+
+
 
     /*
       return new Promise<any>((resolve, reject) => {

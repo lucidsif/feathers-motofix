@@ -5,13 +5,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/index.js" afterPath="$PROJECT_DIR$/dist/services/graphql/index.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/index.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/index.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/models/labor.js" afterPath="$PROJECT_DIR$/dist/services/graphql/models/labor.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/models/labor.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/models/labor.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/index.ts" afterPath="$PROJECT_DIR$/src/services/graphql/index.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/models/labor.ts" afterPath="$PROJECT_DIR$/src/services/graphql/models/labor.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -70,10 +64,10 @@
           <file leaf-file-name="autodata.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="627">
-                  <caret line="74" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+                <state relative-caret-position="402">
+                  <caret line="73" column="49" lean-forward="false" selection-start-line="73" selection-start-column="49" selection-end-line="73" selection-end-column="49" />
                   <folding>
-                    <marker date="1484779594000" expanded="true" signature="3838:3882" ph="..." />
+                    <marker date="1484786950000" expanded="true" signature="4554:4598" ph="..." />
                   </folding>
                 </state>
               </provider>
@@ -449,7 +443,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72354000" />
+    <option name="totallyTimeSpent" value="77463000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
@@ -818,10 +812,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="74" column="0" lean-forward="true" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+        <state relative-caret-position="402">
+          <caret line="73" column="49" lean-forward="false" selection-start-line="73" selection-start-column="49" selection-end-line="73" selection-end-column="49" />
           <folding>
-            <marker date="1484779594000" expanded="true" signature="3838:3882" ph="..." />
+            <marker date="1484786950000" expanded="true" signature="4554:4598" ph="..." />
           </folding>
         </state>
       </provider>
