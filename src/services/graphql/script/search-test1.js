@@ -123,7 +123,7 @@ const response = {
   }
 }
 
-const testYear = "2015"
+const testYear = 2015
 
 
 // my algorithm for checking if a year is between two years
@@ -135,11 +135,13 @@ function isBetweenYears(start, end, check){
   }
   return null
 }
+
+// Fuzzy searches for mid by model, model variant, and year
 let originalResults = response.data;
-let yearResults = response.data.map((mid) => {
-  // write func that can determine if a year is in between two years - if true, return that year
-  // return the mid, description, yearstart, yearend, and year
-  if(isBetweenYears(mid.start_year, mid.end_year, testYear)){
+let yearResults = response.data.filter((mid) => {
+  return isBetweenYears(mid.start_year, mid.end_year, testYear)
+})
+  .map((mid) => {
     return {
       mid: mid.mid,
       model: mid.model,
@@ -148,20 +150,18 @@ let yearResults = response.data.map((mid) => {
       end_year: mid.end_year,
       year: isBetweenYears(mid.start_year, mid.end_year, testYear)
     }
-  }
-  return { mid: null }
-})
+  })
 
 console.log(yearResults)
 
-// fuse doesn't seem to be able to search by numbers!!!
 let options = {
+  tokenize: true,
   include: ["score"],
-  keys: ['year'],
+  keys: ['year', 'start_year', 'end_year', 'model', 'model_variant'],
   id: 'mid'
 }
 var fuseMidArr = new Fuse(yearResults, options)
-let results = fuseMidArr.search('KLR 650 2015')
+let results = fuseMidArr.search('2015 KLR 650')
 
 console.log(results)
 

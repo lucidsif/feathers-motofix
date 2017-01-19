@@ -63,6 +63,7 @@ constructor(rootURL: string) {
       return code
     }()
     console.log(manufacturerID)
+
     return new Promise((resolve, reject) => {
           var modelid
           var mid
