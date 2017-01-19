@@ -17,7 +17,7 @@ class AUTODATAConnector {
             JSON.parse(str);
         }
         catch (e) {
-            console.log('not valid json, api prob returning error');
+            console.log('not valid json');
             return false;
         }
         return true;
@@ -54,24 +54,26 @@ class AUTODATAConnector {
             var links;
             this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
                 .then((result) => {
-                if (this.isJsonString(result)) {
-                    let parsedResult = JSON.parse(result);
-                    parsedResult.data.models.filter((triple) => {
-                        if (triple.model === model) {
-                            console.log('model found: ' + triple.model);
-                            modelid = triple.model_id;
-                        }
-                    });
-                }
-                else {
-                    console.log('else block hit');
+                if (!this.isJsonString(result)) {
                     resolve(JSON.stringify({ service: 'oil change', time: 0 }));
+                    throw new Error('auto data api not returning valid json');
                 }
+                let parsedResult = JSON.parse(result);
+                parsedResult.data.models.filter((triple) => {
+                    if (triple.model === model) {
+                        console.log('model found: ' + triple.model);
+                        modelid = triple.model_id;
+                    }
+                });
             })
                 .then(() => {
                 console.log(modelid);
                 this.fetch(`${resource}vehicles?model_id=${modelid}&country-code=us&page=1&limit=90&api_key=z66tkk6dh45n5a8mq4hvga6j`)
                     .then((result) => {
+                    if (!this.isJsonString(result)) {
+                        resolve(JSON.stringify({ service: 'oil change', time: 0 }));
+                        throw new Error('auto data api not returning valid json');
+                    }
                     let parsedResult = JSON.parse(result);
                     parsedResult.data.filter((submodel) => {
                         if (submodel.model_variant === model) {
@@ -83,6 +85,10 @@ class AUTODATAConnector {
                     .then(() => {
                     this.fetch(`${resource}vehicles/${mid}?links=yes&country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
                         .then((result) => {
+                        if (!this.isJsonString(result)) {
+                            resolve(JSON.stringify({ service: 'oil change', time: 0 }));
+                            throw new Error('auto data api not returning valid json');
+                        }
                         let parsedResult = JSON.parse(result);
                         yearRange = { startYear: parsedResult.data.start_year, endYear: parsedResult.data.end_year };
                         console.log('yearRange below: ');

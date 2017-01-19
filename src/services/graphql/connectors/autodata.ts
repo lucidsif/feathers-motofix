@@ -20,8 +20,8 @@ constructor(rootURL: string) {
     try{
       JSON.parse(str)
     } catch(e) {
-      console.log('not valid json, api prob returning error')
-      return false
+      console.log('not valid json')
+      return false;
     }
     return true
   }
@@ -62,8 +62,7 @@ constructor(rootURL: string) {
       return code
     }()
     console.log(manufacturerID)
-
-        return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
           var modelid
           var mid
           var yearRange
@@ -71,23 +70,26 @@ constructor(rootURL: string) {
           // get model ids by manufacturer id
         this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
           .then((result) => {
-            if(this.isJsonString(result)){
-              let parsedResult = JSON.parse(result)
-              parsedResult.data.models.filter((triple) => {
-                if (triple.model === model) {
+            if(!this.isJsonString(result)){
+              resolve(JSON.stringify({service: 'oil change', time: 0}))
+              throw new Error('auto data api not returning valid json')
+            }
+            let parsedResult = JSON.parse(result)
+            parsedResult.data.models.filter((triple) => {
+              if (triple.model === model) {
                   console.log('model found: ' + triple.model)
                   modelid = triple.model_id
                 }
               })
-            } else {
-              console.log('else block hit')
-              resolve(JSON.stringify({service: 'oil change', time: 0}))
-            }
-        })
+          })
           .then(() => {
             console.log(modelid)// get mids by modelid
             this.fetch(`${resource}vehicles?model_id=${modelid}&country-code=us&page=1&limit=90&api_key=z66tkk6dh45n5a8mq4hvga6j`)
             .then((result) => {
+              if(!this.isJsonString(result)){
+                resolve(JSON.stringify({service: 'oil change', time: 0}))
+                throw new Error('auto data api not returning valid json')
+              }
             let parsedResult = JSON.parse(result)
               parsedResult.data.filter((submodel) => {
               if(submodel.model_variant === model) { // seems to be failing here because model variants are like '250 (KL 250D)' search approximation here
@@ -99,6 +101,10 @@ constructor(rootURL: string) {
               .then(() => { // get vehicle details by mid
                 this.fetch(`${resource}vehicles/${mid}?links=yes&country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
                   .then((result) => {
+                    if(!this.isJsonString(result)){
+                      resolve(JSON.stringify({service: 'oil change', time: 0}))
+                      throw new Error('auto data api not returning valid json')
+                    }
                   let parsedResult = JSON.parse(result)
                     yearRange = { startYear: parsedResult.data.start_year, endYear: parsedResult.data.end_year }
                     console.log('yearRange below: ')
@@ -113,7 +119,6 @@ constructor(rootURL: string) {
           .catch((err) => {
             console.log(err)
           })
-          //resolve(JSON.stringify({service: 'oil change', time: 1}))
         })
     // where ddoes catch go?
   }
