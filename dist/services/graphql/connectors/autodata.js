@@ -50,9 +50,10 @@ class AUTODATAConnector {
         }();
         console.log(manufacturerID);
         function getModelIDByManufacturerID() {
-            return rp(`${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`)
+            var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getModelURL)
                 .then((result) => {
-                console.log(`rp'd url: ${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                console.log(`rp'd url: ${getModelIDByManufacturerID}`);
                 var modelID;
                 let parsedResult = JSON.parse(result);
                 parsedResult.data.models.filter((triple) => {
@@ -65,14 +66,15 @@ class AUTODATAConnector {
             })
                 .catch((e) => {
                 console.log(e);
-                console.log(`failed getModelIdByManufacturer: ${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                console.log(`failed getModelIdByManufacturer: ${getModelIDByManufacturerID}`);
             });
         }
         function getMidIDByModelID(modelIDArg) {
             console.log(`modelidarg: ${modelIDArg}`);
-            return rp(`${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`)
+            var getMidURL = `${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getMidURL)
                 .then((result) => {
-                console.log(`rp'd url: ${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                console.log(`rp'd url: ${getMidURL}`);
                 var midID;
                 let parsedResult = JSON.parse(result);
                 parsedResult.data.filter((submodel) => {
@@ -85,14 +87,15 @@ class AUTODATAConnector {
             })
                 .catch((e) => {
                 console.log(e);
-                console.log(`failed getMidIDByModelId: ${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                console.log(`failed getMidIDByModelId: ${getMidURL}`);
             });
         }
         function getVehicleDetailsByMidID(midIDArg) {
             console.log(`midarg: ${midIDArg}`);
-            return rp(`${baseURL}vehicles/${midIDArg}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`)
+            var getVehicleDetailsURL = `${baseURL}vehicles/${midIDArg}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getVehicleDetailsURL)
                 .then((result) => {
-                console.log(`rp'd url: ${baseURL}vehicles/${midIDArg}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                console.log(`rp'd url: ${getVehicleDetailsURL}`);
                 var links;
                 let parsedResult = JSON.parse(result);
                 links = parsedResult.data.links;
@@ -101,7 +104,7 @@ class AUTODATAConnector {
             })
                 .catch((e) => {
                 console.log(e);
-                console.log(`failed getVehicleDetailsByMidID: ${baseURL}vehicles/${midIDArg}?links&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                console.log(`failed getVehicleDetailsByMidID: ${getVehicleDetailsURL}`);
             });
         }
         var fnList = [getModelIDByManufacturerID, getMidIDByModelID, getVehicleDetailsByMidID];
