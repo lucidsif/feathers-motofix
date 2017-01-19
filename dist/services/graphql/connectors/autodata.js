@@ -1,7 +1,9 @@
 "use strict";
 const request = require("request");
+const rp = require("request-promise");
 const DataLoader = require('dataloader');
 const manufacturerCodes = [{ "Aprilia": "APR" }, { "Arctic Cat": "ARC" }, { "Benelli": "BEN" }, { "BMW": "BMM" }, { "BSA": "BSA" }, { "Buell": "BUE" }, { "Cagiva": "CAG" }, { "Can-Am": "CAA" }, { "Cannondale": "CAN" }, { "CZ": "CZ-" }, { "Derbi": "DER" }, { "Ducati": "DUC" }, { "EBR Motorcycles": "EBR" }, { "Enfield": "ENF" }, { "Eurospeed": "EUR" }, { "Gas Gas": "GGS" }, { "Harley-Davidson": "HAR" }, { "Honda": "HDA" }, { "Husqvarna": "HUS" }, { "Hyosung": "HYO" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }];
+const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
 class AUTODATAConnector {
     constructor(rootURL) {
         this.rootURL = rootURL;
@@ -47,63 +49,69 @@ class AUTODATAConnector {
             return code;
         }();
         console.log(manufacturerID);
-        return new Promise((resolve, reject) => {
-            var modelid;
-            var mid;
-            var yearRange;
-            var links;
-            this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
+        function getModelIDByManufacturerID() {
+            return rp(`${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`)
                 .then((result) => {
-                if (!this.isJsonString(result)) {
-                    resolve(JSON.stringify({ service: 'oil change', time: 0 }));
-                    throw new Error('auto data api not returning valid json');
-                }
+                console.log(`rp'd url: ${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                var modelID;
                 let parsedResult = JSON.parse(result);
                 parsedResult.data.models.filter((triple) => {
                     if (triple.model === model) {
                         console.log('model found: ' + triple.model);
-                        modelid = triple.model_id;
+                        modelID = triple.model_id;
                     }
                 });
+                return modelID;
             })
-                .then(() => {
-                console.log(modelid);
-                this.fetch(`${resource}vehicles?model_id=${modelid}&country-code=us&page=1&limit=90&api_key=z66tkk6dh45n5a8mq4hvga6j`)
-                    .then((result) => {
-                    if (!this.isJsonString(result)) {
-                        resolve(JSON.stringify({ service: 'oil change', time: 0 }));
-                        throw new Error('auto data api not returning valid json');
-                    }
-                    let parsedResult = JSON.parse(result);
-                    parsedResult.data.filter((submodel) => {
-                        if (submodel.model_variant === model) {
-                            console.log('submodel variant found:' + submodel.model_variant);
-                        }
-                        mid = 'KAW01359';
-                    });
-                })
-                    .then(() => {
-                    this.fetch(`${resource}vehicles/${mid}?links=yes&country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
-                        .then((result) => {
-                        if (!this.isJsonString(result)) {
-                            resolve(JSON.stringify({ service: 'oil change', time: 0 }));
-                            throw new Error('auto data api not returning valid json');
-                        }
-                        let parsedResult = JSON.parse(result);
-                        yearRange = { startYear: parsedResult.data.start_year, endYear: parsedResult.data.end_year };
-                        console.log('yearRange below: ');
-                        console.log(yearRange);
-                        links = parsedResult.data.links;
-                    })
-                        .catch((err) => {
-                        console.log(err);
-                    });
-                });
-            })
-                .catch((err) => {
-                console.log(err);
+                .catch((e) => {
+                console.log(e);
+                console.log(`failed getModelIdByManufacturer: ${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`);
             });
-        });
+        }
+        function getMidIDByModelID(modelIDArg) {
+            console.log(`modelidarg: ${modelIDArg}`);
+            return rp(`${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`)
+                .then((result) => {
+                console.log(`rp'd url: ${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                var midID;
+                let parsedResult = JSON.parse(result);
+                parsedResult.data.filter((submodel) => {
+                    if (submodel.model_variant === model) {
+                        console.log('submodel variant found:' + submodel.model_variant);
+                    }
+                    midID = 'KAW01359';
+                });
+                return midID;
+            })
+                .catch((e) => {
+                console.log(e);
+                console.log(`failed getMidIDByModelId: ${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+            });
+        }
+        function getVehicleDetailsByMidID(midIDArg) {
+            console.log(`midarg: ${midIDArg}`);
+            return rp(`${baseURL}vehicles/${midIDArg}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`)
+                .then((result) => {
+                console.log(`rp'd url: ${baseURL}vehicles/${midIDArg}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+                var links;
+                let parsedResult = JSON.parse(result);
+                links = parsedResult.data.links;
+                console.log(links);
+                return links;
+            })
+                .catch((e) => {
+                console.log(e);
+                console.log(`failed getVehicleDetailsByMidID: ${baseURL}vehicles/${midIDArg}?links&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`);
+            });
+        }
+        var fnList = [getModelIDByManufacturerID, getMidIDByModelID, getVehicleDetailsByMidID];
+        function pSeries(list) {
+            var p = Promise.resolve();
+            return list.reduce((pacc, fn) => {
+                return pacc = pacc.then(fn);
+            }, p);
+        }
+        pSeries(fnList);
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
