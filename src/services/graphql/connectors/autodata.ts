@@ -16,6 +16,16 @@ constructor(rootURL: string) {
     }, {batch: false})
   }
 
+  public isJsonString(str){
+    try{
+      JSON.parse(str)
+    } catch(e) {
+      console.log('not valid json, api prob returning error')
+      return false
+    }
+    return true
+  }
+
   public fetch(resource: string) {
     // If the resource starts with the root url, just return the resource
     // Otherwise, return an appended root url + resource
@@ -34,11 +44,11 @@ constructor(rootURL: string) {
   public fetchPage(resource: string, year: string, make: string, model: string, service: string) {
     const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
     console.log(`resource is: ${resource}, service paramater is ${service} for year:${year}, make:${make}, model:${model}`);
-
-    // filter for manufacturer id
-    // get and filter modelId using manufacturer id
-    // get and filter mid using modelId
-
+// HIT API LIMIT
+    // for now - add error handling
+      //i. resolve a labortime for oilchange first
+      //ii. refactor into a function
+      //iii. add conditions for services
 
     var manufacturerID = function() {
       var code// get manufacturer codes by manufacturer name
@@ -61,13 +71,18 @@ constructor(rootURL: string) {
           // get model ids by manufacturer id
         this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
           .then((result) => {
-          let parsedResult = JSON.parse(result)
-            parsedResult.data.models.filter((triple) => {
-            if (triple.model === model) {
-              console.log('model found: ' + triple.model)
-              modelid = triple.model_id
+            if(this.isJsonString(result)){
+              let parsedResult = JSON.parse(result)
+              parsedResult.data.models.filter((triple) => {
+                if (triple.model === model) {
+                  console.log('model found: ' + triple.model)
+                  modelid = triple.model_id
+                }
+              })
+            } else {
+              console.log('else block hit')
+              resolve(JSON.stringify({service: 'oil change', time: 0}))
             }
-          })
         })
           .then(() => {
             console.log(modelid)// get mids by modelid
@@ -98,7 +113,7 @@ constructor(rootURL: string) {
           .catch((err) => {
             console.log(err)
           })
-          resolve(JSON.stringify({service: 'oil change', time: 1}))
+          //resolve(JSON.stringify({service: 'oil change', time: 1}))
         })
     // where ddoes catch go?
   }

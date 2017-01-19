@@ -12,6 +12,16 @@ class AUTODATAConnector {
             return Promise.all(promises);
         }, { batch: false });
     }
+    isJsonString(str) {
+        try {
+            JSON.parse(str);
+        }
+        catch (e) {
+            console.log('not valid json, api prob returning error');
+            return false;
+        }
+        return true;
+    }
     fetch(resource) {
         const url = resource.indexOf(this.rootURL) === 0 ? resource : this.rootURL + resource;
         return new Promise((resolve, reject) => {
@@ -44,13 +54,19 @@ class AUTODATAConnector {
             var links;
             this.fetch(`${resource}manufacturers/${manufacturerID}?country-code=us&api_key=z66tkk6dh45n5a8mq4hvga6j`)
                 .then((result) => {
-                let parsedResult = JSON.parse(result);
-                parsedResult.data.models.filter((triple) => {
-                    if (triple.model === model) {
-                        console.log('model found: ' + triple.model);
-                        modelid = triple.model_id;
-                    }
-                });
+                if (this.isJsonString(result)) {
+                    let parsedResult = JSON.parse(result);
+                    parsedResult.data.models.filter((triple) => {
+                        if (triple.model === model) {
+                            console.log('model found: ' + triple.model);
+                            modelid = triple.model_id;
+                        }
+                    });
+                }
+                else {
+                    console.log('else block hit');
+                    resolve(JSON.stringify({ service: 'oil change', time: 0 }));
+                }
             })
                 .then(() => {
                 console.log(modelid);
@@ -81,7 +97,6 @@ class AUTODATAConnector {
                 .catch((err) => {
                 console.log(err);
             });
-            resolve(JSON.stringify({ service: 'oil change', time: 1 }));
         });
     }
 }
