@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d902fcc9-31c3-419e-822b-deb7dca23bdc" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/script/search-test1.js" afterPath="$PROJECT_DIR$/src/services/graphql/script/search-test1.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -75,8 +73,8 @@
           <file leaf-file-name="search-test1.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/script/search-test1.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="264">
-                  <caret line="159" column="24" lean-forward="true" selection-start-line="159" selection-start-column="24" selection-end-line="159" selection-end-column="24" />
+                <state relative-caret-position="384">
+                  <caret line="164" column="24" lean-forward="true" selection-start-line="164" selection-start-column="24" selection-end-line="164" selection-end-column="24" />
                   <folding />
                 </state>
               </provider>
@@ -409,7 +407,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94977000" />
+    <option name="totallyTimeSpent" value="96217000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
@@ -791,8 +789,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/script/search-test1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="159" column="24" lean-forward="true" selection-start-line="159" selection-start-column="24" selection-end-line="159" selection-end-column="24" />
+        <state relative-caret-position="384">
+          <caret line="164" column="24" lean-forward="true" selection-start-line="164" selection-start-column="24" selection-end-line="164" selection-end-column="24" />
           <folding />
         </state>
       </provider>

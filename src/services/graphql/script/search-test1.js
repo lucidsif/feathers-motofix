@@ -123,47 +123,53 @@ const response = {
   }
 }
 
-const testYear = 2015
+//const testYear = 2015
 
-
-// my algorithm for checking if a year is between two years
-function isBetweenYears(start, end, check){
-  let givenDiff = end - start;
-  let checkDiff = check - start;
-  if(checkDiff <= givenDiff){
-    return check
-  }
-  return null
-}
 
 // Fuzzy searches for mid by model, model variant, and year
-let originalResults = response.data;
-let yearResults = response.data.filter((mid) => {
-  return isBetweenYears(mid.start_year, mid.end_year, testYear)
-})
-  .map((mid) => {
-    return {
-      mid: mid.mid,
-      model: mid.model,
-      model_variant: mid.model_variant,
-      start_year: mid.start_year,
-      end_year: mid.end_year,
-      year: isBetweenYears(mid.start_year, mid.end_year, testYear)
+function searchForMid(midArr, vehicleYear, modelYearSearchTerm){
+
+  function isBetweenYears(start, end, check){
+    let givenDiff = end - start;
+    let checkDiff = check - start;
+    if(checkDiff <= givenDiff && checkDiff > 0){
+      return check
     }
+    return null
+  }
+
+  let originalArr = midArr.data;
+  let yearArr = originalArr.filter((mid) => {
+    return isBetweenYears(mid.start_year, mid.end_year, vehicleYear)
   })
+    .map((mid) => {
+      return {
+        mid: mid.mid,
+        model: mid.model,
+        model_variant: mid.model_variant,
+        start_year: mid.start_year,
+        end_year: mid.end_year,
+        year: isBetweenYears(mid.start_year, mid.end_year, vehicleYear)
+      }
+    })
 
-console.log(yearResults)
+  console.log(yearArr)
 
-let options = {
-  tokenize: true,
-  include: ["score"],
-  keys: ['year', 'start_year', 'end_year', 'model', 'model_variant'],
-  id: 'mid'
+  let options = {
+    tokenize: true,
+    matchAllTokens: true,
+    include: ["score"],
+    keys: ['year', 'model', 'model_variant'],
+    id: 'mid'
+  }
+  var fuseMidArr = new Fuse(yearArr, options)
+  let results = fuseMidArr.search(modelYearSearchTerm)
+
+  console.log(results)
 }
-var fuseMidArr = new Fuse(yearResults, options)
-let results = fuseMidArr.search('2015 KLR 650')
 
-console.log(results)
+searchForMid(response, 2015, 'KLR 650')
+
 
 
 
