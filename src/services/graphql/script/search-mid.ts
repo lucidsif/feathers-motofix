@@ -127,7 +127,7 @@ const response = {
 
 
 // Fuzzy searches for mid by model, model variant, and year
- function searchForMid(parsedJSON, vehicleYear, modelSearchTerm){
+export function searchForMid(parsedJSON, vehicleYear, modelSearchTerm){
 
   function isBetweenYears(start, end, check){
     let givenDiff = end - start;
@@ -160,14 +160,16 @@ const response = {
     matchAllTokens: true,
     include: ["score"],
     keys: ['year', 'model', 'model_variant'],
+    id: 'mid'
   }
   var fuseMidArr = new Fuse(yearArr, options)
   let results = fuseMidArr.search(modelSearchTerm)
+  console.log(results)
+  return results[0].item.mid
 
-  console.log(results[0].item.mid)
 }
 
-searchForMid(response, 2015, 'KLR 650')
+//searchForMid(response, 2015, 'KLR 650')
 
 
 

@@ -2,7 +2,7 @@
  * Created by Sif on 1/19/17.
  */
 const Fuse = require('fuse.js');
-
+/*
 var books = [{
   'ISBN': 'A',
   'title': "Old Man's War",
@@ -2073,5 +2073,5 @@ var laborTimesArr = parsedResponse.data.repair_times[2].sub_groups[0].components
 var fuseLaborTimes = new Fuse(laborTimesArr, options)
 
 console.log(fuse.search('old'))
-
+*/
 //
