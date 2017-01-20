@@ -164,7 +164,7 @@ const response = {
   var fuseMidArr = new Fuse(yearArr, options)
   let results = fuseMidArr.search(modelSearchTerm)
 
-  console.log(results[0].item.mid)
+  console.log(results)
 }
 
 searchForMid(response, 2015, 'KLR 650')
