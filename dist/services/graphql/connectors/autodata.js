@@ -1,6 +1,7 @@
 "use strict";
 const request = require("request");
 const rp = require("request-promise");
+const search_mid_1 = require("../script/search-mid");
 const Fuse = require('fuse.js');
 const DataLoader = require('dataloader');
 const manufacturerCodes = [{ "Aprilia": "APR" }, { "Arctic Cat": "ARC" }, { "Benelli": "BEN" }, { "BMW": "BMM" }, { "BSA": "BSA" }, { "Buell": "BUE" }, { "Cagiva": "CAG" }, { "Can-Am": "CAA" }, { "Cannondale": "CAN" }, { "CZ": "CZ-" }, { "Derbi": "DER" }, { "Ducati": "DUC" }, { "EBR Motorcycles": "EBR" }, { "Enfield": "ENF" }, { "Eurospeed": "EUR" }, { "Gas Gas": "GGS" }, { "Harley-Davidson": "HAR" }, { "Honda": "HDA" }, { "Husqvarna": "HUS" }, { "Hyosung": "HYO" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }];
@@ -55,15 +56,17 @@ class AUTODATAConnector {
             return rp(getModelURL)
                 .then((result) => {
                 console.log(`rp'd url: ${getModelURL}`);
+                var modelID;
                 let parsedResult = JSON.parse(result);
                 let modelArr = parsedResult.data.models;
                 let options = {
                     keys: ['model'],
-                    id: 'model_id'
                 };
                 let FuseModels = new Fuse(modelArr, options);
                 let fuseModelsResult = FuseModels.search(model);
-                return fuseModelsResult[0];
+                modelID = fuseModelsResult[0];
+                console.log(`model returned by Fuse in getModelIdByManufacturer: ${modelID.model}`);
+                return modelID.model_id;
             })
                 .catch((e) => {
                 console.log(e);
@@ -78,12 +81,7 @@ class AUTODATAConnector {
                 console.log(`rp'd url: ${getMidURL}`);
                 var midID;
                 let parsedResult = JSON.parse(result);
-                parsedResult.data.filter((submodel) => {
-                    if (submodel.model_variant === model) {
-                        console.log('submodel variant found:' + submodel.model_variant);
-                    }
-                    midID = 'KAW01359';
-                });
+                midID = search_mid_1.searchForMid(parsedResult, year, model);
                 return midID;
             })
                 .catch((e) => {
