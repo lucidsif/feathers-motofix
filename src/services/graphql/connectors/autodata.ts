@@ -10,6 +10,7 @@ const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
 const limiter = new RateLimiter(0.5, 'second')
 
 
+// TODO: test graphql query
 // TODO: add a throttler that works!
 
 export default class AUTODATAConnector {
@@ -180,6 +181,25 @@ constructor(rootURL: string) {
         })
     }
 
+    // TODO: determine how this wrapper function should be called
+    function getLubricantsAndCapacities(midIDArg){
+      console.log(`midid: ${midIDArg}`)
+      var getLubricationURL = `${baseURL}vehicles/${midIDArg}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      return rp(getLubricationURL)
+        .then((result) => {
+          console.log(`rp'd url: ${getLubricationURL} with midID: ${midIDArg}`)
+          let parsedResult = JSON.parse(result)
+          let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups
+          return lubricantsAndCapacities;
+        })
+        .catch((e) => {
+          console.log(e)
+          console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
+          // should it return null or something else?
+          return null;
+        })
+    }
+
     var fnList = [getModelIDByManufacturerID, getMidIDByModelID, getVariantIDByMidID, getRepairTimesByVariantAndMid]
 
     // bug: throttler terminates code before it can be completed
@@ -194,4 +214,6 @@ constructor(rootURL: string) {
 
   }
 }
+
+
 
