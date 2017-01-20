@@ -39,11 +39,11 @@
                   <caret line="17" column="0" lean-forward="false" selection-start-line="16" selection-start-column="25" selection-end-line="17" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
-                    <marker date="1484903803000" expanded="true" signature="2668:8969" ph="{...}" />
-                    <marker date="1484903803000" expanded="true" signature="4009:4725" ph="{...}" />
-                    <marker date="1484903803000" expanded="true" signature="4189:4498" ph="{...}" />
-                    <marker date="1484903803000" expanded="true" signature="4850:5498" ph="{...}" />
-                    <marker date="1484903803000" expanded="true" signature="5083:5292" ph="{...}" />
+                    <marker date="1484903881000" expanded="true" signature="2668:9012" ph="{...}" />
+                    <marker date="1484903881000" expanded="true" signature="4052:4768" ph="{...}" />
+                    <marker date="1484903881000" expanded="true" signature="4232:4541" ph="{...}" />
+                    <marker date="1484903881000" expanded="true" signature="4893:5541" ph="{...}" />
+                    <marker date="1484903881000" expanded="true" signature="5126:5335" ph="{...}" />
                   </folding>
                 </state>
               </provider>
@@ -100,8 +100,8 @@
           <file leaf-file-name="autodata.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="219">
-                  <caret line="71" column="71" lean-forward="false" selection-start-line="71" selection-start-column="71" selection-end-line="71" selection-end-column="71" />
+                <state relative-caret-position="444">
+                  <caret line="74" column="86" lean-forward="false" selection-start-line="74" selection-start-column="86" selection-end-line="74" selection-end-column="86" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
@@ -512,7 +512,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="119910000" />
+    <option name="totallyTimeSpent" value="119988000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
@@ -898,8 +898,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="71" column="71" lean-forward="false" selection-start-line="71" selection-start-column="71" selection-end-line="71" selection-end-column="71" />
+        <state relative-caret-position="444">
+          <caret line="74" column="86" lean-forward="false" selection-start-line="74" selection-start-column="86" selection-end-line="74" selection-end-column="86" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>

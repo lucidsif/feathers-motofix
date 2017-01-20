@@ -69,8 +69,10 @@ constructor(rootURL: string) {
           }
         }
       })
+      if(code){
+        return code
+      }
       return JSON.stringify({ service: 'make does not exist in autodata', time: 0.01})
-
     }()
     console.log(manufacturerID)
 
