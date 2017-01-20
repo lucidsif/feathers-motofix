@@ -2,10 +2,12 @@
 const request = require("request");
 const rp = require("request-promise");
 const search_mid_1 = require("../script/search-mid");
+const RateLimiter = require('limiter').RateLimiter;
 const Fuse = require('fuse.js');
 const DataLoader = require('dataloader');
 const manufacturerCodes = [{ "Aprilia": "APR" }, { "Arctic Cat": "ARC" }, { "Benelli": "BEN" }, { "BMW": "BMM" }, { "BSA": "BSA" }, { "Buell": "BUE" }, { "Cagiva": "CAG" }, { "Can-Am": "CAA" }, { "Cannondale": "CAN" }, { "CZ": "CZ-" }, { "Derbi": "DER" }, { "Ducati": "DUC" }, { "EBR Motorcycles": "EBR" }, { "Enfield": "ENF" }, { "Eurospeed": "EUR" }, { "Gas Gas": "GGS" }, { "Harley-Davidson": "HAR" }, { "Honda": "HDA" }, { "Husqvarna": "HUS" }, { "Hyosung": "HYO" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }];
 const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
+const limiter = new RateLimiter(0.5, 'second');
 class AUTODATAConnector {
     constructor(rootURL) {
         this.rootURL = rootURL;
@@ -127,14 +129,16 @@ class AUTODATAConnector {
                 .then((result) => {
                 console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`);
                 let parsedResult = JSON.parse(result);
-                console.log('variants below');
-                console.log(parsedResult);
+                console.log(parsedResult.data);
                 if (service === 'OilChange') {
+                    console.log('oil change was selected');
                     let oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs;
-                    let oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs;
+                    let oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].component_description;
                     let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime });
+                    console.log(payload);
                     return payload;
                 }
+                return JSON.stringify({ service: 'not found', time: 0.01 });
             })
                 .catch((e) => {
                 console.log(e);
