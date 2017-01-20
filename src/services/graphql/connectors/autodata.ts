@@ -69,7 +69,8 @@ constructor(rootURL: string) {
           }
         }
       })
-      return code
+      return JSON.stringify({ service: 'make does not exist in autodata', time: 0.01})
+
     }()
     console.log(manufacturerID)
 
@@ -87,6 +88,7 @@ constructor(rootURL: string) {
           .catch((e) => {
             console.log(e)
             console.log(`failed getModelIdByManufacturer: ${getModelURL}`)
+            return JSON.stringify({ service: 'modelid not found', time: 0.01})
           })
     }
     // this function is not dynamically retrieving the mid, must use fuzzy search
@@ -104,6 +106,8 @@ constructor(rootURL: string) {
         .catch((e) => {
           console.log(e)
           console.log(`failed getMidIDByModelId: ${getMidURL}`)
+          return JSON.stringify({ service: 'mid not found', time: 0.01})
+
         })
 
     }    // this function is not dynamically retrieving the vehicle detail, must use fuzzy search
@@ -122,6 +126,8 @@ constructor(rootURL: string) {
         .catch((e) => {
           console.log(e)
           console.log(`failed getVehicleDetailsByMidID: ${getVehicleDetailsURL}`)
+          return JSON.stringify({ service: 'vehicle detail not found', time: 0.01})
+
         })
     }
 
@@ -142,6 +148,7 @@ constructor(rootURL: string) {
         .catch((e) => {
           console.log(e)
           console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`)
+          return JSON.stringify({ service: 'variant not found', time: 0.01})
         })
     }
 
@@ -167,6 +174,7 @@ constructor(rootURL: string) {
         .catch((e) => {
           console.log(e)
           console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`)
+          return JSON.stringify({ service: 'labortime not found', time: 0.01})
         })
     }
 
