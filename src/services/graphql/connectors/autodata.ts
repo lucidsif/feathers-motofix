@@ -127,7 +127,46 @@ constructor(rootURL: string) {
         })
     }
 
-    var fnList = [getModelIDByManufacturerID, getMidIDByModelID, getVehicleDetailsByMidID]
+    function getVariantIDByMidID(midIDArg){
+      console.log(`midarg: ${midIDArg}`)
+      var getVariantIDURL = `${baseURL}vehicles/${midIDArg}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      return rp(getVariantIDURL)
+        .then((result) => {
+          console.log(`rp'd url: ${getVariantIDURL} with midID: ${midIDArg}`)
+          var variantID;
+          let parsedResult = JSON.parse(result)
+          variantID = parsedResult.data[0].variant_id
+          return {
+            midID: midIDArg,
+            variantID,
+          }
+        })
+        .catch((e) => {
+          console.log(e)
+          console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`)
+        })
+    }
+
+    function getRepairTimesByVariantAndMid(midAndVariantObjArg){
+      var { midID, variantID } = midAndVariantObjArg
+      console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`)
+      var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      return rp(getRepairTimesURL)
+        .then((result) => {
+          console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`)
+          let parsedResult = JSON.parse(result)
+          var oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs
+          var oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs
+          var payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime})
+          return payload
+        })
+        .catch((e) => {
+          console.log(e)
+          console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`)
+        })
+    }
+
+    var fnList = [getModelIDByManufacturerID, getMidIDByModelID, getVariantIDByMidID, getRepairTimesByVariantAndMid]
 
     function pSeries(list){
       var p = Promise.resolve()
@@ -136,7 +175,7 @@ constructor(rootURL: string) {
       }, p)
     }
 
-    pSeries(fnList)
+    return pSeries(fnList)
 
 
 
