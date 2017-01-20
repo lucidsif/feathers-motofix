@@ -2,12 +2,10 @@
 const request = require("request");
 const rp = require("request-promise");
 const search_mid_1 = require("../script/search-mid");
-const RateLimiter = require('limiter').RateLimiter;
 const Fuse = require('fuse.js');
 const DataLoader = require('dataloader');
 const manufacturerCodes = [{ "Aprilia": "APR" }, { "Arctic Cat": "ARC" }, { "Benelli": "BEN" }, { "BMW": "BMM" }, { "BSA": "BSA" }, { "Buell": "BUE" }, { "Cagiva": "CAG" }, { "Can-Am": "CAA" }, { "Cannondale": "CAN" }, { "CZ": "CZ-" }, { "Derbi": "DER" }, { "Ducati": "DUC" }, { "EBR Motorcycles": "EBR" }, { "Enfield": "ENF" }, { "Eurospeed": "EUR" }, { "Gas Gas": "GGS" }, { "Harley-Davidson": "HAR" }, { "Honda": "HDA" }, { "Husqvarna": "HUS" }, { "Hyosung": "HYO" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }];
 const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
-const limiter = new RateLimiter(0.5, 'second');
 class AUTODATAConnector {
     constructor(rootURL) {
         this.rootURL = rootURL;
@@ -50,7 +48,10 @@ class AUTODATAConnector {
                     }
                 }
             });
-            return code;
+            if (code) {
+                return code;
+            }
+            return JSON.stringify({ service: 'make does not exist in autodata', time: 0.01 });
         }();
         console.log(manufacturerID);
         function getModelIDByManufacturerID() {
@@ -67,6 +68,7 @@ class AUTODATAConnector {
                 .catch((e) => {
                 console.log(e);
                 console.log(`failed getModelIdByManufacturer: ${getModelURL}`);
+                return JSON.stringify({ service: 'modelid not found', time: 0.01 });
             });
         }
         function getMidIDByModelID(modelIDArg) {
@@ -83,6 +85,7 @@ class AUTODATAConnector {
                 .catch((e) => {
                 console.log(e);
                 console.log(`failed getMidIDByModelId: ${getMidURL}`);
+                return JSON.stringify({ service: 'mid not found', time: 0.01 });
             });
         }
         function getVehicleDetailsByMidID(midIDArg) {
@@ -100,6 +103,7 @@ class AUTODATAConnector {
                 .catch((e) => {
                 console.log(e);
                 console.log(`failed getVehicleDetailsByMidID: ${getVehicleDetailsURL}`);
+                return JSON.stringify({ service: 'vehicle detail not found', time: 0.01 });
             });
         }
         function getVariantIDByMidID(midIDArg) {
@@ -119,6 +123,7 @@ class AUTODATAConnector {
                 .catch((e) => {
                 console.log(e);
                 console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`);
+                return JSON.stringify({ service: 'variant not found', time: 0.01 });
             });
         }
         function getRepairTimesByVariantAndMid(midAndVariantObjArg) {
@@ -143,6 +148,23 @@ class AUTODATAConnector {
                 .catch((e) => {
                 console.log(e);
                 console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`);
+                return JSON.stringify({ service: 'labortime not found', time: 0.01 });
+            });
+        }
+        function getLubricantsAndCapacities(midIDArg) {
+            console.log(`midid: ${midIDArg}`);
+            var getLubricationURL = `${baseURL}vehicles/${midIDArg}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getLubricationURL)
+                .then((result) => {
+                console.log(`rp'd url: ${getLubricationURL} with midID: ${midIDArg}`);
+                let parsedResult = JSON.parse(result);
+                let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups;
+                return lubricantsAndCapacities;
+            })
+                .catch((e) => {
+                console.log(e);
+                console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`);
+                return null;
             });
         }
         var fnList = [getModelIDByManufacturerID, getMidIDByModelID, getVariantIDByMidID, getRepairTimesByVariantAndMid];
