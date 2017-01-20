@@ -1,6 +1,7 @@
 "use strict";
 const request = require("request");
 const rp = require("request-promise");
+const Fuse = require('fuse.js');
 const DataLoader = require('dataloader');
 const manufacturerCodes = [{ "Aprilia": "APR" }, { "Arctic Cat": "ARC" }, { "Benelli": "BEN" }, { "BMW": "BMM" }, { "BSA": "BSA" }, { "Buell": "BUE" }, { "Cagiva": "CAG" }, { "Can-Am": "CAA" }, { "Cannondale": "CAN" }, { "CZ": "CZ-" }, { "Derbi": "DER" }, { "Ducati": "DUC" }, { "EBR Motorcycles": "EBR" }, { "Enfield": "ENF" }, { "Eurospeed": "EUR" }, { "Gas Gas": "GGS" }, { "Harley-Davidson": "HAR" }, { "Honda": "HDA" }, { "Husqvarna": "HUS" }, { "Hyosung": "HYO" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }];
 const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
@@ -54,15 +55,15 @@ class AUTODATAConnector {
             return rp(getModelURL)
                 .then((result) => {
                 console.log(`rp'd url: ${getModelURL}`);
-                var modelID;
                 let parsedResult = JSON.parse(result);
-                parsedResult.data.models.filter((triple) => {
-                    if (triple.model === model) {
-                        console.log('model found: ' + triple.model);
-                        modelID = triple.model_id;
-                    }
-                });
-                return modelID;
+                let modelArr = parsedResult.data.models;
+                let options = {
+                    keys: ['model'],
+                    id: 'model_id'
+                };
+                let FuseModels = new Fuse(modelArr, options);
+                let fuseModelsResult = FuseModels.search(model);
+                return fuseModelsResult[0];
             })
                 .catch((e) => {
                 console.log(e);
