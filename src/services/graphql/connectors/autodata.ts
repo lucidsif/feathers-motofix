@@ -1,11 +1,12 @@
 import * as request from 'request'
 import * as rp from 'request-promise'
-import { searchForMid } from '../script/search-mid'
+import { searchForModel, searchForMid } from '../script/search-mid'
 const Fuse = require('fuse.js');
 const DataLoader = require('dataloader')
 const manufacturerCodes =  [{"Aprilia":"APR"},{"Arctic Cat":"ARC"},{"Benelli":"BEN"},{"BMW":"BMM"},{"BSA":"BSA"},{"Buell":"BUE"},{"Cagiva":"CAG"},{"Can-Am":"CAA"},{"Cannondale":"CAN"},{"CZ":"CZ-"},{"Derbi":"DER"},{"Ducati":"DUC"},{"EBR Motorcycles":"EBR"},{"Enfield":"ENF"},{"Eurospeed":"EUR"},{"Gas Gas":"GGS"},{"Harley-Davidson":"HAR"},{"Honda":"HDA"},{"Husqvarna":"HUS"},{"Hyosung":"HYO"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"}]
 const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
 
+// TODO: refactor fuzzy search logic in wrapper funcs into an external module and import
 export default class AUTODATAConnector {
   public loader
   private rootURL: string
@@ -74,24 +75,9 @@ constructor(rootURL: string) {
           console.log(`rp'd url: ${getModelURL}`)
           var modelID;
           let parsedResult = JSON.parse(result)
-          let modelArr = parsedResult.data.models
-          let options = {
-            keys: ['model'],
-            //id: 'model_id'
-          }
-          let FuseModels = new Fuse(modelArr, options)
-          let fuseModelsResult = FuseModels.search(model)
-            modelID = fuseModelsResult[0]
-            console.log(`model returned by Fuse in getModelIdByManufacturer: ${modelID.model}`)
-            return modelID.model_id
-            /*
-            parsedResult.data.models.filter((triple) => {
-              if (triple.model === model) {
-                console.log('model found: ' + triple.model)
-                modelID = triple.model_id
-              }
-            })
-            */
+            modelID = searchForModel(parsedResult, model)
+            console.log(`model returned by Fuse in getModelIdByManufacturer: ${modelID}`)
+            return modelID
           })
           .catch((e) => {
             console.log(e)
@@ -109,14 +95,6 @@ constructor(rootURL: string) {
           let parsedResult = JSON.parse(result)
           midID = searchForMid(parsedResult, year, model)
           return midID
-          /*
-          parsedResult.data.filter((submodel) => {
-            if(submodel.model_variant === model) { // seems to be failing here because model variants are like '250 (KL 250D)' search approximation here
-              console.log('submodel variant found:' + submodel.model_variant)
-            }
-            midID = 'KAW01359'
-          })
-          */
         })
         .catch((e) => {
           console.log(e)
@@ -170,10 +148,14 @@ constructor(rootURL: string) {
         .then((result) => {
           console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`)
           let parsedResult = JSON.parse(result)
-          var oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs
-          var oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs
-          var payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime})
-          return payload
+          console.log('variants below')
+          console.log(parsedResult)
+          if(service === 'OilChange'){
+            let oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs
+            let oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs
+            let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime})
+            return payload
+          }
         })
         .catch((e) => {
           console.log(e)

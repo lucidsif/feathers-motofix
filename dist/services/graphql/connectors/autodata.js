@@ -58,15 +58,9 @@ class AUTODATAConnector {
                 console.log(`rp'd url: ${getModelURL}`);
                 var modelID;
                 let parsedResult = JSON.parse(result);
-                let modelArr = parsedResult.data.models;
-                let options = {
-                    keys: ['model'],
-                };
-                let FuseModels = new Fuse(modelArr, options);
-                let fuseModelsResult = FuseModels.search(model);
-                modelID = fuseModelsResult[0];
-                console.log(`model returned by Fuse in getModelIdByManufacturer: ${modelID.model}`);
-                return modelID.model_id;
+                modelID = search_mid_1.searchForModel(parsedResult, model);
+                console.log(`model returned by Fuse in getModelIdByManufacturer: ${modelID}`);
+                return modelID;
             })
                 .catch((e) => {
                 console.log(e);
@@ -133,10 +127,14 @@ class AUTODATAConnector {
                 .then((result) => {
                 console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`);
                 let parsedResult = JSON.parse(result);
-                var oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs;
-                var oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs;
-                var payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime });
-                return payload;
+                console.log('variants below');
+                console.log(parsedResult);
+                if (service === 'OilChange') {
+                    let oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs;
+                    let oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs;
+                    let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime });
+                    return payload;
+                }
             })
                 .catch((e) => {
                 console.log(e);

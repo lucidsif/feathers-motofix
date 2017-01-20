@@ -125,6 +125,19 @@ const response = {
 
 //const testYear = 2015
 
+export function searchForModel(parsedJSON, modelSearchTerm){
+  let modelArr = parsedJSON.data.models
+  let options = {
+    include: ["score"],
+    keys: ['model'],
+    //id: 'model_id
+  }
+  let FuseModels = new Fuse(modelArr, options)
+  let results = FuseModels.search(modelSearchTerm)
+  console.log(results)
+  return results[0].item.model_id
+}
+
 
 // Fuzzy searches for mid by model, model variant, and year
 export function searchForMid(parsedJSON, vehicleYear, modelSearchTerm){
@@ -160,7 +173,6 @@ export function searchForMid(parsedJSON, vehicleYear, modelSearchTerm){
     matchAllTokens: true,
     include: ["score"],
     keys: ['year', 'model', 'model_variant'],
-    id: 'mid'
   }
   var fuseMidArr = new Fuse(yearArr, options)
   let results = fuseMidArr.search(modelSearchTerm)
@@ -170,6 +182,8 @@ export function searchForMid(parsedJSON, vehicleYear, modelSearchTerm){
 }
 
 //searchForMid(response, 2015, 'KLR 650')
+
+
 
 
 
