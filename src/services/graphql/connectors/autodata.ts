@@ -7,9 +7,9 @@ const DataLoader = require('dataloader')
 const manufacturerCodes =  [{"Aprilia":"APR"},{"Arctic Cat":"ARC"},{"Benelli":"BEN"},{"BMW":"BMM"},{"BSA":"BSA"},{"Buell":"BUE"},{"Cagiva":"CAG"},{"Can-Am":"CAA"},{"Cannondale":"CAN"},{"CZ":"CZ-"},{"Derbi":"DER"},{"Ducati":"DUC"},{"EBR Motorcycles":"EBR"},{"Enfield":"ENF"},{"Eurospeed":"EUR"},{"Gas Gas":"GGS"},{"Harley-Davidson":"HAR"},{"Honda":"HDA"},{"Husqvarna":"HUS"},{"Hyosung":"HYO"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"}]
 const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
 
-// TODO:
-// TODO: test graphql query
-// TODO: add a throttler that works!
+// TODO: 9/10 test graphql query and if throttling works
+// TODO: 6/10 determine if lube wrapper is integrated in a good way
+// TODO: 5/10 find a proper way to throttle sequential promises
 
 export default class AUTODATAConnector {
   public loader
@@ -54,6 +54,13 @@ constructor(rootURL: string) {
     const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
     console.log(`resource is: ${resource}, service paramater is ${service} for year:${year}, make:${make}, model:${model}`);
 
+    var modelID;
+    var midID;
+    var variantID;
+    var lubricantsAndCapacities;
+    var oilChangeLaborTime;
+    var oilChangeDescription;
+
       //i. write wrapper functions that returns a promise
       //ii. write a reducer function that serially chains the promises
       //iii. add search to each function
@@ -80,41 +87,39 @@ constructor(rootURL: string) {
         return rp(getModelURL)
           .then((result) => {
           console.log(`rp'd url: ${getModelURL}`)
-          var modelID;
           let parsedResult = JSON.parse(result)
             modelID = searchForModel(parsedResult, model)
             console.log(`model returned by Fuse in getModelIdByManufacturer: ${modelID}`)
             return modelID
           })
           .catch((e) => {
-            console.log(e)
+
             console.log(`failed getModelIdByManufacturer: ${getModelURL}`)
             return JSON.stringify({ service: 'modelid not found', time: 0.01})
           })
     }
     // this function is not dynamically retrieving the mid, must use fuzzy search
-    function getMidIDByModelID(modelIDArg){
-      console.log(`modelidarg: ${modelIDArg}`)
-      var getMidURL = `${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+    function getMidIDByModelID(n){
+      console.log(`modelid: ${modelID}`)
+      var getMidURL = `${baseURL}vehicles?model_id=${modelID}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getMidURL)
         .then((result) => {
           console.log(`rp'd url: ${getMidURL}`)
-          var midID;
           let parsedResult = JSON.parse(result)
           midID = searchForMid(parsedResult, year, model)
           return midID
         })
         .catch((e) => {
-          console.log(e)
+
           console.log(`failed getMidIDByModelId: ${getMidURL}`)
           return JSON.stringify({ service: 'mid not found', time: 0.01})
 
         })
 
     }    // this function is not dynamically retrieving the vehicle detail, must use fuzzy search
-    function getVehicleDetailsByMidID(midIDArg){
-      console.log(`midarg: ${midIDArg}`)
-      var getVehicleDetailsURL = `${baseURL}vehicles/${midIDArg}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+    function getVehicleDetailsByMidID(n){
+      console.log(`midid: ${midID}`)
+      var getVehicleDetailsURL = `${baseURL}vehicles/${midID}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getVehicleDetailsURL)
         .then((result) => {
           console.log(`rp'd url: ${getVehicleDetailsURL}`)
@@ -125,36 +130,34 @@ constructor(rootURL: string) {
           return links
         })
         .catch((e) => {
-          console.log(e)
+
           console.log(`failed getVehicleDetailsByMidID: ${getVehicleDetailsURL}`)
           return JSON.stringify({ service: 'vehicle detail not found', time: 0.01})
 
         })
     }
 
-    function getVariantIDByMidID(midIDArg){
-      console.log(`midarg: ${midIDArg}`)
-      var getVariantIDURL = `${baseURL}vehicles/${midIDArg}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+    function getVariantIDByMidID(n){
+      console.log(`mid: ${midID}`)
+      var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getVariantIDURL)
         .then((result) => {
-          console.log(`rp'd url: ${getVariantIDURL} with midID: ${midIDArg}`)
-          var variantID;
+          console.log(`rp'd url: ${getVariantIDURL} with midID: ${midID}`)
           let parsedResult = JSON.parse(result)
           variantID = parsedResult.data[0].variant_id
           return {
-            midID: midIDArg,
+            midID,
             variantID,
           }
         })
         .catch((e) => {
-          console.log(e)
+
           console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`)
           return JSON.stringify({ service: 'variant not found', time: 0.01})
         })
     }
 
-    function getRepairTimesByVariantAndMid(midAndVariantObjArg){
-      var { midID, variantID } = midAndVariantObjArg
+    function getRepairTimesByVariantAndMid(n){
       console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`)
       var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getRepairTimesURL)
@@ -164,8 +167,8 @@ constructor(rootURL: string) {
           console.log(parsedResult.data)
           if(service === 'OilChange'){
             console.log('oil change was selected')
-            let oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs
-            let oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].component_description
+            oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs
+            oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].component_description
             let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime})
             console.log(payload)
             return payload
@@ -173,39 +176,52 @@ constructor(rootURL: string) {
           return JSON.stringify({ service: 'not found', time: 0.01})
         })
         .catch((e) => {
-          console.log(e)
+
           console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`)
           return JSON.stringify({ service: 'labortime not found', time: 0.01})
         })
     }
 
     // TODO: determine how this wrapper function should be called
-    function getLubricantsAndCapacities(midIDArg){
-      console.log(`midid: ${midIDArg}`)
-      var getLubricationURL = `${baseURL}vehicles/${midIDArg}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
+    function getLubricantsAndCapacities(n){
+      console.log(`midid: ${midID}`)
+      var getLubricationURL = `${baseURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getLubricationURL)
         .then((result) => {
-          console.log(`rp'd url: ${getLubricationURL} with midID: ${midIDArg}`)
+          console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`)
           let parsedResult = JSON.parse(result)
-          let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups
-          return lubricantsAndCapacities;
+          lubricantsAndCapacities = parsedResult.data[0].technical_data_groups
+          let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime, lubrication: lubricantsAndCapacities})
+          console.log(payload)
+          return payload
         })
         .catch((e) => {
-          console.log(e)
           console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
-          // should it return null or something else?
-          return null;
+          return JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime, lubrication: lubricantsAndCapacities})
         })
     }
 
-    var fnList = [getModelIDByManufacturerID, getMidIDByModelID, getVariantIDByMidID, getRepairTimesByVariantAndMid]
+    function delayBuffer(n){
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log('delay buffer of 400ms')
+          resolve('balls')
+        }, 400)
+      })
+    }
 
-    // bug: throttler terminates code before it can be completed
+    const fnList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid]
+    const lubeList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid, getLubricantsAndCapacities]
+
     function pSeries(list){
       var p = Promise.resolve()
       return list.reduce((pacc, fn) => {
         return pacc = pacc.then(fn)
       }, p)
+    }
+
+    if(service === 'OilChange'){
+      return pSeries(lubeList)
     }
     return pSeries(fnList)
 

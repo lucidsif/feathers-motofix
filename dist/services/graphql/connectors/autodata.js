@@ -39,6 +39,9 @@ class AUTODATAConnector {
     fetchPage(resource, year, make, model, service) {
         const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
         console.log(`resource is: ${resource}, service paramater is ${service} for year:${year}, make:${make}, model:${model}`);
+        var modelID;
+        var midID;
+        var variantID;
         var manufacturerID = function () {
             var code;
             manufacturerCodes.filter((tuple) => {
@@ -59,38 +62,34 @@ class AUTODATAConnector {
             return rp(getModelURL)
                 .then((result) => {
                 console.log(`rp'd url: ${getModelURL}`);
-                var modelID;
                 let parsedResult = JSON.parse(result);
                 modelID = search_mid_1.searchForModel(parsedResult, model);
                 console.log(`model returned by Fuse in getModelIdByManufacturer: ${modelID}`);
                 return modelID;
             })
                 .catch((e) => {
-                console.log(e);
                 console.log(`failed getModelIdByManufacturer: ${getModelURL}`);
                 return JSON.stringify({ service: 'modelid not found', time: 0.01 });
             });
         }
-        function getMidIDByModelID(modelIDArg) {
-            console.log(`modelidarg: ${modelIDArg}`);
-            var getMidURL = `${baseURL}vehicles?model_id=${modelIDArg}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+        function getMidIDByModelID(n) {
+            console.log(`modelid: ${modelID}`);
+            var getMidURL = `${baseURL}vehicles?model_id=${modelID}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
             return rp(getMidURL)
                 .then((result) => {
                 console.log(`rp'd url: ${getMidURL}`);
-                var midID;
                 let parsedResult = JSON.parse(result);
                 midID = search_mid_1.searchForMid(parsedResult, year, model);
                 return midID;
             })
                 .catch((e) => {
-                console.log(e);
                 console.log(`failed getMidIDByModelId: ${getMidURL}`);
                 return JSON.stringify({ service: 'mid not found', time: 0.01 });
             });
         }
-        function getVehicleDetailsByMidID(midIDArg) {
-            console.log(`midarg: ${midIDArg}`);
-            var getVehicleDetailsURL = `${baseURL}vehicles/${midIDArg}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+        function getVehicleDetailsByMidID(n) {
+            console.log(`midid: ${midID}`);
+            var getVehicleDetailsURL = `${baseURL}vehicles/${midID}?links=yes&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
             return rp(getVehicleDetailsURL)
                 .then((result) => {
                 console.log(`rp'd url: ${getVehicleDetailsURL}`);
@@ -101,33 +100,29 @@ class AUTODATAConnector {
                 return links;
             })
                 .catch((e) => {
-                console.log(e);
                 console.log(`failed getVehicleDetailsByMidID: ${getVehicleDetailsURL}`);
                 return JSON.stringify({ service: 'vehicle detail not found', time: 0.01 });
             });
         }
-        function getVariantIDByMidID(midIDArg) {
-            console.log(`midarg: ${midIDArg}`);
-            var getVariantIDURL = `${baseURL}vehicles/${midIDArg}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+        function getVariantIDByMidID(n) {
+            console.log(`mid: ${midID}`);
+            var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
             return rp(getVariantIDURL)
                 .then((result) => {
-                console.log(`rp'd url: ${getVariantIDURL} with midID: ${midIDArg}`);
-                var variantID;
+                console.log(`rp'd url: ${getVariantIDURL} with midID: ${midID}`);
                 let parsedResult = JSON.parse(result);
                 variantID = parsedResult.data[0].variant_id;
                 return {
-                    midID: midIDArg,
+                    midID,
                     variantID,
                 };
             })
                 .catch((e) => {
-                console.log(e);
                 console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`);
                 return JSON.stringify({ service: 'variant not found', time: 0.01 });
             });
         }
-        function getRepairTimesByVariantAndMid(midAndVariantObjArg) {
-            var { midID, variantID } = midAndVariantObjArg;
+        function getRepairTimesByVariantAndMid(n) {
             console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`);
             var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
             return rp(getRepairTimesURL)
@@ -146,28 +141,34 @@ class AUTODATAConnector {
                 return JSON.stringify({ service: 'not found', time: 0.01 });
             })
                 .catch((e) => {
-                console.log(e);
                 console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`);
                 return JSON.stringify({ service: 'labortime not found', time: 0.01 });
             });
         }
-        function getLubricantsAndCapacities(midIDArg) {
-            console.log(`midid: ${midIDArg}`);
-            var getLubricationURL = `${baseURL}vehicles/${midIDArg}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+        function getLubricantsAndCapacities(n) {
+            console.log(`midid: ${midID}`);
+            var getLubricationURL = `${baseURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
             return rp(getLubricationURL)
                 .then((result) => {
-                console.log(`rp'd url: ${getLubricationURL} with midID: ${midIDArg}`);
+                console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`);
                 let parsedResult = JSON.parse(result);
                 let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups;
                 return lubricantsAndCapacities;
             })
                 .catch((e) => {
-                console.log(e);
                 console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`);
                 return null;
             });
         }
-        var fnList = [getModelIDByManufacturerID, getMidIDByModelID, getVariantIDByMidID, getRepairTimesByVariantAndMid];
+        function delayBuffer(n) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('delay buffer of 400ms');
+                    resolve('balls');
+                }, 400);
+            });
+        }
+        var fnList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid];
         function pSeries(list) {
             var p = Promise.resolve();
             return list.reduce((pacc, fn) => {
