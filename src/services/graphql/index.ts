@@ -7,13 +7,11 @@ const gqlTools = require('graphql-tools');
 import typeDefs from './schema/index'
 import resolvers from './resolvers/index'
 import SWAPIConnector from './connectors/swapi'
-import MOTOFIXConnector from './connectors/motofix'
 import EBAYConnector from './connectors/ebay'
 import AUTODATAConnector from './connectors/autodata'
 
 import LaborModel from './models/labor'
 import StarshipModel from './models/starship'
-import MotorcycleModel from './models/motorcycle'
 import PartModel from './models/part'
 import { VehicleModel } from './models/sql'
 import UserModel from './models/feathersUser'
@@ -22,12 +20,10 @@ import OpticsAgent from 'optics-agent';
 OpticsAgent.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q'})
 
 const swapiHost = process.env.SWAPI_HOST ? `${process.env.API_HOST}/api` : 'http://swapi.co/api'
-const motofixHost = process.env.MOTOFIX_HOST ? `${process.env.API_HOST}/api` : `http://localhost:3030`
 const ebayHost = process.env.EBAY_HOST ? `${process.env.API_HOST}/api` : `http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&`
 const autoDataHost = process.env.AUTODATA_HOST ? `${process.env.API_HOST}/api` : `https://api.autodata-group.com/docs/motorcycles/v1`
 
 const swapiConnector = new SWAPIConnector(swapiHost);
-const motofixConnector = new MOTOFIXConnector(motofixHost);
 const ebayConnector = new EBAYConnector(ebayHost);
 const autoDataConnector = new AUTODATAConnector(autoDataHost);
 
@@ -56,7 +52,6 @@ module.exports = function(){
       pretty: true,
       schema: schema,
       context: {
-        motorcycle: new MotorcycleModel(motofixConnector),
         starship: new StarshipModel(swapiConnector),
         part: new PartModel(ebayConnector),
         labor: new LaborModel(autoDataConnector),

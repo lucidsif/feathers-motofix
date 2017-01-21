@@ -6,23 +6,19 @@ const gqlTools = require('graphql-tools');
 const index_1 = require("./schema/index");
 const index_2 = require("./resolvers/index");
 const swapi_1 = require("./connectors/swapi");
-const motofix_1 = require("./connectors/motofix");
 const ebay_1 = require("./connectors/ebay");
 const autodata_1 = require("./connectors/autodata");
 const labor_1 = require("./models/labor");
 const starship_1 = require("./models/starship");
-const motorcycle_1 = require("./models/motorcycle");
 const part_1 = require("./models/part");
 const sql_1 = require("./models/sql");
 const feathersUser_1 = require("./models/feathersUser");
 const optics_agent_1 = require("optics-agent");
 optics_agent_1.default.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q' });
 const swapiHost = process.env.SWAPI_HOST ? `${process.env.API_HOST}/api` : 'http://swapi.co/api';
-const motofixHost = process.env.MOTOFIX_HOST ? `${process.env.API_HOST}/api` : `http://localhost:3030`;
 const ebayHost = process.env.EBAY_HOST ? `${process.env.API_HOST}/api` : `http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&`;
 const autoDataHost = process.env.AUTODATA_HOST ? `${process.env.API_HOST}/api` : `https://api.autodata-group.com/docs/motorcycles/v1`;
 const swapiConnector = new swapi_1.default(swapiHost);
-const motofixConnector = new motofix_1.default(motofixHost);
 const ebayConnector = new ebay_1.default(ebayHost);
 const autoDataConnector = new autodata_1.default(autoDataHost);
 module.exports = function () {
@@ -44,7 +40,6 @@ module.exports = function () {
             pretty: true,
             schema: schema,
             context: {
-                motorcycle: new motorcycle_1.default(motofixConnector),
                 starship: new starship_1.default(swapiConnector),
                 part: new part_1.default(ebayConnector),
                 labor: new labor_1.default(autoDataConnector),
