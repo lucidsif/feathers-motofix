@@ -36,7 +36,7 @@ constructor(rootURL: string) {
   }
 
   public fetch(resource: string) {
-    // If the resource starts with the root url, just return the resource
+    // If the resource starts with the root url, just return the resnpm run sfsajource
     // Otherwise, return an appended root url + resource
     const url = resource.indexOf(this.rootURL) === 0 ? resource : this.rootURL + resource
 
@@ -48,6 +48,12 @@ constructor(rootURL: string) {
       })
     })
   }
+
+  public fetchMotorcycles(resource: string, make: string, model: string, mid: string){
+    console.log(` params are make: ${make}, model:${model}, mid:${mid}`)
+  }
+
+
   // Add relevant filtering logic for labor rest api
   // TODO: Add case handling
   public fetchPage(resource: string, year: string, make: string, model: string, service: string) {

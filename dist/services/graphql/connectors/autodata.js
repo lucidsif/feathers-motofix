@@ -36,12 +36,18 @@ class AUTODATAConnector {
             });
         });
     }
+    fetchMotorcycles(resource, make, model, mid) {
+        console.log(` params are make: ${make}, model:${model}, mid:${mid}`);
+    }
     fetchPage(resource, year, make, model, service) {
         const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
         console.log(`resource is: ${resource}, service paramater is ${service} for year:${year}, make:${make}, model:${model}`);
         var modelID;
         var midID;
         var variantID;
+        var lubricantsAndCapacities;
+        var oilChangeLaborTime;
+        var oilChangeDescription;
         var manufacturerID = function () {
             var code;
             manufacturerCodes.filter((tuple) => {
@@ -132,8 +138,8 @@ class AUTODATAConnector {
                 console.log(parsedResult.data);
                 if (service === 'OilChange') {
                     console.log('oil change was selected');
-                    let oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs;
-                    let oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].component_description;
+                    oilChangeLaborTime = parsedResult.data.repair_times[0].sub_groups[5].components[0].time_hrs;
+                    oilChangeDescription = parsedResult.data.repair_times[0].sub_groups[5].components[0].component_description;
                     let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime });
                     console.log(payload);
                     return payload;
@@ -152,28 +158,34 @@ class AUTODATAConnector {
                 .then((result) => {
                 console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`);
                 let parsedResult = JSON.parse(result);
-                let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups;
-                return lubricantsAndCapacities;
+                lubricantsAndCapacities = parsedResult.data[0].technical_data_groups;
+                let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime, lubrication: lubricantsAndCapacities });
+                console.log(payload);
+                return payload;
             })
                 .catch((e) => {
                 console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`);
-                return null;
+                return JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime, lubrication: lubricantsAndCapacities });
             });
         }
         function delayBuffer(n) {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    console.log('delay buffer of 400ms');
+                    console.log('delay buffer of 300ms');
                     resolve('balls');
-                }, 400);
+                }, 300);
             });
         }
-        var fnList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid];
+        const fnList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid];
+        const lubeList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid, delayBuffer, getLubricantsAndCapacities];
         function pSeries(list) {
             var p = Promise.resolve();
             return list.reduce((pacc, fn) => {
                 return pacc = pacc.then(fn);
             }, p);
+        }
+        if (service === 'OilChange') {
+            return pSeries(lubeList);
         }
         return pSeries(fnList);
     }

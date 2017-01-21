@@ -1,6 +1,6 @@
 import rootQuery from './root'
 import starship from './starship'
-import motorcycle from './motorcycle'
+import vehicle from './vehicle'
 import part from './part'
 import labor from './labor'
 import authPayload from './authPayload'
@@ -11,4 +11,4 @@ import authPayload from './authPayload'
 //import vehicle from './vehicle'
 
 
-export default Object.assign(rootQuery, starship, motorcycle, part, labor, authPayload)
+export default Object.assign(rootQuery, starship, vehicle, part, labor, authPayload)

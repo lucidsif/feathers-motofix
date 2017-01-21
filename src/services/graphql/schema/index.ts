@@ -1,6 +1,6 @@
 import root from './root'
 import starship from './starship'
-import motorcycle from './motorcycle'
+import vehicle from './vehicle'
 import part from './part'
 import labor from './labor'
 import user from './user'
@@ -23,7 +23,7 @@ export default [
   schema,
   root,
   starship,
-  motorcycle,
+  vehicle,
   part,
   labor,
   user,

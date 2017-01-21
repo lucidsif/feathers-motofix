@@ -1,6 +1,6 @@
 export default  `
 
-  type Motorcycle implements Node {
+  type Vehicle implements Node {
     id: ID!
     year: Int
     make: String
