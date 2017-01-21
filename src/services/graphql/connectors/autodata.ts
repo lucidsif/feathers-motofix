@@ -204,14 +204,14 @@ constructor(rootURL: string) {
     function delayBuffer(n){
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          console.log('delay buffer of 400ms')
+          console.log('delay buffer of 300ms')
           resolve('balls')
-        }, 400)
+        }, 300)
       })
     }
 
     const fnList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid]
-    const lubeList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid, getLubricantsAndCapacities]
+    const lubeList = [getModelIDByManufacturerID, delayBuffer, getMidIDByModelID, delayBuffer, getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid, delayBuffer, getLubricantsAndCapacities]
 
     function pSeries(list){
       var p = Promise.resolve()
