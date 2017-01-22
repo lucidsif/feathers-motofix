@@ -55,7 +55,7 @@ constructor(rootURL: string) {
       var code// get manufacturer codes by manufacturer name
       manufacturerCodes.filter((tuple) => {
         for (var manufacturerName in tuple) {
-          if (manufacturerName === manufacturer) {
+          if (tuple[manufacturerName] === manufacturer) {
             code = tuple[manufacturerName]
           }
         }
@@ -63,7 +63,7 @@ constructor(rootURL: string) {
       if(code){
         return code
       }
-      return JSON.stringify({ service: 'make does not exist in autodata', time: 0.01})
+      return JSON.stringify({ service: `${manufacturer} does not exist in autodata', time: 0.01` })
     }()
     console.log(manufacturerID)
 
@@ -84,14 +84,15 @@ constructor(rootURL: string) {
   }
 
   public fetchSubModels(resource: string, modelID: number){
-
     function getSubModels(){
       console.log(`modelid: ${modelID}`)
       var getMidURL = `${baseURL}vehicles?model_id=${modelID}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      console.time('submodel')
       return rp(getMidURL)
         .then((result) => {
           console.log(`rp'd url: ${getMidURL}`)
           let parsedResult = JSON.parse(result)
+          console.timeEnd('submodel')
           return parsedResult.data
         })
         .catch((e) => {
@@ -107,6 +108,7 @@ constructor(rootURL: string) {
 
   // Add relevant filtering logic for labor rest api
   // TODO: Add case handling
+  /*
   public fetchPage(resource: string, year: string, make: string, model: string, service: string) {
     const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
     console.log(`resource is: ${resource}, service paramater is ${service} for year:${year}, make:${make}, model:${model}`);
@@ -284,6 +286,7 @@ constructor(rootURL: string) {
 
 
   }
+  */
 }
 
 
