@@ -1,9 +1,11 @@
 export default `
 type SubModel  {
-  mid: String,
-  model: String,
-  model_variant: String,
-  start_year: Int,
+  mid: String
+  manufacturer: String
+  model: String
+  model_variant: String
+  tuning_description: String
+  start_year: Int
   end_year: Int
 }
 `
