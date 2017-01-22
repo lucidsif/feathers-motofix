@@ -10,7 +10,7 @@ import SWAPIConnector from './connectors/swapi'
 import EBAYConnector from './connectors/ebay'
 import AUTODATAConnector from './connectors/autodata'
 
-import LaborModel from './models/labor'
+import AutoDataModel from './models/auto-data'
 import StarshipModel from './models/starship'
 import PartModel from './models/part'
 import { VehicleModel } from './models/sql'
@@ -54,7 +54,7 @@ module.exports = function(){
       context: {
         starship: new StarshipModel(swapiConnector),
         part: new PartModel(ebayConnector),
-        labor: new LaborModel(autoDataConnector),
+        autoData: new AutoDataModel(autoDataConnector),
         vehicle: new VehicleModel,
         opticsContext: OpticsAgent.context(req),
         token,

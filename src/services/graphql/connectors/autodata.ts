@@ -67,7 +67,7 @@ constructor(rootURL: string) {
     }()
     console.log(manufacturerID)
 
-    function getModelIDByManufacturerID(){
+    function getModels(){
       var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getModelURL)
         .then((result) => {
@@ -80,7 +80,8 @@ constructor(rootURL: string) {
           return JSON.stringify({ service: 'model array not found', time: 0.01})
         })
     }
-    return getModelIDByManufacturerID()
+    return getModels()
+
   }
 
 

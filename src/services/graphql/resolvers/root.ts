@@ -7,7 +7,7 @@ const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.o
 const node = (id: number) => ({})
 const validateToken = (_, params, context) => context.user.postToken(params.token)
 
-const allModels = (_, params, context) => context.labor.getModels(params.manufacturer)
+const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer)
 
 //mutation
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)

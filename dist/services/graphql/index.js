@@ -8,7 +8,7 @@ const index_2 = require("./resolvers/index");
 const swapi_1 = require("./connectors/swapi");
 const ebay_1 = require("./connectors/ebay");
 const autodata_1 = require("./connectors/autodata");
-const labor_1 = require("./models/labor");
+const auto_data_1 = require("./models/auto-data");
 const starship_1 = require("./models/starship");
 const part_1 = require("./models/part");
 const sql_1 = require("./models/sql");
@@ -42,7 +42,7 @@ module.exports = function () {
             context: {
                 starship: new starship_1.default(swapiConnector),
                 part: new part_1.default(ebayConnector),
-                labor: new labor_1.default(autoDataConnector),
+                autoData: new auto_data_1.default(autoDataConnector),
                 vehicle: new sql_1.VehicleModel,
                 opticsContext: optics_agent_1.default.context(req),
                 token,

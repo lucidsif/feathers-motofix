@@ -1,6 +1,6 @@
 import BaseModel from './autoDataBase';
 
-export default class Labor extends BaseModel {
+export default class AutoData extends BaseModel {
 
   public getModels(manufacturer?: string){
     return this.connector.fetchModels('/', manufacturer)
