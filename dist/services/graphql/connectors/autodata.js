@@ -85,6 +85,60 @@ class AUTODATAConnector {
         }
         return getSubModels();
     }
+    fetchRepairTimes(resource, midID) {
+        console.log(`midID: ${midID}`);
+        var variantID;
+        function getVariantIDByMidID() {
+            console.log(`mid: ${midID}`);
+            var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getVariantIDURL)
+                .then((result) => {
+                console.log(`rp'd url: ${getVariantIDURL} with midID: ${midID}`);
+                let parsedResult = JSON.parse(result);
+                variantID = parsedResult.data[0].variant_id;
+                return {
+                    midID,
+                    variantID,
+                };
+            })
+                .catch((e) => {
+                console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`);
+                return JSON.stringify({ service: 'variant not found', time: 0.01 });
+            });
+        }
+        function getRepairTimesByVariantAndMid(n) {
+            console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`);
+            var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getRepairTimesURL)
+                .then((result) => {
+                console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`);
+                let parsedResult = JSON.parse(result);
+                let repairTimesObj = parsedResult.data.repair_times;
+                console.log(repairTimesObj);
+                return JSON.stringify(repairTimesObj);
+            })
+                .catch((e) => {
+                console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`);
+                return JSON.stringify({ service: 'labortime not found', time: 0.01 });
+            });
+        }
+        function delayBuffer(n) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('delay buffer of 300ms');
+                    resolve('balls');
+                }, 300);
+            });
+        }
+        function pSeries(list) {
+            var p = Promise.resolve();
+            return list.reduce((pacc, fn) => {
+                return pacc = pacc.then(fn);
+            }, p);
+        }
+        const fnList = [getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid];
+        return pSeries(fnList);
+    }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = AUTODATAConnector;

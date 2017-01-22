@@ -9,7 +9,7 @@ const validateToken = (_, params, context) => context.user.postToken(params.toke
 
 const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer)
 const allSubModels = (_, params, context) => context.autoData.getSubModels(params.modelID)
-//const laborEstimates = (_, params, context) => context.labor.getEstimates(params.year, params.make, params.model, params.service)
+const allRepairTimes = (_, params, context) => context.autoData.getRepairTimes(params.midID)
 
 
 //mutation
@@ -34,13 +34,13 @@ export default {
     allStarships,
     starship,
     searchParts,
-    //laborEstimates,
     allVehicles,
     node,
     validateToken,
 
     allModels,
-    allSubModels
+    allSubModels,
+    allRepairTimes,
 //    allFilms,
 //    film,
 //    allPeople,

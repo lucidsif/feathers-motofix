@@ -9,11 +9,10 @@ export default class AutoData extends BaseModel {
   public getSubModels(modelID?: number){
     return this.connector.fetchSubModels('/', modelID)
   }
-/*
-  public getEstimates(year?: string, make?: string, model?: string, service?: string){
-    return this.connector.fetchPage('/', year, make, model, service)
+
+  public getRepairTimes(midID?: string){
+    return this.connector.fetchRepairTimes('/', midID)
   }
-  */
 
   public getEstimate(){
     const url = `/`

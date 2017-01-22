@@ -7,6 +7,7 @@ const node = (id) => ({});
 const validateToken = (_, params, context) => context.user.postToken(params.token);
 const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer);
 const allSubModels = (_, params, context) => context.autoData.getSubModels(params.modelID);
+const allRepairTimes = (_, params, context) => context.autoData.getRepairTimes(params.midID);
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password);
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password);
 Object.defineProperty(exports, "__esModule", { value: true });
@@ -19,7 +20,8 @@ exports.default = {
         node,
         validateToken,
         allModels,
-        allSubModels
+        allSubModels,
+        allRepairTimes,
     },
     RootMutation: {
         signUp,
