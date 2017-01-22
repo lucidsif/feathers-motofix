@@ -6,6 +6,7 @@ import labor from './labor'
 import authPayload from './authPayload'
 
 import model from './model'
+import subModel from './sub-model'
 
 //import film from './film'
 //import people from './people'
@@ -21,4 +22,6 @@ export default Object.assign(
   part,
   labor,
   authPayload,
-  model)
+  model,
+  subModel
+)

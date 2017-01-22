@@ -7,6 +7,7 @@ import user from './user'
 import authPayload from './authPayload'
 
 import model from './model'
+import subModel from './sub-model'
 
 //import film from './film'
 //import people from './people'
@@ -31,7 +32,8 @@ export default [
   user,
   authPayload,
 
-  model
+  model,
+  subModel
 //  film,
 //  people,
 //  planet,

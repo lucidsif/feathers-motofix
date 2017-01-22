@@ -14,6 +14,7 @@ type RootQuery {
   validateToken(token: String): User
   
   allModels(manufacturer: String): [Model]
+  allSubModels(modelID: Int): [SubModel]
 }
 
 type RootMutation {

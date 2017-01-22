@@ -81,6 +81,26 @@ constructor(rootURL: string) {
         })
     }
     return getModels()
+  }
+
+  public fetchSubModels(resource: string, modelID: number){
+
+    function getSubModels(){
+      console.log(`modelid: ${modelID}`)
+      var getMidURL = `${baseURL}vehicles?model_id=${modelID}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      return rp(getMidURL)
+        .then((result) => {
+          console.log(`rp'd url: ${getMidURL}`)
+          let parsedResult = JSON.parse(result)
+          return parsedResult.data
+        })
+        .catch((e) => {
+          console.log(`failed getMidIDByModelId: ${getMidURL}`)
+          return JSON.stringify({ service: 'mid not found', time: 0.01})
+        })
+    }
+
+    return getSubModels()
 
   }
 

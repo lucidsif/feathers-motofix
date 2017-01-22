@@ -6,6 +6,10 @@ export default class AutoData extends BaseModel {
     return this.connector.fetchModels('/', manufacturer)
   }
 
+  public getSubModels(modelID?: number){
+    return this.connector.fetchSubModels('/', modelID)
+  }
+
   public getEstimates(year?: string, make?: string, model?: string, service?: string){
     return this.connector.fetchPage('/', year, make, model, service)
   }

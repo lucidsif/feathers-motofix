@@ -8,6 +8,8 @@ const node = (id: number) => ({})
 const validateToken = (_, params, context) => context.user.postToken(params.token)
 
 const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer)
+const allSubModels = (_, params, context) => context.autoData.getSubModels(params.modelID)
+
 
 //mutation
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
@@ -36,7 +38,8 @@ export default {
     node,
     validateToken,
 
-    allModels
+    allModels,
+    allSubModels
 //    allFilms,
 //    film,
 //    allPeople,

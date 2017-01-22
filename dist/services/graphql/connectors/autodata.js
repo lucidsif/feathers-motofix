@@ -52,7 +52,7 @@ class AUTODATAConnector {
             return JSON.stringify({ service: 'make does not exist in autodata', time: 0.01 });
         }();
         console.log(manufacturerID);
-        function getModelIDByManufacturerID() {
+        function getModels() {
             var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
             return rp(getModelURL)
                 .then((result) => {
@@ -65,7 +65,24 @@ class AUTODATAConnector {
                 return JSON.stringify({ service: 'model array not found', time: 0.01 });
             });
         }
-        return getModelIDByManufacturerID();
+        return getModels();
+    }
+    fetchSubModels(resource, modelID) {
+        function getSubModels() {
+            console.log(`modelid: ${modelID}`);
+            var getMidURL = `${baseURL}vehicles?model_id=${modelID}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getMidURL)
+                .then((result) => {
+                console.log(`rp'd url: ${getMidURL}`);
+                let parsedResult = JSON.parse(result);
+                return parsedResult.data;
+            })
+                .catch((e) => {
+                console.log(`failed getMidIDByModelId: ${getMidURL}`);
+                return JSON.stringify({ service: 'mid not found', time: 0.01 });
+            });
+        }
+        return getSubModels();
     }
     fetchPage(resource, year, make, model, service) {
         const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];
