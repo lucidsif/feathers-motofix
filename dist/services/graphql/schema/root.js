@@ -14,6 +14,8 @@ type RootQuery {
   laborEstimates(year: String, make: String, model: String, service: String): Labor
   allVehicles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Vehicle]
   validateToken(token: String): User
+  
+  allModels(manufacturer: String): [Model]
 }
 
 type RootMutation {

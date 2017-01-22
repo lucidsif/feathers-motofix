@@ -36,8 +36,36 @@ class AUTODATAConnector {
             });
         });
     }
-    fetchMotorcycles(resource, make, model, mid) {
-        console.log(` params are make: ${make}, model:${model}, mid:${mid}`);
+    fetchModels(resource, manufacturer) {
+        var manufacturerID = function () {
+            var code;
+            manufacturerCodes.filter((tuple) => {
+                for (var manufacturerName in tuple) {
+                    if (manufacturerName === manufacturer) {
+                        code = tuple[manufacturerName];
+                    }
+                }
+            });
+            if (code) {
+                return code;
+            }
+            return JSON.stringify({ service: 'make does not exist in autodata', time: 0.01 });
+        }();
+        console.log(manufacturerID);
+        function getModelIDByManufacturerID() {
+            var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getModelURL)
+                .then((result) => {
+                console.log(`rp'd url: ${getModelURL}`);
+                let parsedResult = JSON.parse(result);
+                return parsedResult.data.models;
+            })
+                .catch((e) => {
+                console.log(`failed getModelIdByManufacturer: ${getModelURL}`);
+                return JSON.stringify({ service: 'model array not found', time: 0.01 });
+            });
+        }
+        return getModelIDByManufacturerID();
     }
     fetchPage(resource, year, make, model, service) {
         const services = ['Oil Change', 'Smoke or steam is coming out of motorcycle', 'NY State Inspection', 'Motorcycle is not starting (Inspection)', 'Pre-purchase Inspection', 'Winterization', 'Air Filter Replacement', 'Chain & Sprocket Replacement', 'Clean & Lube Chain', 'Valve Adjustment', 'Accessory Installation', 'Suspension Tuning', 'Tire Replacement', 'Brake Pad Replacement', 'Check engine/FI light in on', 'Warning light is on', 'Fluids are leaking', 'Motorcycle is overheating', 'Brakes are squeaking', 'Spongy braking'];

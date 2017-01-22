@@ -2,8 +2,8 @@ import BaseModel from './autoDataBase';
 
 export default class Labor extends BaseModel {
 
-  public getMotorcycles(make?: string, model?: string, mid?:string){
-    return this.connector.fetchMotorcycles('/', make, model, mid)
+  public getModels(manufacturer?: string){
+    return this.connector.fetchModels('/', manufacturer)
   }
 
   public getEstimates(year?: string, make?: string, model?: string, service?: string){

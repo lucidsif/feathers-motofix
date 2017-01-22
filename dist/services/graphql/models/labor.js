@@ -1,8 +1,8 @@
 "use strict";
 const autoDataBase_1 = require("./autoDataBase");
 class Labor extends autoDataBase_1.default {
-    getMotorcycles(make, model, mid) {
-        return this.connector.fetchMotorcycles('/', make, model, mid);
+    getModels(manufacturer) {
+        return this.connector.fetchModels('/', manufacturer);
     }
     getEstimates(year, make, model, service) {
         return this.connector.fetchPage('/', year, make, model, service);

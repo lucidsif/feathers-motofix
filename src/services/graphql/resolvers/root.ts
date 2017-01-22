@@ -7,6 +7,8 @@ const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.o
 const node = (id: number) => ({})
 const validateToken = (_, params, context) => context.user.postToken(params.token)
 
+const allModels = (_, params, context) => context.labor.getModels(params.manufacturer)
+
 //mutation
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
@@ -33,6 +35,8 @@ export default {
     allVehicles,
     node,
     validateToken,
+
+    allModels
 //    allFilms,
 //    film,
 //    allPeople,

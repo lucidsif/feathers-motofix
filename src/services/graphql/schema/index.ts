@@ -6,6 +6,8 @@ import labor from './labor'
 import user from './user'
 import authPayload from './authPayload'
 
+import model from './model'
+
 //import film from './film'
 //import people from './people'
 //import planet from './planet'
@@ -27,7 +29,9 @@ export default [
   part,
   labor,
   user,
-  authPayload
+  authPayload,
+
+  model
 //  film,
 //  people,
 //  planet,

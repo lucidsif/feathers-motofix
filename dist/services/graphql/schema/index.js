@@ -6,6 +6,7 @@ const part_1 = require("./part");
 const labor_1 = require("./labor");
 const user_1 = require("./user");
 const authPayload_1 = require("./authPayload");
+const model_1 = require("./model");
 const schema = `
   schema {
     query: RootQuery
@@ -21,6 +22,7 @@ exports.default = [
     part_1.default,
     labor_1.default,
     user_1.default,
-    authPayload_1.default
+    authPayload_1.default,
+    model_1.default
 ];
 //# sourceMappingURL=index.js.map

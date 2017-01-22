@@ -49,8 +49,38 @@ constructor(rootURL: string) {
     })
   }
 
-  public fetchMotorcycles(resource: string, make: string, model: string, mid: string){
-    console.log(` params are make: ${make}, model:${model}, mid:${mid}`)
+  public fetchModels(resource: string, manufacturer: string){
+
+    var manufacturerID = function() {
+      var code// get manufacturer codes by manufacturer name
+      manufacturerCodes.filter((tuple) => {
+        for (var manufacturerName in tuple) {
+          if (manufacturerName === manufacturer) {
+            code = tuple[manufacturerName]
+          }
+        }
+      })
+      if(code){
+        return code
+      }
+      return JSON.stringify({ service: 'make does not exist in autodata', time: 0.01})
+    }()
+    console.log(manufacturerID)
+
+    function getModelIDByManufacturerID(){
+      var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      return rp(getModelURL)
+        .then((result) => {
+          console.log(`rp'd url: ${getModelURL}`)
+          let parsedResult = JSON.parse(result)
+          return parsedResult.data.models
+        })
+        .catch((e) => {
+          console.log(`failed getModelIdByManufacturer: ${getModelURL}`)
+          return JSON.stringify({ service: 'model array not found', time: 0.01})
+        })
+    }
+    return getModelIDByManufacturerID()
   }
 
 
