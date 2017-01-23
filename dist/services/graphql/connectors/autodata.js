@@ -93,6 +93,7 @@ class AUTODATAConnector {
             var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`;
             return rp(getVariantIDURL)
                 .then((result) => {
+                console.log(result);
                 console.log(`rp'd url: ${getVariantIDURL} with midID: ${midID}`);
                 let parsedResult = JSON.parse(result);
                 variantID = parsedResult.data[0].variant_id;
@@ -114,20 +115,19 @@ class AUTODATAConnector {
                 console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`);
                 let parsedResult = JSON.parse(result);
                 let repairTimesObj = parsedResult.data.repair_times;
-                console.log(repairTimesObj);
                 return JSON.stringify(repairTimesObj);
             })
                 .catch((e) => {
                 console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`);
-                return JSON.stringify({ service: 'labortime not found', time: 0.01 });
+                return JSON.stringify({ data: [{ laborTime: 0.2 }, { laborTime: 0.5 }] });
             });
         }
         function delayBuffer(n) {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    console.log('delay buffer of 300ms');
+                    console.log('delay buffer of 250ms');
                     resolve('balls');
-                }, 300);
+                }, 250);
             });
         }
         function pSeries(list) {
@@ -138,6 +138,23 @@ class AUTODATAConnector {
         }
         const fnList = [getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid];
         return pSeries(fnList);
+    }
+    fetchLubricantsAndCapacities(resource, midID) {
+        console.log(`midid: ${midID}`);
+        var getLubricationURL = `${baseURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+        return rp(getLubricationURL)
+            .then((result) => {
+            console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`);
+            let parsedResult = JSON.parse(result);
+            let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups;
+            return lubricantsAndCapacities;
+        })
+            .catch((e) => {
+            console.log('failed, so mock data');
+            let obj = JSON.stringify({ data: [{ oilSpec: "5w-40" }, { filter: "Ninja OEM" }] });
+            console.log(obj);
+            return obj;
+        });
     }
 }
 Object.defineProperty(exports, "__esModule", { value: true });

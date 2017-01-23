@@ -15,6 +15,7 @@ type RootQuery {
   allModels(manufacturer: String): [Model]
   allSubModels(modelID: Int): [SubModel]
   allRepairTimes(midID: String): Labor
+  allLubricantsAndCapacities(midID: String): LubricantsAndCapacities
 
 }
 

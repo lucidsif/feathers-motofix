@@ -14,6 +14,10 @@ export default class AutoData extends BaseModel {
     return this.connector.fetchRepairTimes('/', midID)
   }
 
+  public getLubricantsAndCapacities(midID?: string){
+    return this.connector.fetchLubricantsAndCapacities('/', midID)
+  }
+
   public getEstimate(){
     const url = `/`
     return this.connector.fetch(url)

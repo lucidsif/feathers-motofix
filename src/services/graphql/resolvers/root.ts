@@ -10,6 +10,7 @@ const validateToken = (_, params, context) => context.user.postToken(params.toke
 const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer)
 const allSubModels = (_, params, context) => context.autoData.getSubModels(params.modelID)
 const allRepairTimes = (_, params, context) => context.autoData.getRepairTimes(params.midID)
+const allLubricantsAndCapacities = (_, params, context) => context.autoData.getLubricantsAndCapacities(params.midID)
 
 
 //mutation
@@ -41,6 +42,7 @@ export default {
     allModels,
     allSubModels,
     allRepairTimes,
+    allLubricantsAndCapacities
 //    allFilms,
 //    film,
 //    allPeople,

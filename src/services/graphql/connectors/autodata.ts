@@ -7,8 +7,7 @@ const DataLoader = require('dataloader')
 const manufacturerCodes =  [{"Aprilia":"APR"},{"Arctic Cat":"ARC"},{"Benelli":"BEN"},{"BMW":"BMM"},{"BSA":"BSA"},{"Buell":"BUE"},{"Cagiva":"CAG"},{"Can-Am":"CAA"},{"Cannondale":"CAN"},{"CZ":"CZ-"},{"Derbi":"DER"},{"Ducati":"DUC"},{"EBR Motorcycles":"EBR"},{"Enfield":"ENF"},{"Eurospeed":"EUR"},{"Gas Gas":"GGS"},{"Harley-Davidson":"HAR"},{"Honda":"HDA"},{"Husqvarna":"HUS"},{"Hyosung":"HYO"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"}]
 const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
 
-// TODO: 9/10 test graphql query and if throttling works
-// TODO: 6/10 determine if lube wrapper is integrated in a good way
+// TODO: Test allRepairTimes
 // TODO: 5/10 find a proper way to throttle sequential promises
 
 export default class AUTODATAConnector {
@@ -104,6 +103,7 @@ constructor(rootURL: string) {
     return getSubModels()
   }
 
+  // it should return the entire repairtimes array
   public fetchRepairTimes(resource: string, midID: string){
     console.log(`midID: ${midID}`)
     var variantID;
@@ -113,6 +113,7 @@ constructor(rootURL: string) {
       var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getVariantIDURL)
         .then((result) => {
+        console.log(result)
           console.log(`rp'd url: ${getVariantIDURL} with midID: ${midID}`)
           let parsedResult = JSON.parse(result)
           variantID = parsedResult.data[0].variant_id
@@ -136,12 +137,12 @@ constructor(rootURL: string) {
           console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`)
           let parsedResult = JSON.parse(result)
           let repairTimesObj = parsedResult.data.repair_times
-          console.log(repairTimesObj)
           return JSON.stringify(repairTimesObj)
         })
         .catch((e) => {
           console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`)
-          return JSON.stringify({ service: 'labortime not found', time: 0.01})
+          //return JSON.stringify({ service: 'labortime not found', time: 0.01})
+          return JSON.stringify({ data: [{laborTime: 0.2}, {laborTime: 0.5}]})
         })
     }
 
@@ -164,7 +165,27 @@ constructor(rootURL: string) {
     const fnList = [getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid]
     return pSeries(fnList)
 
+  }
 
+  public fetchLubricantsAndCapacities(resource: string, midID: string){
+    console.log(`midid: ${midID}`)
+    var getLubricationURL = `${baseURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
+    return rp(getLubricationURL)
+      .then((result) => {
+        console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`)
+        let parsedResult = JSON.parse(result)
+        let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups
+        //let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime, lubrication: lubricantsAndCapacities})
+        return lubricantsAndCapacities
+      })
+      .catch((e) => {
+        //console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
+        console.log('failed, so mock data')
+        // mock
+        let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
+        console.log(obj)
+        return obj;
+      })
   }
 
 
