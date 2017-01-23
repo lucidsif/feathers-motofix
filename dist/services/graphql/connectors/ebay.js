@@ -1,6 +1,9 @@
 "use strict";
 const request = require("request");
+const rp = require("request-promise");
 const DataLoader = require('dataloader');
+const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=';
+const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
 class SWAPIConnector {
     constructor(rootURL) {
         this.rootURL = rootURL;
@@ -40,24 +43,42 @@ class SWAPIConnector {
             let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1];
             servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, shippingCost, price, condition };
         }
+        function fetchLubricantsAndCapacities(midID) {
+            var getLubricationURL = `${autoDataURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
+            return rp(getLubricationURL)
+                .then((result) => {
+                console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`);
+                let parsedResult = JSON.parse(result);
+                let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups;
+                return lubricantsAndCapacities;
+            })
+                .catch((e) => {
+                console.log('failed, so mock data');
+                let obj = JSON.stringify({ data: [{ oilSpec: "5w-40" }, { filter: "Ninja OEM" }] });
+                console.log(obj);
+                return obj;
+            });
+        }
         if (service === "OilChange") {
             var servicePartsObj = { OilFilter: null, EngineOil: null };
-            console.log('OilChange parts queries will be fetched');
-            return new Promise((resolve, reject) => {
-                this.fetch(`${resource}${createURLKeywords(vehicle, 'oil filter')}`).then((data) => {
+            function getOilParts() {
+                console.log('OilChange parts queries will be fetched');
+                console.log(resource);
+                return rp(`${ebayURL}${createURLKeywords(vehicle, 'oil filter')}`).then((data) => {
                     destructureAndConstructPart(data, 'OilFilter');
                 })
                     .then((nextService) => {
-                    this.fetch(`${resource}${createURLKeywords('', 'synthetic motorcycle oil 1L')}`).then((data) => {
+                    return rp(`${ebayURL}${createURLKeywords('', 'synthetic motorcycle oil 1L')}`).then((data) => {
                         destructureAndConstructPart(data, 'EngineOil');
                         const stringifiedObj = JSON.stringify(servicePartsObj);
-                        resolve([stringifiedObj]);
+                        return [stringifiedObj];
                     });
                 })
                     .catch((e) => {
                     console.log(e);
                 });
-            });
+            }
+            return getOilParts();
         }
         else {
             return ["no service recognized"];

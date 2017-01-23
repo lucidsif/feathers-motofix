@@ -5,15 +5,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/models/part.js" afterPath="$PROJECT_DIR$/dist/services/graphql/models/part.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/models/part.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/models/part.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js" afterPath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/schema/root.js" afterPath="$PROJECT_DIR$/dist/services/graphql/schema/root.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/models/part.ts" afterPath="$PROJECT_DIR$/src/services/graphql/models/part.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" afterPath="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/schema/root.ts" afterPath="$PROJECT_DIR$/src/services/graphql/schema/root.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -29,6 +21,9 @@
     <option name="PATCH_PATH" value="" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="feathers-motofix" />
+  </component>
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.3432971">
       <split-first>
@@ -49,8 +44,8 @@
           <file leaf-file-name="autodata.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-165">
-                  <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+                <state relative-caret-position="-1575">
+                  <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
@@ -65,9 +60,11 @@
           <file leaf-file-name="ebay.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="135">
-                  <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-                  <folding />
+                <state relative-caret-position="261">
+                  <caret line="97" column="23" lean-forward="false" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+                  <folding>
+                    <element signature="e#0#34#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -138,6 +135,7 @@
       <find>console.log</find>
       <find>labor</find>
       <find>year</find>
+      <find>servicePartsObj</find>
     </findStrings>
     <replaceStrings>
       <replace>selectedModelCode</replace>
@@ -502,27 +500,27 @@
       <workItem from="1484767062614" duration="2521000" />
       <workItem from="1484946338374" duration="3422000" />
       <workItem from="1485028726460" duration="5927000" />
-      <workItem from="1485049867885" duration="29271000" />
+      <workItem from="1485049867885" duration="30859000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162125000" />
+    <option name="totallyTimeSpent" value="163713000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12311358" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12311358" sideWeight="0.49382716" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22328767" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22328767" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12311358" sideWeight="0.50617284" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -876,16 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/models/part.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -910,11 +898,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1575">
+          <caret line="16" column="30" lean-forward="false" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="261">
+          <caret line="97" column="23" lean-forward="false" selection-start-line="97" selection-start-column="23" selection-end-line="97" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
