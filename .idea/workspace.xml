@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d902fcc9-31c3-419e-822b-deb7dca23bdc" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -41,8 +45,8 @@
           <file leaf-file-name="autodata.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="405">
-                  <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+                <state relative-caret-position="419">
+                  <caret line="375" column="2" lean-forward="false" selection-start-line="375" selection-start-column="2" selection-end-line="375" selection-end-column="53" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
@@ -57,41 +61,11 @@
           <file leaf-file-name="ebay.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="48" column="19" lean-forward="true" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
+                <state relative-caret-position="285">
+                  <caret line="36" column="39" lean-forward="true" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="root.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/services/graphql/schema/root.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="1" lean-forward="false" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="root.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/root.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="60">
-                  <caret line="4" column="31" lean-forward="false" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="31" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="part.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/services/graphql/models/part.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="90">
-                  <caret line="6" column="3" lean-forward="false" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -146,6 +120,7 @@
       <replace>AutoData</replace>
       <replace>autoData</replace>
       <replace>subModel</replace>
+      <replace>destructureEbayDataAndConstructPart</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -198,12 +173,12 @@
         <option value="$PROJECT_DIR$/src/services/graphql/models/auto-data.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/schema/index.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/resolvers/lubricants_and_capacities.ts" />
-        <option value="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/schema/lubricants_and_capacities.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/resolvers/index.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/schema/root.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/models/part.ts" />
+        <option value="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" />
       </list>
     </option>
@@ -224,10 +199,8 @@
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-125" />
-    <option name="y" value="-900" />
-    <option name="width" value="1600" />
-    <option name="height" value="900" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -310,58 +283,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="graphql" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="feathers-motofix" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="feathers-motofix" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="graphql" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="schema" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="feathers-motofix" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="feathers-motofix" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="graphql" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="resolvers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -500,26 +421,26 @@
       <workItem from="1484767062614" duration="2521000" />
       <workItem from="1484946338374" duration="3422000" />
       <workItem from="1485028726460" duration="5927000" />
-      <workItem from="1485049867885" duration="37051000" />
+      <workItem from="1485049867885" duration="40444000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169905000" />
+    <option name="totallyTimeSpent" value="173298000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.098163396" sideWeight="0.49382716" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12311358" sideWeight="0.49382716" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19638555" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22328767" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12311358" sideWeight="0.50617284" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -900,8 +821,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="163" column="0" lean-forward="true" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+        <state relative-caret-position="419">
+          <caret line="375" column="2" lean-forward="false" selection-start-line="375" selection-start-column="2" selection-end-line="375" selection-end-column="53" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
@@ -910,8 +831,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="48" column="19" lean-forward="true" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
+        <state relative-caret-position="285">
+          <caret line="36" column="39" lean-forward="true" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>

@@ -373,5 +373,7 @@ constructor(rootURL: string) {
   */
 }
 
+//&itemFilter(1).name=MaxPrice&itemFilter(1).value=35
+
 
 

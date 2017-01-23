@@ -2,7 +2,7 @@
 const request = require("request");
 const rp = require("request-promise");
 const DataLoader = require('dataloader');
-const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=';
+const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice&keywords=';
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
 class SWAPIConnector {
     constructor(rootURL) {
@@ -69,7 +69,7 @@ class SWAPIConnector {
             })
                 .catch((e) => {
                 console.log('failed, so mock data');
-                return { data: [{ oilSpec: "10w-40" }, { filter: "Ninja OEM" }] };
+                return { data: [{ oilSpec: "10w-30" }, { filter: "Ninja OEM" }] };
             });
         }
         if (service === "OilChange") {
@@ -93,7 +93,7 @@ class SWAPIConnector {
                     console.log(`failed: ${oilFilterURL}`);
                 })
                     .then(() => {
-                    oilURL = `${ebayURL}${createURLKeywords(vehicle, 'motorcycle oil 1 quart', oilWeight)}`;
+                    oilURL = `${ebayURL}${createURLKeywords(vehicle, 'rotella synthetic oil 1 gallon', oilWeight)}`;
                     return rp(oilURL)
                         .then((data) => {
                         console.log(`fetched: ${oilURL}`);
