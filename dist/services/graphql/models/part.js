@@ -1,8 +1,8 @@
 "use strict";
 const ebayBase_1 = require("./ebayBase");
 class Part extends ebayBase_1.default {
-    getParts(vehicle, service) {
-        return this.connector.fetchPage('keywords=', vehicle, service);
+    getParts(vehicle, service, midID) {
+        return this.connector.fetchPage('keywords=', vehicle, service, midID);
     }
     getPart() {
         const url = `keywords=`;

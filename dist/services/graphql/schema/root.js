@@ -10,7 +10,7 @@ type RootQuery {
   node(id: ID!): Node
   allStarships(offset: Int, limit: Int): [Starship]
   starship(id: ID, starshipID: ID): Starship
-  searchParts(vehicle: String, service: String): [Part]
+  searchParts(vehicle: String, service: String, midID: String): [Part]
   allVehicles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Vehicle]
   validateToken(token: String): User
   

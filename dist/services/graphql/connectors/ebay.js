@@ -21,8 +21,8 @@ class SWAPIConnector {
             });
         });
     }
-    fetchPage(resource, vehicle, service) {
-        console.log(`params sent to fetchPage are vehicle: ${vehicle} and service: ${service}`);
+    fetchPage(resource, vehicle, service, midID) {
+        console.log(`params sent to fetchPage are vehicle: ${vehicle}, service: ${service}, and mid: ${midID}`);
         function createURLKeywords(vehicleModel, partName) {
             let keywords = `${vehicleModel} ${partName}`;
             let URLkeywords = encodeURIComponent(keywords.trim());
@@ -33,7 +33,7 @@ class SWAPIConnector {
             let partsObj = JSON.parse(partsJSON);
             let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0];
             let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0];
-            let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0];
+            let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0] || null;
             let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0];
             let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo[0].shippingServiceCost[0];
             let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0];
@@ -46,12 +46,16 @@ class SWAPIConnector {
             return new Promise((resolve, reject) => {
                 this.fetch(`${resource}${createURLKeywords(vehicle, 'oil filter')}`).then((data) => {
                     destructureAndConstructPart(data, 'OilFilter');
-                }).then((nextService) => {
+                })
+                    .then((nextService) => {
                     this.fetch(`${resource}${createURLKeywords('', 'synthetic motorcycle oil 1L')}`).then((data) => {
                         destructureAndConstructPart(data, 'EngineOil');
                         const stringifiedObj = JSON.stringify(servicePartsObj);
                         resolve([stringifiedObj]);
                     });
+                })
+                    .catch((e) => {
+                    console.log(e);
                 });
             });
         }
