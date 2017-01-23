@@ -73,10 +73,11 @@ class SWAPIConnector {
             });
         }
         if (service === "OilChange") {
-            var servicePartsObj = { OilFilter: null, EngineOil: null };
+            var servicePartsObj = { OilFilter: null, EngineOil: null, Washer: null };
             var oilWeight;
             let oilFilterURL;
             let oilURL;
+            let washerURL;
             function getOilParts(lubricantsAndCapacities) {
                 oilWeight = lubricantsAndCapacities.data[0].oilSpec;
                 console.log(`oil weight extracted: ${oilWeight}`);
@@ -97,13 +98,25 @@ class SWAPIConnector {
                         .then((data) => {
                         console.log(`fetched: ${oilURL}`);
                         destructureEbayDataAndConstructPart(data, 'EngineOil');
-                        const stringifiedObj = JSON.stringify(servicePartsObj);
-                        return [stringifiedObj];
+                    })
+                        .catch((e) => {
+                        console.log(e);
+                        console.log(`failed: ${oilURL}`);
                     });
                 })
-                    .catch((e) => {
-                    console.log(e);
-                    console.log(`failed: ${oilURL}`);
+                    .then(() => {
+                    washerURL = `${ebayURL}${createURLKeywords(vehicle, 'drain plug washer', null)}`;
+                    return rp(washerURL)
+                        .then((data) => {
+                        console.log(`fetched: ${oilURL}`);
+                        destructureEbayDataAndConstructPart(data, 'Washer');
+                        const stringifiedObj = JSON.stringify(servicePartsObj);
+                        return [stringifiedObj];
+                    })
+                        .catch((e) => {
+                        console.log(e);
+                        console.log(`failed: ${oilURL}`);
+                    });
                 });
             }
             const oilChangeFuncs = [fetchLubricantsAndCapacities, getOilParts];

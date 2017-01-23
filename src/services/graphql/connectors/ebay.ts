@@ -100,10 +100,13 @@ export default class SWAPIConnector {
 
     if(service === "OilChange"){
       // initialize servicePartsObj for every service
-      var servicePartsObj = { OilFilter: null, EngineOil: null}
+      var servicePartsObj = { OilFilter: null, EngineOil: null, Washer: null}
       var oilWeight
+
       let oilFilterURL
       let oilURL
+      let washerURL
+
       function getOilParts(lubricantsAndCapacities) {
         oilWeight = lubricantsAndCapacities.data[0].oilSpec
         console.log(`oil weight extracted: ${oilWeight}`)
@@ -124,19 +127,29 @@ export default class SWAPIConnector {
               .then((data) => {
                 console.log(`fetched: ${oilURL}`)
                 destructureEbayDataAndConstructPart(data, 'EngineOil')
+              })
+              .catch((e) => {
+                console.log(e)
+                console.log(`failed: ${oilURL}`)
+              })
+            })
+          .then(() => {
+            washerURL = `${ebayURL}${createURLKeywords(vehicle, 'drain plug washer', null)}`
+            return rp(washerURL)
+              .then((data) => {
+                console.log(`fetched: ${oilURL}`)
+                destructureEbayDataAndConstructPart(data, 'Washer')
                 const stringifiedObj = JSON.stringify(servicePartsObj)
                 return [stringifiedObj];
               })
-            })
-          .catch((e) => {
-              console.log(e)
-              console.log(`failed: ${oilURL}`)
-            })
+              .catch((e) => {
+                console.log(e)
+                console.log(`failed: ${oilURL}`)
+              })
+          })
       }
       const oilChangeFuncs = [fetchLubricantsAndCapacities, getOilParts]
       return fetchOilChangePartsSeries(oilChangeFuncs)
-
-      // fetch lubesAndCapacities data, extract the oil weight, then search ebay api for the part + oil weight (engine oil 5w-40 1L)
     }
 
     else{
