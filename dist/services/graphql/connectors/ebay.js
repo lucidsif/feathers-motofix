@@ -2,7 +2,9 @@
 const request = require("request");
 const rp = require("request-promise");
 const DataLoader = require('dataloader');
-const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice&keywords=';
+const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=';
+const buyItNowFilter = `&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice`;
+const maxPriceFilter = '&itemFilter(1).name=MaxPrice&itemFilter(1).value=';
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
 class SWAPIConnector {
     constructor(rootURL) {
@@ -29,13 +31,13 @@ class SWAPIConnector {
         function createURLKeywords(vehicleModel, partName, partSpec) {
             var keywords;
             if (partSpec) {
-                keywords = `${partName} ${partSpec}`;
+                keywords = `&${partName} ${partSpec}`;
                 let URLkeywords = encodeURIComponent(keywords.trim());
                 console.log(`URLKeywords are ${URLkeywords}`);
                 return URLkeywords;
             }
             else {
-                keywords = `${partName} ${vehicleModel}`;
+                keywords = `&${partName} ${vehicleModel}`;
                 let URLkeywords = encodeURIComponent(keywords.trim());
                 console.log(`URLKeywords are ${URLkeywords}`);
                 return URLkeywords;
@@ -93,7 +95,8 @@ class SWAPIConnector {
                     console.log(`failed: ${oilFilterURL}`);
                 })
                     .then(() => {
-                    oilURL = `${ebayURL}${createURLKeywords(vehicle, 'rotella synthetic oil 1 gallon', oilWeight)}`;
+                    let oilMaxPriceValue = 35;
+                    oilURL = `${ebayURL}${createURLKeywords(vehicle, 'rotella synthetic oil 1 gallon', oilWeight)}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}`;
                     return rp(oilURL)
                         .then((data) => {
                         console.log(`fetched: ${oilURL}`);
