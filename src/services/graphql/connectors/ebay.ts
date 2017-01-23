@@ -41,14 +41,22 @@ export default class SWAPIConnector {
     console.log(`params sent to fetchPage are vehicle: ${vehicle}, service: ${service}, and mid: ${midID}`);
 
     // this function will take a vehicle model and part name and encode a URL
-    function createURLKeywords(vehicleModel: string, partName: string){
-      let keywords = `${vehicleModel} ${partName}`
-      let URLkeywords = encodeURIComponent(keywords.trim())
-      console.log(`URLKeywords are ${URLkeywords}`);
-      return URLkeywords;
+    function createURLKeywords(vehicleModel, partName, partSpec){
+      var keywords;
+      if(partSpec){
+        keywords = `${partName} ${partSpec}`
+        let URLkeywords = encodeURIComponent(keywords.trim())
+        console.log(`URLKeywords are ${URLkeywords}`);
+        return URLkeywords;
+      } else {
+        keywords = `${partName} ${vehicleModel}`
+        let URLkeywords = encodeURIComponent(keywords.trim())
+        console.log(`URLKeywords are ${URLkeywords}`);
+        return URLkeywords;
+      }
     }
 
-    function destructureAndConstructPart(partsJSON, partName){
+    function destructureEbayDataAndConstructPart(partsJSON, partName){
       let partsObj = JSON.parse(partsJSON)
 
       let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0]
@@ -62,6 +70,13 @@ export default class SWAPIConnector {
 
       servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, shippingCost, price, condition }
 
+    }
+
+    function fetchOilChangePartsSeries(list){
+      var p = Promise.resolve()
+      return list.reduce((pacc, fn) => {
+        return pacc = pacc.then(fn)
+      }, p)
     }
 
     function fetchLubricantsAndCapacities(midID: string){
@@ -78,35 +93,50 @@ export default class SWAPIConnector {
           //console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
           console.log('failed, so mock data')
           // mock
-          let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
-          console.log(obj)
-          return obj;
+          //let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
+          return { data: [{oilSpec: "10w-40"}, {filter: "Ninja OEM"}]}
         })
     }
 
     if(service === "OilChange"){
       // initialize servicePartsObj for every service
-      var servicePartsObj = { OilFilter: null, EngineOil: null};
-      function getOilParts() {
+      var servicePartsObj = { OilFilter: null, EngineOil: null}
+      var oilWeight
+      let oilFilterURL
+      let oilURL
+      function getOilParts(lubricantsAndCapacities) {
+        oilWeight = lubricantsAndCapacities.data[0].oilSpec
+        console.log(`oil weight extracted: ${oilWeight}`)
         console.log('OilChange parts queries will be fetched')
-          return rp(`${ebayURL}${createURLKeywords(vehicle, 'oil filter')}`)
-            .then((data) => {
-            destructureAndConstructPart(data, 'OilFilter')
-
+        oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}`
+        return rp(oilFilterURL)
+          .then((data) => {
+            console.log(`fetched: ${oilFilterURL}`)
+            destructureEbayDataAndConstructPart(data, 'OilFilter')
           })
-            .then((nextService) => {
-              return rp(`${ebayURL}${createURLKeywords('', 'synthetic motorcycle oil 1L')}`).then((data) => {
-                destructureAndConstructPart(data, 'EngineOil')
+          .catch((e) => {
+            console.log(e)
+            console.log(`failed: ${oilFilterURL}`)
+          })
+          .then(() => {
+            oilURL = `${ebayURL}${createURLKeywords(vehicle, 'motorcycle oil 1 quart', oilWeight)}`
+            return rp(oilURL)
+              .then((data) => {
+                console.log(`fetched: ${oilURL}`)
+                destructureEbayDataAndConstructPart(data, 'EngineOil')
                 const stringifiedObj = JSON.stringify(servicePartsObj)
-
                 return [stringifiedObj];
               })
             })
-            .catch((e) => {
+          .catch((e) => {
               console.log(e)
+              console.log(`failed: ${oilURL}`)
             })
       }
-      return getOilParts()
+      const oilChangeFuncs = [fetchLubricantsAndCapacities, getOilParts]
+      return fetchOilChangePartsSeries(oilChangeFuncs)
+
+      // fetch lubesAndCapacities data, extract the oil weight, then search ebay api for the part + oil weight (engine oil 5w-40 1L)
     }
 
     else{
