@@ -34,9 +34,12 @@ export default class SWAPIConnector {
     })
   }
 
-  //TODO handle edge cases like failed searches and 0 listings
+  //TODO: add shipping price and shipping time
+  //TODO: handle edge cases like failed searches and 0 listings
+  //TODO: build try another part (returning an array of servicepartsobjs from each item in arry?)
+
   // TODO: normalize search query casing
-  // TODO: refactor so promise concurrently resolves a list of fetch promises. Probably use request.get instead of this.fetch
+  // TODO: do rp.all instead of chaining parts
   public fetchPage(resource: string, vehicle: string, service: string, midID: string) {
     console.log(`params sent to fetchPage are vehicle: ${vehicle}, service: ${service}, and mid: ${midID}`);
 
