@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d902fcc9-31c3-419e-822b-deb7dca23bdc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -60,8 +58,8 @@
           <file leaf-file-name="ebay.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="114">
-                  <caret line="89" column="133" lean-forward="false" selection-start-line="89" selection-start-column="133" selection-end-line="89" selection-end-column="133" />
+                <state relative-caret-position="105">
+                  <caret line="118" column="99" lean-forward="false" selection-start-line="118" selection-start-column="99" selection-end-line="118" selection-end-column="99" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
@@ -424,12 +422,12 @@
       <workItem from="1484767062614" duration="2521000" />
       <workItem from="1484946338374" duration="3422000" />
       <workItem from="1485028726460" duration="5927000" />
-      <workItem from="1485049867885" duration="47972000" />
+      <workItem from="1485049867885" duration="48287000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="180826000" />
+    <option name="totallyTimeSpent" value="181141000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
@@ -834,8 +832,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="89" column="133" lean-forward="false" selection-start-line="89" selection-start-column="133" selection-end-line="89" selection-end-column="133" />
+        <state relative-caret-position="105">
+          <caret line="118" column="99" lean-forward="false" selection-start-line="118" selection-start-column="99" selection-end-line="118" selection-end-column="99" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>

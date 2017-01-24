@@ -37,7 +37,6 @@ export default class SWAPIConnector {
     })
   }
 
-  //TODO: charge waser by single?
   //TODO: add shipping price and shipping time
   //TODO: handle edge cases like failed searches and 0 listings
 
@@ -100,10 +99,10 @@ export default class SWAPIConnector {
         .catch((e) => {
           //console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
           console.log(`failed url: ${getLubricationURL} with midID: ${midID}`)
-          throw new Error(e)
+          //throw new Error(e)
           // mock
-          //let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
-          //return { data: [{oilSpec: "10w-30"}, {filter: "Ninja OEM"}]}
+          let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
+          return { data: [{oilSpec: "10w-30"}, {filter: "Ninja OEM"}]}
         })
     }
 
@@ -117,6 +116,7 @@ export default class SWAPIConnector {
       let washerURL
 
       function getOilParts(lubricantsAndCapacities) {
+        // TODO: Extract the right properties out of the lubrication object, similar to add service
         oilWeight = lubricantsAndCapacities.data[0].oilSpec
         console.log(`oil weight extracted: ${oilWeight}`)
         console.log('OilChange parts queries will be fetched')
