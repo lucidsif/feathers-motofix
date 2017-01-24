@@ -5,6 +5,7 @@ const DataLoader = require('dataloader')
 const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords='
 const buyItNowFilter = `&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice`
 const maxPriceFilter = '&itemFilter(1).name=MaxPrice&itemFilter(1).value='
+
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
 
 
@@ -36,7 +37,7 @@ export default class SWAPIConnector {
     })
   }
 
-  //TODO: filter ebaysearchapi by setting max price
+  //TODO: charge waser by single?
   //TODO: add shipping price and shipping time
   //TODO: handle edge cases like failed searches and 0 listings
 
@@ -66,14 +67,14 @@ export default class SWAPIConnector {
     function destructureEbayDataAndConstructPart(partsJSON, partName){
       let partsObj = JSON.parse(partsJSON)
 
-      let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0]
+      let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0] || null
       //let partListing = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0]
-      let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0]
+      let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0] || null
       let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0] || null
-      let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0]
-      let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo[0].shippingServiceCost[0]
-      let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
-      let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
+      let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0] || null
+      let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo[0].shippingServiceCost[0] || null
+      let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0] || null
+      let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1] || null
 
       servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, shippingCost, price, condition }
 
@@ -86,22 +87,23 @@ export default class SWAPIConnector {
       }, p)
     }
 
-    function fetchLubricantsAndCapacities(midID: string){
+    // TODO: FIX ASAP! check the obj being returned. Make sure to filter for lubrication and extract the right obj like in addService
+    function fetchLubricantsAndCapacities(){
       var getLubricationURL = `${autoDataURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getLubricationURL)
         .then((result) => {
           console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`)
           let parsedResult = JSON.parse(result)
           let lubricantsAndCapacities = parsedResult.data[0].technical_data_groups
-          //let payload = JSON.stringify({ service: oilChangeDescription, time: oilChangeLaborTime, lubrication: lubricantsAndCapacities})
           return lubricantsAndCapacities
         })
         .catch((e) => {
           //console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
-          console.log('failed, so mock data')
+          console.log(`failed url: ${getLubricationURL} with midID: ${midID}`)
+          throw new Error(e)
           // mock
           //let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
-          return { data: [{oilSpec: "10w-30"}, {filter: "Ninja OEM"}]}
+          //return { data: [{oilSpec: "10w-30"}, {filter: "Ninja OEM"}]}
         })
     }
 

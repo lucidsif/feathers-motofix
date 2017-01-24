@@ -45,13 +45,13 @@ class SWAPIConnector {
         }
         function destructureEbayDataAndConstructPart(partsJSON, partName) {
             let partsObj = JSON.parse(partsJSON);
-            let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0];
-            let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0];
+            let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0] || null;
+            let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0] || null;
             let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0] || null;
-            let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0];
-            let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo[0].shippingServiceCost[0];
-            let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0];
-            let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1];
+            let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0] || null;
+            let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo[0].shippingServiceCost[0] || null;
+            let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0] || null;
+            let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1] || null;
             servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, shippingCost, price, condition };
         }
         function fetchOilChangePartsSeries(list) {
@@ -60,7 +60,7 @@ class SWAPIConnector {
                 return pacc = pacc.then(fn);
             }, p);
         }
-        function fetchLubricantsAndCapacities(midID) {
+        function fetchLubricantsAndCapacities() {
             var getLubricationURL = `${autoDataURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`;
             return rp(getLubricationURL)
                 .then((result) => {
@@ -70,8 +70,8 @@ class SWAPIConnector {
                 return lubricantsAndCapacities;
             })
                 .catch((e) => {
-                console.log('failed, so mock data');
-                return { data: [{ oilSpec: "10w-30" }, { filter: "Ninja OEM" }] };
+                console.log(`failed url: ${getLubricationURL} with midID: ${midID}`);
+                throw new Error(e);
             });
         }
         if (service === "OilChange") {
