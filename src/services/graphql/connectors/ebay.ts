@@ -3,8 +3,10 @@ import * as rp from 'request-promise'
 const DataLoader = require('dataloader')
 
 const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords='
+const buyerPostalCode= '&buyerPostalCode=11435'
 const buyItNowFilter = `&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice`
 const maxPriceFilter = '&itemFilter(1).name=MaxPrice&itemFilter(1).value='
+const maxDistanceFilter = '&itemFilter(2).name=MaxDistance&itemFilter(2).value=3200'
 
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
 
@@ -37,7 +39,7 @@ export default class SWAPIConnector {
     })
   }
 
-  //TODO: add shipping price and shipping time
+  //TODO:
   //TODO: handle edge cases like failed searches and 0 listings
 
   //TODO: FUTURE build try another part (returning an array of servicepartsobjs from each item in arry?)
@@ -70,7 +72,7 @@ export default class SWAPIConnector {
         let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0]
         console.log(searchStatus)
 
-        let partListings = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item
+        //let partListings = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item
         // filter for items that have the following properties
 
         //console.log(partListings)
@@ -82,14 +84,12 @@ export default class SWAPIConnector {
         let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0]
         let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0]
         let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0]
-        //let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
-        //console.log(shippingCost)
+        let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
         let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
-        console.log(price)
         let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
-        console.log(condition)
 
-        servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, price, condition }
+        servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, shippingCost, price, condition }
+        console.log(servicePartsObj[partName])
       } catch(e){
         console.log('json extracting problem')
         console.log(e)
@@ -104,7 +104,6 @@ export default class SWAPIConnector {
       }, p)
     }
 
-    // TODO: FIX ASAP! check the obj being returned. Make sure to filter for lubrication and extract the right obj like in addService
     function fetchLubricantsAndCapacities(){
       var getLubricationURL = `${autoDataURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
       return rp(getLubricationURL)
@@ -116,7 +115,7 @@ export default class SWAPIConnector {
         })
         .catch((e) => {
           //console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
-          console.log(`failed url: ${getLubricationURL} with midID: ${midID}`)
+          console.log(`failed autodata url: ${getLubricationURL} with midID: ${midID}`)
           console.log(e.statusCode)
           //throw new Error(e)
           // mock
@@ -124,16 +123,16 @@ export default class SWAPIConnector {
           return { data: [{oilSpec: "10w-30"}, {filter: "Ninja OEM"}]}
         })
     }
-
+// TODO: Add concept of quantity
     if(service === "OilChange"){
-      // initialize servicePartsObj for every service
-      var servicePartsObj = { OilFilter: null, EngineOil: null, Washer: null}
+      // washer property removed for now
+      var servicePartsObj = { OilFilter: null, EngineOil: null }
       var oilWeight
       var oilVolume
 
       let oilFilterURL
       let oilURL
-      let washerURL
+      //let washerURL
 
       function getOilParts(lubricantsAndCapacities) {
         // TODO: Extract the right properties out of the lubrication object, similar to add
@@ -149,7 +148,8 @@ export default class SWAPIConnector {
         // add oil quantity in some form
         console.log(`oil weight extracted: ${oilWeight}`)
         console.log(`oil volume extracted: ${oilVolume}`)
-        oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}`
+        let oilFilterMaxPriceValue = 20
+        oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`
         return rp(oilFilterURL)
           .then((data) => {
             console.log(`fetched: ${oilFilterURL}`)
@@ -161,23 +161,11 @@ export default class SWAPIConnector {
           })
           .then(() => {
           let oilMaxPriceValue = 10
-            oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}`
+            oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`
             return rp(oilURL)
               .then((data) => {
                 console.log(`fetched: ${oilURL}`)
                 destructureEbayDataAndConstructPart(data, 'EngineOil')
-              })
-              .catch((e) => {
-                console.log(e)
-                console.log(`failed: ${oilURL}`)
-              })
-            })
-          .then(() => {
-            washerURL = `${ebayURL}${createURLKeywords(vehicle, 'drain plug washer', null)}`
-            return rp(washerURL)
-              .then((data) => {
-                console.log(`fetched: ${oilURL}`)
-                destructureEbayDataAndConstructPart(data, 'Washer')
                 const stringifiedObj = JSON.stringify(servicePartsObj)
                 return [stringifiedObj];
               })
@@ -185,7 +173,24 @@ export default class SWAPIConnector {
                 console.log(e)
                 console.log(`failed: ${oilURL}`)
               })
+            })
+          /*
+          .then(() => {
+          let washerMaxPriceValue = 10
+            washerURL = `${ebayURL}${createURLKeywords(vehicle, 'drain plug washer', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${washerMaxPriceValue}${maxDistanceFilter}`
+            return rp(washerURL)
+              .then((data) => {
+                console.log(`fetched: ${washerURL}`)
+                destructureEbayDataAndConstructPart(data, 'Washer')
+                const stringifiedObj = JSON.stringify(servicePartsObj)
+                return [stringifiedObj];
+              })
+              .catch((e) => {
+                console.log(e)
+                console.log(`failed: ${washerURL}`)
+              })
           })
+          */
       }
       const oilChangeFuncs = [fetchLubricantsAndCapacities, getOilParts]
       return fetchOilChangePartsSeries(oilChangeFuncs)

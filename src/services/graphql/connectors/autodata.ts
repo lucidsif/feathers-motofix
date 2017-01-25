@@ -379,5 +379,7 @@ constructor(rootURL: string) {
 
 //http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=%20rotella%20synthetic%20oil%201%20gallon%2010w-30&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice&itemFilter(1).name=MaxPrice&itemFilter(1).value=35
 
-//http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=%20synthetic%20oil%2010W-30%201%20quart&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice&itemFilter(1).name=MaxPrice&itemFilter(1).value=35
+//http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=%20synthetic%20oil%2010W-30%201%20quart&buyerPostalCode=11435&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice&itemFilter(1).name=MaxPrice&itemFilter(1).value=35&itemFilter(2).name=MaxDistance&itemFilter(2).value=3200
+//bs http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=%26oil%20filter%202010%20Honda%20CBR600&buyerPostalCode=11435&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice&itemFilter(2).name=MaxDistance&itemFilter(2).value=3200
+// &buyerPostalCode=11435&itemFilter(2).name=MaxDistance&itemFilter(2).value=3200
 

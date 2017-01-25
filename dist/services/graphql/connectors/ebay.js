@@ -3,8 +3,10 @@ const request = require("request");
 const rp = require("request-promise");
 const DataLoader = require('dataloader');
 const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=';
+const buyerPostalCode = '&buyerPostalCode=11435';
 const buyItNowFilter = `&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice`;
 const maxPriceFilter = '&itemFilter(1).name=MaxPrice&itemFilter(1).value=';
+const maxDistanceFilter = '&itemFilter(2).name=MaxDistance&itemFilter(2).value=3200';
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
 class SWAPIConnector {
     constructor(rootURL) {
@@ -48,18 +50,17 @@ class SWAPIConnector {
                 let partsObj = JSON.parse(partsJSON);
                 let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0];
                 console.log(searchStatus);
-                let partListings = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item;
                 let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0];
                 console.log(partTitle);
                 let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0];
                 console.log(imageURL);
                 let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0];
                 console.log(ebayURL);
+                let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo;
                 let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0];
-                console.log(price);
                 let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1];
-                console.log(condition);
-                servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, price, condition };
+                servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, shippingCost, price, condition };
+                console.log(servicePartsObj[partName]);
             }
             catch (e) {
                 console.log('json extracting problem');
@@ -83,19 +84,18 @@ class SWAPIConnector {
                 return lubricantsAndCapacities;
             })
                 .catch((e) => {
-                console.log(`failed url: ${getLubricationURL} with midID: ${midID}`);
+                console.log(`failed autodata url: ${getLubricationURL} with midID: ${midID}`);
                 console.log(e.statusCode);
                 let obj = JSON.stringify({ data: [{ oilSpec: "5w-40" }, { filter: "Ninja OEM" }] });
                 return { data: [{ oilSpec: "10w-30" }, { filter: "Ninja OEM" }] };
             });
         }
         if (service === "OilChange") {
-            var servicePartsObj = { OilFilter: null, EngineOil: null, Washer: null };
+            var servicePartsObj = { OilFilter: null, EngineOil: null };
             var oilWeight;
             var oilVolume;
             let oilFilterURL;
             let oilURL;
-            let washerURL;
             function getOilParts(lubricantsAndCapacities) {
                 const lubricantsAndCapacitiesGroup = lubricantsAndCapacities[0].group_items;
                 let oilWeightGroup = lubricantsAndCapacitiesGroup.filter((group) => {
@@ -108,7 +108,8 @@ class SWAPIConnector {
                 oilVolume = 1;
                 console.log(`oil weight extracted: ${oilWeight}`);
                 console.log(`oil volume extracted: ${oilVolume}`);
-                oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}`;
+                let oilFilterMaxPriceValue = 20;
+                oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`;
                 return rp(oilFilterURL)
                     .then((data) => {
                     console.log(`fetched: ${oilFilterURL}`);
@@ -120,23 +121,11 @@ class SWAPIConnector {
                 })
                     .then(() => {
                     let oilMaxPriceValue = 10;
-                    oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}`;
+                    oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`;
                     return rp(oilURL)
                         .then((data) => {
                         console.log(`fetched: ${oilURL}`);
                         destructureEbayDataAndConstructPart(data, 'EngineOil');
-                    })
-                        .catch((e) => {
-                        console.log(e);
-                        console.log(`failed: ${oilURL}`);
-                    });
-                })
-                    .then(() => {
-                    washerURL = `${ebayURL}${createURLKeywords(vehicle, 'drain plug washer', null)}`;
-                    return rp(washerURL)
-                        .then((data) => {
-                        console.log(`fetched: ${oilURL}`);
-                        destructureEbayDataAndConstructPart(data, 'Washer');
                         const stringifiedObj = JSON.stringify(servicePartsObj);
                         return [stringifiedObj];
                     })

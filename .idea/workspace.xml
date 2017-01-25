@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d902fcc9-31c3-419e-822b-deb7dca23bdc" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/autodata.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" />
@@ -28,7 +26,7 @@
     <favorites_list name="feathers-motofix" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.26053372">
+    <splitter split-orientation="horizontal" split-proportion="0.49157304">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="index.ts" pinned="false" current-in-tab="false">
@@ -47,8 +45,8 @@
           <file leaf-file-name="autodata.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="600">
-                  <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+                <state relative-caret-position="268">
+                  <caret line="380" column="0" lean-forward="false" selection-start-line="380" selection-start-column="0" selection-end-line="380" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
@@ -64,7 +62,7 @@
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="270">
-                  <caret line="67" column="28" lean-forward="true" selection-start-line="67" selection-start-column="28" selection-end-line="67" selection-end-column="28" />
+                  <caret line="95" column="26" lean-forward="true" selection-start-line="95" selection-start-column="26" selection-end-line="95" selection-end-column="26" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
@@ -85,9 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>pri</find>
-      <find>toke</find>
-      <find>f</find>
       <find>manufacturer</find>
       <find>selectedManufacturerCode</find>
       <find>models</find>
@@ -114,6 +109,10 @@
       <find>labor</find>
       <find>laborTime</find>
       <find>null</find>
+      <find>buyerPostalCode</find>
+      <find>maxPrice</find>
+      <find>maxPriceFilter</find>
+      <find>json</find>
     </findStrings>
     <replaceStrings>
       <replace>selectedModelCode</replace>
@@ -363,12 +362,12 @@
       <workItem from="1484767062614" duration="2521000" />
       <workItem from="1484946338374" duration="3422000" />
       <workItem from="1485028726460" duration="5927000" />
-      <workItem from="1485049867885" duration="58037000" />
+      <workItem from="1485049867885" duration="61894000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190891000" />
+    <option name="totallyTimeSpent" value="194748000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
@@ -763,8 +762,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="0" lean-forward="false" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+        <state relative-caret-position="268">
+          <caret line="380" column="0" lean-forward="false" selection-start-line="380" selection-start-column="0" selection-end-line="380" selection-end-column="0" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
@@ -774,7 +773,7 @@
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="67" column="28" lean-forward="true" selection-start-line="67" selection-start-column="28" selection-end-line="67" selection-end-column="28" />
+          <caret line="95" column="26" lean-forward="true" selection-start-line="95" selection-start-column="26" selection-end-line="95" selection-end-column="26" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
