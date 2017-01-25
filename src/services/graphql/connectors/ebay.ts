@@ -39,7 +39,6 @@ export default class SWAPIConnector {
     })
   }
 
-  //TODO:
   //TODO: handle edge cases like failed searches and 0 listings
 
   //TODO: FUTURE build try another part (returning an array of servicepartsobjs from each item in arry?)
@@ -64,14 +63,33 @@ export default class SWAPIConnector {
         return URLkeywords;
       }
     }
-
+// TODO: only construct part if listings > 0
+// TODO: create an arr of valid listings to create partsObjects from
     function destructureEbayDataAndConstructPart(partsJSON, partName){
-      try{
         let partsObj = JSON.parse(partsJSON)
+        let searchResult = partsObj.findItemsByKeywordsResponse[0].searchResult[0]["@count"]
+      console.log('searchresults: ' + searchResult)
 
-        let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0]
-        console.log(searchStatus)
-
+        if(searchResult > 0) {
+          try {
+            let valid = true
+            let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0]
+            let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0]
+            let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0]
+            let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
+            let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
+            let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
+            servicePartsObj[partName] = {status, partTitle, imageURL, ebayURL, shippingCost, price, condition}
+            console.log(servicePartsObj[partName])
+          } catch(e){
+            console.log('json extracting problem during part construction')
+            console.log(e)
+            throw new Error(e)
+          }
+        } else {
+          servicePartsObj[partName] = {valid: false}
+          console.log(servicePartsObj)
+        }
         //let partListings = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item
         // filter for items that have the following properties
 
@@ -81,20 +99,6 @@ export default class SWAPIConnector {
           return listing.title[0] && listing.galleryURL[0] && listing.viewItemURL[0] && listing.shippingInfo && listing.sellingStatus[0].currentPrice[0] && listing.condition[1]
         })
         */
-        let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0]
-        let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0]
-        let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0]
-        let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
-        let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
-        let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
-
-        servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, shippingCost, price, condition }
-        console.log(servicePartsObj[partName])
-      } catch(e){
-        console.log('json extracting problem')
-        console.log(e)
-        throw new Error(e)
-      }
     }
 
     function fetchOilChangePartsSeries(list){
