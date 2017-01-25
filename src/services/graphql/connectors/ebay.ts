@@ -64,19 +64,37 @@ export default class SWAPIConnector {
     }
 
     function destructureEbayDataAndConstructPart(partsJSON, partName){
-      let partsObj = JSON.parse(partsJSON)
+      try{
+        let partsObj = JSON.parse(partsJSON)
 
-      let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0] || null
-      //let partListing = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0]
-      let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0] || null
-      let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0] || null
-      let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0] || null
-      let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo[0].shippingServiceCost[0] || null
-      let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0] || null
-      let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1] || null
+        let searchStatus = partsObj.findItemsByKeywordsResponse[0].ack[0]
+        console.log(searchStatus)
 
-      servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, shippingCost, price, condition }
+        let partListings = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item
+        // filter for items that have the following properties
 
+        //console.log(partListings)
+        /*
+        let filteredListings = partListings.filter((listing) => {
+          return listing.title[0] && listing.galleryURL[0] && listing.viewItemURL[0] && listing.shippingInfo && listing.sellingStatus[0].currentPrice[0] && listing.condition[1]
+        })
+        */
+        let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0]
+        let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0]
+        let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0]
+        //let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
+        //console.log(shippingCost)
+        let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
+        console.log(price)
+        let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
+        console.log(condition)
+
+        servicePartsObj[partName] = { searchStatus, partTitle, imageURL, ebayURL, price, condition }
+      } catch(e){
+        console.log('json extracting problem')
+        console.log(e)
+        throw new Error(e)
+      }
     }
 
     function fetchOilChangePartsSeries(list){
@@ -99,6 +117,7 @@ export default class SWAPIConnector {
         .catch((e) => {
           //console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
           console.log(`failed url: ${getLubricationURL} with midID: ${midID}`)
+          console.log(e.statusCode)
           //throw new Error(e)
           // mock
           let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
@@ -110,16 +129,26 @@ export default class SWAPIConnector {
       // initialize servicePartsObj for every service
       var servicePartsObj = { OilFilter: null, EngineOil: null, Washer: null}
       var oilWeight
+      var oilVolume
 
       let oilFilterURL
       let oilURL
       let washerURL
 
       function getOilParts(lubricantsAndCapacities) {
-        // TODO: Extract the right properties out of the lubrication object, similar to add service
-        oilWeight = lubricantsAndCapacities.data[0].oilSpec
+        // TODO: Extract the right properties out of the lubrication object, similar to add
+        const lubricantsAndCapacitiesGroup = lubricantsAndCapacities[0].group_items
+        let oilWeightGroup = lubricantsAndCapacitiesGroup.filter((group) => {
+          return group.description === 'Engine oil grade'
+        })
+        let oilVolumeGroup = lubricantsAndCapacitiesGroup.filter((group) => {
+          return group.description === 'Engine oil with filter'
+        })
+        oilWeight = oilWeightGroup[0].other
+        oilVolume = 1
+        // add oil quantity in some form
         console.log(`oil weight extracted: ${oilWeight}`)
-        console.log('OilChange parts queries will be fetched')
+        console.log(`oil volume extracted: ${oilVolume}`)
         oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}`
         return rp(oilFilterURL)
           .then((data) => {
@@ -131,8 +160,8 @@ export default class SWAPIConnector {
             console.log(`failed: ${oilFilterURL}`)
           })
           .then(() => {
-          let oilMaxPriceValue = 35
-            oilURL = `${ebayURL}${createURLKeywords(vehicle, 'rotella synthetic oil 1 gallon', oilWeight)}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}`
+          let oilMaxPriceValue = 10
+            oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}`
             return rp(oilURL)
               .then((data) => {
                 console.log(`fetched: ${oilURL}`)

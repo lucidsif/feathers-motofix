@@ -119,7 +119,7 @@ class AUTODATAConnector {
             })
                 .catch((e) => {
                 console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`);
-                return JSON.stringify({ data: [{ laborTime: 0.2 }, { laborTime: 0.5 }] });
+                return JSON.stringify({ data: [{ laborTime: 0.0 }, { laborTime: 0.0 }], unavailable: true });
             });
         }
         function delayBuffer(n) {

@@ -142,7 +142,7 @@ constructor(rootURL: string) {
         .catch((e) => {
           console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`)
           //return JSON.stringify({ service: 'labortime not found', time: 0.01})
-          return JSON.stringify({ data: [{laborTime: 0.2}, {laborTime: 0.5}]})
+          return JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: true})
         })
     }
 
@@ -182,6 +182,8 @@ constructor(rootURL: string) {
         //console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
         console.log('failed, so mock data')
         // mock
+        // return an object that returns false so that when parsed, the client will know to render a cannot find labor estimate, but can give you an estimate.
+        // just do a cannot find quote for now and later on, allow user to get an email when it is available
         let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
         console.log(obj)
         return obj;
@@ -377,5 +379,5 @@ constructor(rootURL: string) {
 
 //http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=%20rotella%20synthetic%20oil%201%20gallon%2010w-30&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice&itemFilter(1).name=MaxPrice&itemFilter(1).value=35
 
-
+//http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=%20synthetic%20oil%2010W-30%201%20quart&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice&itemFilter(1).name=MaxPrice&itemFilter(1).value=35
 
