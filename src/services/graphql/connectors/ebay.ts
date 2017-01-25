@@ -9,6 +9,8 @@ const maxPriceFilter = '&itemFilter(1).name=MaxPrice&itemFilter(1).value='
 const maxDistanceFilter = '&itemFilter(2).name=MaxDistance&itemFilter(2).value=3200'
 
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
+// Modularize API key
+const autoDataAPIKey = 'f'
 
 
 export default class SWAPIConnector {
@@ -79,12 +81,12 @@ export default class SWAPIConnector {
             let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
             let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
             let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
-            servicePartsObj[partName] = {status, partTitle, imageURL, ebayURL, shippingCost, price, condition}
+            servicePartsObj[partName] = {valid, status, partTitle, imageURL, ebayURL, shippingCost, price, condition}
             console.log(servicePartsObj[partName])
           } catch(e){
             console.log('json extracting problem during part construction')
             console.log(e)
-            throw new Error(e)
+            servicePartsObj[partName] = {valid: false}
           }
         } else {
           servicePartsObj[partName] = {valid: false}
@@ -118,28 +120,31 @@ export default class SWAPIConnector {
           return lubricantsAndCapacities
         })
         .catch((e) => {
-          //console.log(`failed getLubricantsAndCapacities: ${getLubricationURL}`)
-          console.log(`failed autodata url: ${getLubricationURL} with midID: ${midID}`)
+          console.log(`failed lubesandcapacities url: ${getLubricationURL} with midID: ${midID}`)
           console.log(e.statusCode)
           //throw new Error(e)
           // mock
-          let obj = JSON.stringify({ data: [{oilSpec: "5w-40"}, {filter: "Ninja OEM"}]})
           return { data: [{oilSpec: "10w-30"}, {filter: "Ninja OEM"}]}
         })
     }
 // TODO: Add concept of quantity
     if(service === "OilChange"){
       // washer property removed for now
-      var servicePartsObj = { OilFilter: null, EngineOil: null }
+      var servicePartsObj = { OilFilter: {valid: false}, EngineOil: {valid: false} }
       var oilWeight
       var oilVolume
 
       let oilFilterURL
       let oilURL
       //let washerURL
-
+// TODO: add error handling
       function getOilParts(lubricantsAndCapacities) {
-        // TODO: Extract the right properties out of the lubrication object, similar to add
+        console.log(lubricantsAndCapacities)
+        if(!lubricantsAndCapacities.length){
+          console.log('err conditional met')
+          let stringifiedObj = JSON.stringify(servicePartsObj)
+          return [stringifiedObj];
+        }
         const lubricantsAndCapacitiesGroup = lubricantsAndCapacities[0].group_items
         let oilWeightGroup = lubricantsAndCapacitiesGroup.filter((group) => {
           return group.description === 'Engine oil grade'

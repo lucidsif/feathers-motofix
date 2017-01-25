@@ -5,6 +5,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/connectors/ebay.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" afterPath="$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -44,8 +45,8 @@
           <file leaf-file-name="autodata.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="268">
-                  <caret line="380" column="0" lean-forward="false" selection-start-line="380" selection-start-column="0" selection-end-line="380" selection-end-column="0" />
+                <state relative-caret-position="343">
+                  <caret line="384" column="0" lean-forward="false" selection-start-line="384" selection-start-column="0" selection-end-line="384" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
@@ -60,8 +61,8 @@
           <file leaf-file-name="ebay.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="103">
-                  <caret line="72" column="30" lean-forward="false" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
+                <state relative-caret-position="39">
+                  <caret line="122" column="48" lean-forward="false" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
                   <folding>
                     <element signature="e#0#34#0" expanded="true" />
                   </folding>
@@ -82,8 +83,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>manufacturer</find>
-      <find>selectedManufacturerCode</find>
       <find>models</find>
       <find>resource</find>
       <find>getMidIDByModelID</find>
@@ -112,6 +111,8 @@
       <find>maxPriceFilter</find>
       <find>json</find>
       <find>servicePartsObj</find>
+      <find>group_item</find>
+      <find>group_items</find>
     </findStrings>
     <replaceStrings>
       <replace>selectedModelCode</replace>
@@ -361,16 +362,16 @@
       <workItem from="1484767062614" duration="2521000" />
       <workItem from="1484946338374" duration="3422000" />
       <workItem from="1485028726460" duration="5927000" />
-      <workItem from="1485049867885" duration="64795000" />
+      <workItem from="1485049867885" duration="66936000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="197649000" />
+    <option name="totallyTimeSpent" value="199790000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.098163396" sideWeight="0.49382716" order="0" side_tool="false" content_ui="combo" />
@@ -380,7 +381,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4120482" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4120482" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12311358" sideWeight="0.50617284" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -761,8 +762,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/autodata.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="268">
-          <caret line="380" column="0" lean-forward="false" selection-start-line="380" selection-start-column="0" selection-end-line="380" selection-end-column="0" />
+        <state relative-caret-position="343">
+          <caret line="384" column="0" lean-forward="false" selection-start-line="384" selection-start-column="0" selection-end-line="384" selection-end-column="0" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>
@@ -771,8 +772,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/connectors/ebay.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
-          <caret line="72" column="30" lean-forward="false" selection-start-line="72" selection-start-column="30" selection-end-line="72" selection-end-column="30" />
+        <state relative-caret-position="39">
+          <caret line="122" column="48" lean-forward="false" selection-start-line="122" selection-start-column="48" selection-end-line="122" selection-end-column="48" />
           <folding>
             <element signature="e#0#34#0" expanded="true" />
           </folding>

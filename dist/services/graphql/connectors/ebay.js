@@ -8,6 +8,7 @@ const buyItNowFilter = `&itemFilter(0).name=ListingType&itemFilter(0).value=Fixe
 const maxPriceFilter = '&itemFilter(1).name=MaxPrice&itemFilter(1).value=';
 const maxDistanceFilter = '&itemFilter(2).name=MaxDistance&itemFilter(2).value=3200';
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
+const autoDataAPIKey = 'f';
 class SWAPIConnector {
     constructor(rootURL) {
         this.rootURL = rootURL;
@@ -58,13 +59,13 @@ class SWAPIConnector {
                     let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo;
                     let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0];
                     let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1];
-                    servicePartsObj[partName] = { status, partTitle, imageURL, ebayURL, shippingCost, price, condition };
+                    servicePartsObj[partName] = { valid, status, partTitle, imageURL, ebayURL, shippingCost, price, condition };
                     console.log(servicePartsObj[partName]);
                 }
                 catch (e) {
                     console.log('json extracting problem during part construction');
                     console.log(e);
-                    throw new Error(e);
+                    servicePartsObj[partName] = { valid: false };
                 }
             }
             else {
@@ -90,17 +91,22 @@ class SWAPIConnector {
                 .catch((e) => {
                 console.log(`failed autodata url: ${getLubricationURL} with midID: ${midID}`);
                 console.log(e.statusCode);
-                let obj = JSON.stringify({ data: [{ oilSpec: "5w-40" }, { filter: "Ninja OEM" }] });
                 return { data: [{ oilSpec: "10w-30" }, { filter: "Ninja OEM" }] };
             });
         }
         if (service === "OilChange") {
-            var servicePartsObj = { OilFilter: null, EngineOil: null };
+            var servicePartsObj = { OilFilter: { valid: false }, EngineOil: { valid: false } };
             var oilWeight;
             var oilVolume;
             let oilFilterURL;
             let oilURL;
             function getOilParts(lubricantsAndCapacities) {
+                console.log(lubricantsAndCapacities);
+                if (!lubricantsAndCapacities.length) {
+                    console.log('err conditional met');
+                    let stringifiedObj = JSON.stringify(servicePartsObj);
+                    return [stringifiedObj];
+                }
                 const lubricantsAndCapacitiesGroup = lubricantsAndCapacities[0].group_items;
                 let oilWeightGroup = lubricantsAndCapacitiesGroup.filter((group) => {
                     return group.description === 'Engine oil grade';
