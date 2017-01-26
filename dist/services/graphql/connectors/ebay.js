@@ -59,7 +59,8 @@ class SWAPIConnector {
                     let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo;
                     let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0];
                     let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1];
-                    servicePartsObj[partName] = { valid, partTitle, imageURL, ebayURL, shippingCost, price, condition };
+                    let quantity = 1;
+                    servicePartsObj[partName] = { valid, partTitle, imageURL, ebayURL, shippingCost, price, condition, quantity };
                     console.log(servicePartsObj[partName]);
                 }
                 catch (e) {
@@ -98,6 +99,7 @@ class SWAPIConnector {
             var servicePartsObj = { OilFilter: { valid: false }, EngineOil: { valid: false } };
             var oilWeight;
             var oilVolume;
+            var oilQuantity;
             let oilFilterURL;
             let oilURL;
             function getOilParts(lubricantsAndCapacities) {
@@ -116,8 +118,10 @@ class SWAPIConnector {
                 });
                 oilWeight = oilWeightGroup[0].other;
                 oilVolume = 1;
+                oilQuantity = oilVolumeGroup[0].value;
                 console.log(`oil weight extracted: ${oilWeight}`);
                 console.log(`oil volume extracted: ${oilVolume}`);
+                console.log(`oil quantity in units of oil volume: ${oilQuantity}`);
                 let oilFilterMaxPriceValue = 20;
                 oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`;
                 return rp(oilFilterURL)
@@ -137,6 +141,8 @@ class SWAPIConnector {
                         console.log(`fetched: ${oilURL}`);
                         destructureEbayDataAndConstructPart(data, 'EngineOil');
                         const stringifiedObj = JSON.stringify(servicePartsObj);
+                        servicePartsObj.OilFilter['quantity'] = Math.ceil(oilQuantity);
+                        console.log('rounded oil quantity:' + Math.ceil(oilQuantity));
                         return [stringifiedObj];
                     })
                         .catch((e) => {

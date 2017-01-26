@@ -41,8 +41,7 @@ export default class SWAPIConnector {
     })
   }
 
-  //TODO: handle edge cases like failed searches and 0 listings
-
+// TODO: add concept of quantity
   //TODO: FUTURE build try another part (returning an array of servicepartsobjs from each item in arry?)
 
   // TODO: normalize search query casing
@@ -81,7 +80,8 @@ export default class SWAPIConnector {
             let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
             let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
             let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
-            servicePartsObj[partName] = {valid, partTitle, imageURL, ebayURL, shippingCost, price, condition}
+            let quantity = 1
+            servicePartsObj[partName] = {valid, partTitle, imageURL, ebayURL, shippingCost, price, condition, quantity}
             console.log(servicePartsObj[partName])
           } catch(e){
             console.log('json extracting problem during part construction')
@@ -133,6 +133,7 @@ export default class SWAPIConnector {
       var servicePartsObj = { OilFilter: {valid: false}, EngineOil: {valid: false} }
       var oilWeight
       var oilVolume
+      var oilQuantity
 
       let oilFilterURL
       let oilURL
@@ -154,9 +155,11 @@ export default class SWAPIConnector {
         })
         oilWeight = oilWeightGroup[0].other
         oilVolume = 1
+        oilQuantity = oilVolumeGroup[0].value
         // add oil quantity in some form
         console.log(`oil weight extracted: ${oilWeight}`)
         console.log(`oil volume extracted: ${oilVolume}`)
+        console.log(`oil quantity in units of oil volume: ${oilQuantity}`)
         let oilFilterMaxPriceValue = 20
         oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`
         return rp(oilFilterURL)
@@ -176,6 +179,8 @@ export default class SWAPIConnector {
                 console.log(`fetched: ${oilURL}`)
                 destructureEbayDataAndConstructPart(data, 'EngineOil')
                 const stringifiedObj = JSON.stringify(servicePartsObj)
+                servicePartsObj.OilFilter['quantity'] = Math.ceil(oilQuantity)
+                console.log('rounded oil quantity:' + Math.ceil(oilQuantity))
                 return [stringifiedObj];
               })
               .catch((e) => {
