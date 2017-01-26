@@ -178,8 +178,8 @@ export default class SWAPIConnector {
               .then((data) => {
                 console.log(`fetched: ${oilURL}`)
                 destructureEbayDataAndConstructPart(data, 'EngineOil')
+                servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity)
                 const stringifiedObj = JSON.stringify(servicePartsObj)
-                servicePartsObj.OilFilter['quantity'] = Math.ceil(oilQuantity)
                 console.log('rounded oil quantity:' + Math.ceil(oilQuantity))
                 return [stringifiedObj];
               })
