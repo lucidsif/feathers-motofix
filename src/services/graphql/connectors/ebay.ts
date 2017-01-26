@@ -81,7 +81,7 @@ export default class SWAPIConnector {
             let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
             let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
             let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
-            servicePartsObj[partName] = {valid, status, partTitle, imageURL, ebayURL, shippingCost, price, condition}
+            servicePartsObj[partName] = {valid, partTitle, imageURL, ebayURL, shippingCost, price, condition}
             console.log(servicePartsObj[partName])
           } catch(e){
             console.log('json extracting problem during part construction')

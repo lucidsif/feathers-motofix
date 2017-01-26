@@ -59,7 +59,7 @@ class SWAPIConnector {
                     let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo;
                     let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0];
                     let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1];
-                    servicePartsObj[partName] = { valid, status, partTitle, imageURL, ebayURL, shippingCost, price, condition };
+                    servicePartsObj[partName] = { valid, partTitle, imageURL, ebayURL, shippingCost, price, condition };
                     console.log(servicePartsObj[partName]);
                 }
                 catch (e) {
@@ -89,7 +89,7 @@ class SWAPIConnector {
                 return lubricantsAndCapacities;
             })
                 .catch((e) => {
-                console.log(`failed autodata url: ${getLubricationURL} with midID: ${midID}`);
+                console.log(`failed lubesandcapacities url: ${getLubricationURL} with midID: ${midID}`);
                 console.log(e.statusCode);
                 return { data: [{ oilSpec: "10w-30" }, { filter: "Ninja OEM" }] };
             });
