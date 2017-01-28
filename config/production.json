@@ -1,5 +1,5 @@
 {
-  "host": "localhost",
+  "host": "67.205.129.166",
   "port": 80,
   "postgres": "postgres://upxka9:DwDDi9Ht81hIpa8@67.205.129.166:5432/motofix_backend_development",
   "public": "../public/",
