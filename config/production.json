@@ -1,12 +1,12 @@
 {
-  "host": "67.205.129.166",
-  "port": 80,
-  "postgres": "postgres://upxka9:DwDDi9Ht81hIpa8@67.205.129.166:5432/motofix_backend_development",
+  "host": "localhost",
+  "port": 3030,
+  "postgres": "POSTGRESQL_URL_EXT",
   "public": "../public/",
   "auth": {
     "idField": "id",
     "token": {
-      "secret": "FEATHERS_AUTH_SECRET"
+      "secret": "DP5VZIu9WrTVGHeKL1iuwXxKn9fo5Bck0Q/7N2kfaGy7LFlmq6pxM0EQAQY+4nxMh0dCvDiphqbY1+4Zk4Ea/w=="
     },
     "local": {},
     "facebook": {
