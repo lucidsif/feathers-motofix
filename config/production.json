@@ -1,7 +1,7 @@
 {
-  "host": "feathers-motofix-app.feathersjs.com",
+  "host": "localhost",
   "port": 80,
-  "postgres": "DATABASE_URL",
+  "postgres": "postgres://upxka9:DwDDi9Ht81hIpa8@67.205.129.166:5432/motofix_backend_development",
   "public": "../public/",
   "auth": {
     "idField": "id",
