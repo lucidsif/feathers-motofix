@@ -1,6 +1,5 @@
 {
   "host": "67.205.176.52",
-  "port": 3030,
   "postgres": "POSTGRESQL_URL_EXT",
   "public": "../public/",
   "auth": {

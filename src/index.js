@@ -11,6 +11,8 @@ console.log(process.env.WEB_ADDRESSES_EXT)
 console.log(process.env.WEB_ADDRESSES_INT)
 
 console.log(process.env.POSTGRESQL_ADDRESS)
+console.log(process.env.POSTGRESQL_SLAVE_ADDRESSES)
+console.log(process.env.POSTGRESQL_URL)
 console.log(process.env.POSTGRESQL_DATABASE)
 console.log(process.env.POSTGRESQL_USERNAME)
 
