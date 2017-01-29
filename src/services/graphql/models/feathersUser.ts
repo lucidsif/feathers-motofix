@@ -27,7 +27,7 @@ export default class User {
     console.log('login parameters: ' + email + ',' + password);
     const options = {
       method: 'POST',
-      uri: `${process.env.POSTGRESQL_ADDRESS_INT}/auth/local`,
+      uri: `${process.env.WEB_ADDRESS_EXT}/auth/local`,
       body: { email, password },
       json: true
     }
@@ -51,7 +51,7 @@ export default class User {
 
     const jwtOptions = {
       method: 'POST',
-      uri: `${process.env.POSTGRESQL_ADDRESS_INT}/auth/token`,
+      uri: `${process.env.WEB_ADDRESS_EXT}/auth/token`,
       headers: {
         authorization: token
       },
