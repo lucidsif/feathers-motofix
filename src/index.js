@@ -1,5 +1,5 @@
 'use strict';
-
+// TODO: create development/local config
 const app = require('./app');
 const port = process.env.PORT || 3000;
 
