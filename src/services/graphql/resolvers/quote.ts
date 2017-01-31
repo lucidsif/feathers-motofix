@@ -9,6 +9,7 @@ const part_json = (quote) => quote.part_json
 const createdAt = (quote) => quote.createdAt
 const updatedAt = (quote) => quote.updatedAt
 
+
 export default {
   Quote: {
     id,

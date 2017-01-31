@@ -1,9 +1,5 @@
 export default `
 
-interface Node {
-  id: ID!
-}
-
 type RootQuery {
   node(id: ID!): Node
   allStarships(offset: Int, limit: Int): [Starship]

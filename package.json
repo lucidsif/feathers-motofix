@@ -40,6 +40,7 @@
     "fuse.js": "^2.6.1",
     "graphql": "^0.8.2",
     "graphql-tools": "^0.9.0",
+    "graphql-type-json": "^0.1.4",
     "jsonfile": "^2.4.0",
     "knex": "^0.12.6",
     "optics-agent": "^1.0.5",

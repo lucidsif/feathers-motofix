@@ -15,6 +15,12 @@ const schema = `
     query: RootQuery
     mutation: RootMutation
   }
+  
+  interface Node {
+  id: ID!
+}
+
+  scalar JSON
 `;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = [

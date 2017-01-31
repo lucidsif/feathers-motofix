@@ -30,6 +30,6 @@ exports.default = {
     RootMutation: {
         signUp,
         logIn
-    }
+    },
 };
 //# sourceMappingURL=root.js.map

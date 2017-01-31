@@ -1,3 +1,5 @@
+const GraphQLJSON = require('graphql-type-json');
+
 import rootQuery from './root'
 import starship from './starship'
 import vehicle from './vehicle'
@@ -17,8 +19,11 @@ import lubricantsAndCapacities from './lubricants_and_capacities'
 //import species from './species'
 //import vehicle from './vehicle'
 
+const obj = { JSON: GraphQLJSON };
+console.log(obj);
 
 export default Object.assign(
+  obj,
   rootQuery,
   starship,
   vehicle,

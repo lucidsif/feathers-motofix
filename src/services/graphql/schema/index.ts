@@ -23,6 +23,12 @@ const schema = `
     query: RootQuery
     mutation: RootMutation
   }
+  
+  interface Node {
+  id: ID!
+}
+
+  scalar JSON
 `;
 
 export default [
