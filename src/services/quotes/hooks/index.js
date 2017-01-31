@@ -10,12 +10,19 @@ exports.before = {
   all: [
     auth.verifyToken(),
     auth.populateUser(),
-    auth.restrictToAuthenticated()
+    auth.restrictToAuthenticated(),
   ],
-  find: [],
-  get: [],
-  create: [process()],
-  update: [],
+  find: [
+    auth.queryWithCurrentUser({ idField: 'id', as: 'fk_users_id' })
+  ],
+  get: [
+  ],
+  create: [
+    process()
+  ],
+  update: [
+    process()
+  ],
   patch: [],
   remove: []
 };
