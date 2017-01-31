@@ -5,6 +5,7 @@ const searchParts = (_, params, context) => context.part.getParts(params.vehicle
 const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.offset, params.limit, params.filterByYear, params.filterByMake);
 const node = (id) => ({});
 const validateToken = (_, params, context) => context.user.postToken(params.token);
+const allUserQuotes = (_, params, context) => context.quote.getQuotes(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON);
 const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer);
 const allSubModels = (_, params, context) => context.autoData.getSubModels(params.modelID);
 const allRepairTimes = (_, params, context) => context.autoData.getRepairTimes(params.midID);
@@ -20,6 +21,7 @@ exports.default = {
         allVehicles,
         node,
         validateToken,
+        allUserQuotes,
         allModels,
         allSubModels,
         allRepairTimes,

@@ -15,6 +15,7 @@ import StarshipModel from './models/starship'
 import PartModel from './models/part'
 import { VehicleModel } from './models/sql'
 import UserModel from './models/feathersUser'
+import QuoteModel from './models/feathersQuote'
 
 import OpticsAgent from 'optics-agent';
 OpticsAgent.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q'})
@@ -59,7 +60,8 @@ module.exports = function(){
         opticsContext: OpticsAgent.context(req),
         token,
         provider,
-        user: new UserModel(app)
+        user: new UserModel(app),
+        quote: new QuoteModel(app)
       },
     })}));
 

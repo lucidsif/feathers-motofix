@@ -6,6 +6,7 @@ const part_1 = require("./part");
 const labor_1 = require("./labor");
 const user_1 = require("./user");
 const authPayload_1 = require("./authPayload");
+const quote_1 = require("./quote");
 const model_1 = require("./model");
 const sub_model_1 = require("./sub-model");
 const lubricants_and_capacities_1 = require("./lubricants_and_capacities");
@@ -25,6 +26,7 @@ exports.default = [
     labor_1.default,
     user_1.default,
     authPayload_1.default,
+    quote_1.default,
     model_1.default,
     sub_model_1.default,
     lubricants_and_capacities_1.default

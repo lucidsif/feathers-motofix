@@ -1,23 +1,20 @@
-//query
+// query
 const allStarships = (_, params, context) => context.starship.getStarships(params.offset, params.limit)
 const starship = (_, params, context) => context.starship.getStarship(params.id, params.starshipID)
 const searchParts = (_, params, context) => context.part.getParts(params.vehicle, params.service, params.midID)
 const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.offset, params.limit, params.filterByYear, params.filterByMake)
 const node = (id: number) => ({})
+// feathers
 const validateToken = (_, params, context) => context.user.postToken(params.token)
-
-
+const allUserQuotes = (_, params, context) => context.quote.getQuotes(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON)
+// autodata
 const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer)
 const allSubModels = (_, params, context) => context.autoData.getSubModels(params.modelID)
 const allRepairTimes = (_, params, context) => context.autoData.getRepairTimes(params.midID)
 const allLubricantsAndCapacities = (_, params, context) => context.autoData.getLubricantsAndCapacities(params.midID)
-
-
-//mutation
+// feathers mutations
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
-
-
 
 // const allFilms = (_, params, context) => context.film.getFilms(params.offset, params.limit)
 // const film = (_, params, context) => context.film.getFilm(params.id, params.filmID)
@@ -37,8 +34,10 @@ export default {
     searchParts,
     allVehicles,
     node,
+    // feathers
     validateToken,
-
+    allUserQuotes,
+    // autodata
     allModels,
     allSubModels,
     allRepairTimes,

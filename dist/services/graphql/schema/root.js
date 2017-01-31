@@ -13,6 +13,7 @@ type RootQuery {
   searchParts(vehicle: String, service: String, midID: String): [Part]
   allVehicles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Vehicle]
   validateToken(token: String): User
+  allUserQuotes(token: String, motorcycleJSON: String, partJSON: String, cartJSON: String): [Quote]
   
   allModels(manufacturer: String): [Model]
   allSubModels(modelID: Int): [SubModel]

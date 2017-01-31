@@ -5,6 +5,7 @@ import part from './part'
 import labor from './labor'
 import user from './user'
 import authPayload from './authPayload'
+import quote from './quote'
 
 import model from './model'
 import subModel from './sub-model'
@@ -33,6 +34,7 @@ export default [
   labor,
   user,
   authPayload,
+  quote,
 
   model,
   subModel,

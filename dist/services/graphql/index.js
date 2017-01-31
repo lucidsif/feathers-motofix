@@ -13,6 +13,7 @@ const starship_1 = require("./models/starship");
 const part_1 = require("./models/part");
 const sql_1 = require("./models/sql");
 const feathersUser_1 = require("./models/feathersUser");
+const feathersQuote_1 = require("./models/feathersQuote");
 const optics_agent_1 = require("optics-agent");
 optics_agent_1.default.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q' });
 const swapiHost = process.env.SWAPI_HOST ? `${process.env.API_HOST}/api` : 'http://swapi.co/api';
@@ -47,7 +48,8 @@ module.exports = function () {
                 opticsContext: optics_agent_1.default.context(req),
                 token,
                 provider,
-                user: new feathersUser_1.default(app)
+                user: new feathersUser_1.default(app),
+                quote: new feathersQuote_1.default(app)
             },
         });
     }));

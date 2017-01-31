@@ -4,7 +4,9 @@ import vehicle from './vehicle'
 import part from './part'
 import labor from './labor'
 import authPayload from './authPayload'
+import quote from './quote'
 
+// autodata
 import model from './model'
 import subModel from './sub-model'
 import lubricantsAndCapacities from './lubricants_and_capacities'
@@ -23,6 +25,8 @@ export default Object.assign(
   part,
   labor,
   authPayload,
+  quote,
+// autodata
   model,
   subModel,
   lubricantsAndCapacities

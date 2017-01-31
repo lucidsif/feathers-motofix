@@ -4,7 +4,7 @@ import * as rp from 'request-promise';
 
 export default class User {
   public app: any
-// app is the feathersJS app passed to the instant of this clas
+// app is the feathersJS app passed to the instant of this class
   constructor(app){
     this.app = app
   }
