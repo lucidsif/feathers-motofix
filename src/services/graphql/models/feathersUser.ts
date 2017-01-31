@@ -27,7 +27,7 @@ export default class User {
     console.log('login parameters: ' + email + ',' + password);
     const options = {
       method: 'POST',
-      uri: `http://${process.env.WEB_ADDRESS_EXT}/auth/local`,
+      uri: `http://localhost:3000/auth/local`,
       body: { email, password },
       json: true
     }
@@ -51,7 +51,7 @@ export default class User {
 
     const jwtOptions = {
       method: 'POST',
-      uri: `http://${process.env.WEB_ADDRESS_EXT}/auth/token`,
+      uri: `http://localhost:3000/auth/token`,
       headers: {
         authorization: token
       },
