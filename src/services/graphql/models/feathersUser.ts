@@ -24,14 +24,12 @@ export default class User {
   }
 
   public logIn(email?: string, password?: string){
-    console.log('login parameters: ' + email + ',' + password);
     const options = {
       method: 'POST',
       uri: `http://localhost:3000/auth/local`,
       body: { email, password },
       json: true
     }
-    //console.log(options)
     return rp(options)
       .then((response) => {
         console.log('login mutation success')
@@ -47,7 +45,6 @@ export default class User {
   // TODO: figure out how to automatically extract jwt from feathers and use it - maybe first has something to do with tokenKey which is extracted from localstorage?
   public postToken(token?: any){
     let Users = this.app['service']('users')
-    console.log(Users);
 
     const jwtOptions = {
       method: 'POST',

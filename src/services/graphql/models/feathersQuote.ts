@@ -32,8 +32,6 @@ export default class Quote {
   }
 
   public createQuote(token?: string, motorcycleJSON?: any, cartJSON?: any, partJSON?: any){
-    console.log(cartJSON)
-    console.log(partJSON)
     const options = {
       method: 'POST',
       uri: `http://localhost:3000/quotes`,
