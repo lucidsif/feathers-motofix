@@ -6,7 +6,7 @@ const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.o
 const node = (id: number) => ({})
 // feathers
 const validateToken = (_, params, context) => context.user.postToken(params.token)
-const allUserQuotes = (_, params, context) => context.quote.getQuotes(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON)
+const allUserQuotes = (_, params, context) => context.quote.getQuotes(params.token)
 // autodata
 const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer)
 const allSubModels = (_, params, context) => context.autoData.getSubModels(params.modelID)
@@ -15,6 +15,7 @@ const allLubricantsAndCapacities = (_, params, context) => context.autoData.getL
 // feathers mutations
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
+const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON)
 
 // const allFilms = (_, params, context) => context.film.getFilms(params.offset, params.limit)
 // const film = (_, params, context) => context.film.getFilm(params.id, params.filmID)
@@ -55,6 +56,7 @@ export default {
   },
   RootMutation: {
     signUp,
-    logIn
+    logIn,
+    createUserQuote
   },
 }

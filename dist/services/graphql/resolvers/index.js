@@ -11,7 +11,6 @@ const model_1 = require("./model");
 const sub_model_1 = require("./sub-model");
 const lubricants_and_capacities_1 = require("./lubricants_and_capacities");
 const obj = { JSON: GraphQLJSON };
-console.log(obj);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Object.assign(obj, root_1.default, starship_1.default, vehicle_1.default, part_1.default, labor_1.default, authPayload_1.default, quote_1.default, model_1.default, sub_model_1.default, lubricants_and_capacities_1.default);
 //# sourceMappingURL=index.js.map

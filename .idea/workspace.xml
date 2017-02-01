@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d902fcc9-31c3-419e-822b-deb7dca23bdc" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/resolvers/index.js" afterPath="$PROJECT_DIR$/dist/services/graphql/resolvers/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/resolvers/index.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/resolvers/index.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js" afterPath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/resolvers/root.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/schema/root.js" afterPath="$PROJECT_DIR$/dist/services/graphql/schema/root.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/services/graphql/schema/root.js.map" afterPath="$PROJECT_DIR$/dist/services/graphql/schema/root.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/models/feathersQuote.ts" afterPath="$PROJECT_DIR$/src/services/graphql/models/feathersQuote.ts" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/resolvers/index.ts" afterPath="$PROJECT_DIR$/src/services/graphql/resolvers/index.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/resolvers/quote.ts" afterPath="$PROJECT_DIR$/src/services/graphql/resolvers/quote.ts" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" afterPath="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/services/graphql/schema/root.ts" afterPath="$PROJECT_DIR$/src/services/graphql/schema/root.ts" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,7 +32,7 @@
     <favorites_list name="feathers-motofix" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5">
+    <splitter split-orientation="horizontal" split-proportion="0.6129771">
       <split-first>
         <leaf>
           <file leaf-file-name="index.ts" pinned="false" current-in-tab="false">
@@ -41,24 +48,13 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="feathersUser.ts" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/services/graphql/models/feathersUser.ts">
+          <file leaf-file-name="index.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/services/graphql/schema/index.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="165">
-                  <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="index.ts" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/index.ts">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+                <state relative-caret-position="315">
+                  <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
                   <folding>
-                    <element signature="e#51#81#0" expanded="true" />
-                    <element signature="e#283#310#0" expanded="true" />
+                    <element signature="e#0#25#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -67,18 +63,28 @@
           <file leaf-file-name="root.ts" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/schema/root.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+                <state relative-caret-position="360">
+                  <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="quote.ts" pinned="false" current-in-tab="false">
+          <file leaf-file-name="root.ts" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/root.ts">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="525">
+                  <caret line="35" column="16" lean-forward="true" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="quote.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/quote.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="75">
-                  <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+                <state relative-caret-position="225">
+                  <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
                   <folding>
                     <element signature="e#0#37#0" expanded="false" />
                   </folding>
@@ -93,8 +99,8 @@
           <file leaf-file-name="feathersQuote.ts" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/services/graphql/models/feathersQuote.ts">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="150">
-                  <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+                <state relative-caret-position="473">
+                  <caret line="39" column="16" lean-forward="true" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
                   <folding />
                 </state>
               </provider>
@@ -114,7 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>arg</find>
       <find>modelID</find>
       <find>midID</find>
       <find>variantID</find>
@@ -144,6 +149,7 @@
       <find>User</find>
       <find>user</find>
       <find>resolvers</find>
+      <find>JSON,</find>
     </findStrings>
     <replaceStrings>
       <replace>selectedModelCode</replace>
@@ -159,6 +165,7 @@
       <replace>autoData</replace>
       <replace>users</replace>
       <replace>localhost:3000</replace>
+      <replace>String,</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -210,14 +217,14 @@
         <option value="$PROJECT_DIR$/src/services/quotes/hooks/index.js" />
         <option value="$PROJECT_DIR$/src/services/graphql/models/feathersUser.ts" />
         <option value="$PROJECT_DIR$/src/services/quotes/index.js" />
-        <option value="$PROJECT_DIR$/src/services/graphql/resolvers/quote.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/schema/quote.ts" />
-        <option value="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/schema/index.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/index.ts" />
-        <option value="$PROJECT_DIR$/src/services/graphql/models/feathersQuote.ts" />
-        <option value="$PROJECT_DIR$/src/services/graphql/schema/root.ts" />
         <option value="$PROJECT_DIR$/src/services/graphql/resolvers/index.ts" />
+        <option value="$PROJECT_DIR$/src/services/graphql/resolvers/root.ts" />
+        <option value="$PROJECT_DIR$/src/services/graphql/schema/root.ts" />
+        <option value="$PROJECT_DIR$/src/services/graphql/models/feathersQuote.ts" />
+        <option value="$PROJECT_DIR$/src/services/graphql/resolvers/quote.ts" />
       </list>
     </option>
   </component>
@@ -349,7 +356,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="schema" />
+              <option name="myItemId" value="resolvers" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -480,16 +487,16 @@
       <workItem from="1485511625110" duration="860000" />
       <workItem from="1485640007768" duration="11745000" />
       <workItem from="1485801876232" duration="1654000" />
-      <workItem from="1485851175443" duration="15817000" />
+      <workItem from="1485851175443" duration="17875000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="254180000" />
+    <option name="totallyTimeSpent" value="256238000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-125" y="-900" width="1600" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17036098" sideWeight="0.49382716" order="0" side_tool="false" content_ui="combo" />
@@ -498,7 +505,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16144578" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16144578" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12311358" sideWeight="0.50617284" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -796,14 +803,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/root.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="12" column="36" lean-forward="true" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/graphql-type-json/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -839,47 +838,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/graphql/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#35#76#0" expanded="true" />
-            <element signature="e#161#198#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="353">
           <caret line="31" column="0" lean-forward="true" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/graphql/models/feathersQuote.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="12" column="35" lean-forward="false" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/graphql/schema/index.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/graphql/models/feathersUser.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -892,31 +854,76 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/quote.ts">
+    <entry file="file://$PROJECT_DIR$/src/services/graphql/models/feathersUser.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
-          <folding>
-            <element signature="e#0#37#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/services/graphql/schema/root.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="19" lean-forward="false" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="19" />
+        <state relative-caret-position="165">
+          <caret line="11" column="25" lean-forward="false" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/index.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="0" lean-forward="true" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        <state relative-caret-position="405">
+          <caret line="27" column="10" lean-forward="true" selection-start-line="27" selection-start-column="10" selection-end-line="27" selection-end-column="10" />
           <folding>
             <element signature="e#51#81#0" expanded="true" />
             <element signature="e#283#310#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/graphql/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="e#35#76#0" expanded="true" />
+            <element signature="e#161#198#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/graphql/schema/index.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/graphql/schema/root.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/graphql/models/feathersQuote.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="39" column="16" lean-forward="true" selection-start-line="39" selection-start-column="16" selection-end-line="39" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/root.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="16" lean-forward="true" selection-start-line="35" selection-start-column="16" selection-end-line="35" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/services/graphql/resolvers/quote.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="17" column="14" lean-forward="true" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
         </state>
       </provider>

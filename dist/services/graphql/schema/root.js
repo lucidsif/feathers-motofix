@@ -19,15 +19,9 @@ type RootQuery {
 }
 
 type RootMutation {
-  signUp (
-    email: String!
-    password: String!
-  ): User
-  
-  logIn (
-    email: String!
-    password: String!
-  ): AuthPayload
-}
+  signUp (email: String!, password: String!): User
+  logIn (email: String!, password: String!): AuthPayload
+  createUserQuote(token: String, motorcycleJSON: JSON, cartJSON: JSON, partJSON: JSON): Quote
+ }
 `;
 //# sourceMappingURL=root.js.map
