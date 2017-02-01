@@ -2,6 +2,8 @@
  * Created by Sif on 1/31/17.
  */
 import * as rp from 'request-promise';
+// use production env or local
+const host = process.env.WEB_ADDRESS_EXT || 'localhost:3000';
 
 export default class Quote {
   public app: any
@@ -13,7 +15,7 @@ export default class Quote {
   public getQuotes(token?: string){
     const options = {
       method: 'GET',
-      uri: `http://localhost:3000/quotes`,
+      uri: `http://${host}/quotes`,
       headers: {
         authorization: token
       },
@@ -34,7 +36,7 @@ export default class Quote {
   public createQuote(token?: string, motorcycleJSON?: any, cartJSON?: any, partJSON?: any){
     const options = {
       method: 'POST',
-      uri: `http://localhost:3000/quotes`,
+      uri: `http://${host}/quotes`,
       headers: {
         authorization: token
       },

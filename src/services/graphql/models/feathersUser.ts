@@ -1,4 +1,6 @@
 import * as rp from 'request-promise';
+// use production env or local
+const host = process.env.WEB_ADDRESS_EXT || 'localhost:3000';
 
 // TODO: change names to more clearly define what this does
 
@@ -26,7 +28,7 @@ export default class User {
   public logIn(email?: string, password?: string){
     const options = {
       method: 'POST',
-      uri: `http://localhost:3000/auth/local`,
+      uri: `http://${host}/auth/local`,
       body: { email, password },
       json: true
     }
@@ -48,7 +50,7 @@ export default class User {
 
     const jwtOptions = {
       method: 'POST',
-      uri: `http://localhost:3000/auth/token`,
+      uri: `http://${host}/auth/token`,
       headers: {
         authorization: token
       },
