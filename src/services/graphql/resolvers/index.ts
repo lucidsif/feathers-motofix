@@ -20,7 +20,6 @@ import lubricantsAndCapacities from './lubricants_and_capacities'
 //import vehicle from './vehicle'
 
 const obj = { JSON: GraphQLJSON };
-console.log(obj);
 
 export default Object.assign(
   obj,

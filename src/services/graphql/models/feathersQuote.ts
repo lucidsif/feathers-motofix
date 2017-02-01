@@ -10,12 +10,7 @@ export default class Quote {
     this.app = app
   }
 
-  public getQuotes(token?: string, motorcycleJSON?: string, cartJSON?: string, partJSON?: string){
-    console.log(`token: ${token}`)
-    console.log(`token: ${motorcycleJSON}`)
-    console.log(`token: ${cartJSON}`)
-    console.log(`token: ${partJSON}`)
-
+  public getQuotes(token?: string){
     const options = {
       method: 'GET',
       uri: `http://localhost:3000/quotes`,
