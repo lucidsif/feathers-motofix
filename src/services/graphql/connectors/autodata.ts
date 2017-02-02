@@ -140,8 +140,11 @@ constructor(rootURL: string) {
           return JSON.stringify(repairTimesObj)
         })
         .catch((e) => {
-          console.log(e);
           console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`)
+          console.log(e);
+          if(e.statusCode === 403) {
+            return JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: 'limited'})
+          }
           //return JSON.stringify({ service: 'labortime not found', time: 0.01})
           return JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: true})
         })
