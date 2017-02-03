@@ -13,6 +13,13 @@ module.exports = function(){
 
   // Initialize our service with any options it requires
   app.use('/quotes', service(options));
+/*
+  app.use('/quotes', service({
+    query: {
+      $sort: { createdAt: -1}
+    }
+  });
+  */
 
   // Get our initialize service to that we can bind hooks
   const quotesService = app.service('/quotes');
