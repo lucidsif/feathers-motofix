@@ -8,20 +8,24 @@ const index_2 = require("./resolvers/index");
 const swapi_1 = require("./connectors/swapi");
 const ebay_1 = require("./connectors/ebay");
 const autodata_1 = require("./connectors/autodata");
+const google_1 = require("./connectors/google");
 const auto_data_1 = require("./models/auto-data");
 const starship_1 = require("./models/starship");
 const part_1 = require("./models/part");
 const sql_1 = require("./models/sql");
 const feathersUser_1 = require("./models/feathersUser");
 const feathersQuote_1 = require("./models/feathersQuote");
+const google_maps_1 = require("./models/google-maps");
 const optics_agent_1 = require("optics-agent");
 optics_agent_1.default.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q' });
 const swapiHost = process.env.SWAPI_HOST ? `${process.env.API_HOST}/api` : 'http://swapi.co/api';
 const ebayHost = process.env.EBAY_HOST ? `${process.env.API_HOST}/api` : `http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&`;
 const autoDataHost = process.env.AUTODATA_HOST ? `${process.env.API_HOST}/api` : `https://api.autodata-group.com/docs/motorcycles/v1`;
+const googleHost = process.env.AUTODATA_HOST ? `${process.env.API_HOST}/api` : `http://maps.googleapis.com/maps/api/distancematrix/json?`;
 const swapiConnector = new swapi_1.default(swapiHost);
 const ebayConnector = new ebay_1.default(ebayHost);
 const autoDataConnector = new autodata_1.default(autoDataHost);
+const googleConnector = new google_1.default(googleHost);
 module.exports = function () {
     const app = this;
     const logger = { log: (e) => console.log(e) };
@@ -49,7 +53,8 @@ module.exports = function () {
                 token,
                 provider,
                 user: new feathersUser_1.default(app),
-                quote: new feathersQuote_1.default(app)
+                quote: new feathersQuote_1.default(app),
+                google: new google_maps_1.default(googleConnector)
             },
         });
     }));

@@ -15,6 +15,8 @@ type RootQuery {
   allSubModels(modelID: Int): [SubModel]
   allRepairTimes(midID: String): Labor
   allLubricantsAndCapacities(midID: String): LubricantsAndCapacities
+  
+  checkDistance(zipOrCoordinates: String): DistanceMatrix
 
 }
 

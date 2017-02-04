@@ -11,6 +11,8 @@ import model from './model'
 import subModel from './sub-model'
 import lubricantsAndCapacities from './lubricants_and_capacities'
 
+import distanceMatrix from './distance-matrix'
+
 //import film from './film'
 //import people from './people'
 //import planet from './planet'
@@ -44,7 +46,9 @@ export default [
 
   model,
   subModel,
-  lubricantsAndCapacities
+  lubricantsAndCapacities,
+
+  distanceMatrix
 //  film,
 //  people,
 //  planet,
