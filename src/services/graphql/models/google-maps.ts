@@ -2,8 +2,17 @@ import BaseModel from './google-maps-base'
 
 export default class Google extends BaseModel {
   public getDistanceMatrix(zipOrCoordinates: any) {
-    console.log(zipOrCoordinates)
-    const url = `origins=41.43206,-81.38992&destinations=11435&mode=driving&sensor=false`
-    return this.connector.fetch(url)
+    const mechanicZip = 11435
+    const url = `origins=${mechanicZip}&destinations=${zipOrCoordinates}&mode=driving&sensor=false`
+    return new Promise((resolve, reject) => {
+      resolve(this.connector.fetch(url))
+    })
+      .then((result) => {
+        return result
+      })
+      .catch((err) => {
+      console.log(err)
+        return err
+      })
   }
 }
