@@ -9,6 +9,7 @@ import resolvers from './resolvers/index'
 import SWAPIConnector from './connectors/swapi'
 import EBAYConnector from './connectors/ebay'
 import AUTODATAConnector from './connectors/autodata'
+import GOOGLEConnector from './connectors/google'
 
 import AutoDataModel from './models/auto-data'
 import StarshipModel from './models/starship'
@@ -16,6 +17,7 @@ import PartModel from './models/part'
 import { VehicleModel } from './models/sql'
 import UserModel from './models/feathersUser'
 import QuoteModel from './models/feathersQuote'
+import GoogleModel from './models/google-maps'
 
 import OpticsAgent from 'optics-agent';
 OpticsAgent.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q'})
@@ -23,10 +25,12 @@ OpticsAgent.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglS
 const swapiHost = process.env.SWAPI_HOST ? `${process.env.API_HOST}/api` : 'http://swapi.co/api'
 const ebayHost = process.env.EBAY_HOST ? `${process.env.API_HOST}/api` : `http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&`
 const autoDataHost = process.env.AUTODATA_HOST ? `${process.env.API_HOST}/api` : `https://api.autodata-group.com/docs/motorcycles/v1`
+const googleHost = process.env.AUTODATA_HOST ? `${process.env.API_HOST}/api` : `http://maps.googleapis.com/maps/api/distancematrix/json?`
 
 const swapiConnector = new SWAPIConnector(swapiHost);
 const ebayConnector = new EBAYConnector(ebayHost);
 const autoDataConnector = new AUTODATAConnector(autoDataHost);
+const googleConnector = new GOOGLEConnector(googleHost);
 
 // TODO: Create an updateUserQuote mutation
 
@@ -62,7 +66,8 @@ module.exports = function(){
         token,
         provider,
         user: new UserModel(app),
-        quote: new QuoteModel(app)
+        quote: new QuoteModel(app),
+        google: new GoogleModel(googleConnector)
       },
     })}));
 

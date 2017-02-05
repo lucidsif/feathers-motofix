@@ -16,6 +16,9 @@ const allLubricantsAndCapacities = (_, params, context) => context.autoData.getL
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
 const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON)
+// google maps
+const checkDistance = (_, params, context) => context.google.getDistanceMatrix(params.zipOrCoordinates)
+
 
 // const allFilms = (_, params, context) => context.film.getFilms(params.offset, params.limit)
 // const film = (_, params, context) => context.film.getFilm(params.id, params.filmID)
@@ -42,7 +45,8 @@ export default {
     allModels,
     allSubModels,
     allRepairTimes,
-    allLubricantsAndCapacities
+    allLubricantsAndCapacities,
+    checkDistance,
 //    allFilms,
 //    film,
 //    allPeople,

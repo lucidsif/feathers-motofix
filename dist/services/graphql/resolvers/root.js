@@ -13,6 +13,7 @@ const allLubricantsAndCapacities = (_, params, context) => context.autoData.getL
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password);
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password);
 const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON);
+const checkDistance = (_, params, context) => context.google.getDistanceMatrix(params.zipOrCoordinates);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     RootQuery: {
@@ -26,7 +27,8 @@ exports.default = {
         allModels,
         allSubModels,
         allRepairTimes,
-        allLubricantsAndCapacities
+        allLubricantsAndCapacities,
+        checkDistance,
     },
     RootMutation: {
         signUp,
