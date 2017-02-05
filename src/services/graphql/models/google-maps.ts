@@ -3,7 +3,7 @@ import BaseModel from './google-maps-base'
 export default class Google extends BaseModel {
   public getDistanceMatrix(zipOrCoordinates: any) {
     const mechanicZip = 11435
-    const url = `origins=${mechanicZip}&destinations=${zipOrCoordinates}&mode=driving&sensor=false`
+    const url = `origins=${mechanicZip}&destinations=${zipOrCoordinates}&mode=driving&sensor=false&units=imperial`
     return new Promise((resolve, reject) => {
       resolve(this.connector.fetch(url))
     })
