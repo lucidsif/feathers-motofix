@@ -1,5 +1,5 @@
 'use strict';
-const mechanicSchedules = require('./MechanicSchedules');
+const mechanicSchedules = require('./mechanicSchedules');
 const appointments = require('./appointments');
 const mechanics = require('./mechanics');
 const quotes = require('./quotes');

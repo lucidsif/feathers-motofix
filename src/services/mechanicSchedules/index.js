@@ -1,14 +1,14 @@
 'use strict';
 
 const service = require('feathers-sequelize');
-const MechanicSchedules = require('./MechanicSchedules-model');
+const mechanicSchedules = require('./mechanicSchedules-model');
 const hooks = require('./hooks');
 
 module.exports = function(){
   const app = this;
 
   const options = {
-    Model: MechanicSchedules(app.get('sequelize')),
+    Model: mechanicSchedules(app.get('sequelize')),
     paginate: {
       default: 5,
       max: 25
@@ -16,14 +16,14 @@ module.exports = function(){
   };
 
   // Initialize our service with any options it requires
-  app.use('/MechanicSchedules', service(options));
+  app.use('/mechanicSchedules', service(options));
 
   // Get our initialize service to that we can bind hooks
-  const MechanicSchedulesService = app.service('/MechanicSchedules');
+  const mechanicSchedulesService = app.service('/mechanicSchedules');
 
   // Set up our before hooks
-  MechanicSchedulesService.before(hooks.before);
+  mechanicSchedulesService.before(hooks.before);
 
   // Set up our after hooks
-  MechanicSchedulesService.after(hooks.after);
+  mechanicSchedulesService.after(hooks.after);
 };

@@ -1,6 +1,6 @@
 'use strict';
 
-// MechanicSchedules-model.js - A sequelize model
+// mechanicSchedules-model.js - A sequelize model
 // 
 // See http://docs.sequelizejs.com/en/latest/docs/models-definition/
 // for more of what you can do here.
@@ -8,7 +8,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = function(sequelize) {
-  const MechanicSchedules = sequelize.define('MechanicSchedules', {
+  const mechanicSchedules = sequelize.define('mechanicSchedules', {
     text: {
       type: Sequelize.STRING,
       allowNull: false
@@ -17,7 +17,7 @@ module.exports = function(sequelize) {
     freezeTableName: true
   });
 
-  MechanicSchedules.sync();
+  mechanicSchedules.sync();
 
-  return MechanicSchedules;
+  return mechanicSchedules;
 };

@@ -31,4 +31,18 @@ app.use(compress())
   .configure(services)
   .configure(middleware);
 
+/*
+// Setup Forest environment variables and do not version them
+const FOREST_ENV_SECRET='16e3f0b35d43e5a021e2c5ecc1ecd3f0ac34b3aa2ee15c75bb125034febd5bd7';
+// Choose a random secure auth secret
+const FOREST_AUTH_SECRET='BAJSFHASJHFJGAH24423';
+
+// Figure this out and you might get forest admin
+app.use(require('forest-express-sequelize').init({
+  modelsDir: __dirname + '/models', // Your models directory.
+  envSecret: FOREST_ENV_SECRET,
+  authSecret: FOREST_AUTH_SECRET,
+  sequelize: require('./models').sequelize // The sequelize database connection.
+}));
+*/
 module.exports = app;
