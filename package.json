@@ -37,7 +37,6 @@
     "feathers-rest": "^1.6.0",
     "feathers-sequelize": "^1.4.0",
     "feathers-socketio": "^1.4.2",
-    "forest-express-sequelize": "^1.0.0",
     "fuse.js": "^2.6.1",
     "graphql": "^0.8.2",
     "graphql-tools": "^0.9.0",

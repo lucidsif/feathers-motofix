@@ -1,1 +1,0 @@
-{"version":3,"file":"not-found-handler.js","sourceRoot":"","sources":["../../../src/middleware/not-found-handler.js"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb,MAAM,MAAM,GAAG,OAAO,CAAC,iBAAiB,CAAC,CAAC;AAE1C,MAAM,CAAC,OAAO,GAAG;IACf,MAAM,CAAC,UAAS,GAAG,EAAE,GAAG,EAAE,IAAI;QAC5B,IAAI,CAAC,IAAI,MAAM,CAAC,QAAQ,CAAC,gBAAgB,CAAC,CAAC,CAAC;IAC9C,CAAC,CAAC;AACJ,CAAC,CAAC"}
