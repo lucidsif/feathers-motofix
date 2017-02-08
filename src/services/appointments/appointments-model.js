@@ -13,20 +13,30 @@ module.exports = function(sequelize) {
       type: Sequelize.DATE,
       allowNull: false
     },
-    start_time: {
+    motorcycle_address: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    estimated_start_time: {
       type: Sequelize.TIME,
       allowNull: false
     },
-    end_time: {
+    estimated_end_time: {
       type: Sequelize.TIME,
       allowNull: false
+    },
+    actual_start_time: {
+      type: Sequelize.TIME,
+    },
+    actual_end_time: {
+      type: Sequelize.TIME
     },
     status: {
       type: Sequelize.ENUM(
-        'pending', 'completed', 'cancelled'
+        'pending', 'completed', 'cancelled', 'refunded'
       ),
       allowNull: false
-    }
+    },
   }, {
     classMethods: {
       associate: (models) => {

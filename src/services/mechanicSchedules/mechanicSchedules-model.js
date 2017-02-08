@@ -31,7 +31,7 @@ module.exports = function(sequelize) {
       type: Sequelize.TIME,
       allowNull: false
     },
-    unavailable: {
+    available: {
       type: Sequelize.BOOLEAN,
       allowNull: false
     }

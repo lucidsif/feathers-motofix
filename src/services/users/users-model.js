@@ -25,6 +25,10 @@ module.exports = function(sequelize) {
     password: {
       type: Sequelize.STRING,
       allowNull: false
+    },
+    mobile_number: {
+      type: Sequelize.STRING,
+      allowNull: true
     }
   }, {
     underscored: true,

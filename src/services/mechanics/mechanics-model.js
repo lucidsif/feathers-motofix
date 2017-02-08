@@ -21,7 +21,7 @@ module.exports = function(sequelize) {
       type: Sequelize.STRING,
     },
     zipcode: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false
     },
     travel_radius: {
@@ -29,7 +29,7 @@ module.exports = function(sequelize) {
       allowNull: false
     },
     mobile_number: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false
     },
     available: {
