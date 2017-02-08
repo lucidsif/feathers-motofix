@@ -1,4 +1,7 @@
 'use strict';
+const mechanicSchedules = require('./MechanicSchedules');
+const appointments = require('./appointments');
+const mechanics = require('./mechanics');
 const quotes = require('./quotes');
 const viewer = require('./viewer');
 const graphql = require('./graphql');
@@ -21,4 +24,7 @@ module.exports = function() {
   app.configure(graphql);
   app.configure(viewer);
   app.configure(quotes);
+  app.configure(mechanics);
+  app.configure(appointments);
+  app.configure(mechanicSchedules);
 };
