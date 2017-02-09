@@ -7,7 +7,7 @@
 
 const Sequelize = require('sequelize');
 
-
+// TODO: enforce required fields
 // Should  I store price and labortimes here?
 // Where should I store location?
 module.exports = function(sequelize) {
@@ -39,8 +39,12 @@ module.exports = function(sequelize) {
     part_json: {
       type: Sequelize.JSONB
     },
-
-
+    created_at: {
+      type: DataTypes.DATE,
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+    },
   }, {
     classMethods: {
       associate: (models) => {

@@ -7,6 +7,7 @@
 
 //const defaults = {};
 
+// TODO: attach the rest of the quote fields..created and updated are null particularly
 module.exports = function(options) {
 
   return function(hook) {
