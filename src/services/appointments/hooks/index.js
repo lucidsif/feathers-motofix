@@ -4,15 +4,19 @@ const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
 
+//  any-user can see all appointments
+// any-user can only see appointments that are pending and are "near" him
+// only authenticated users can create an appointment
 exports.before = {
   all: [
-    auth.verifyToken(),
     auth.populateUser(),
-    auth.restrictToAuthenticated()
   ],
   find: [],
   get: [],
-  create: [],
+  create: [
+    auth.verifyToken(),
+    auth.restrictToAuthenticated()
+  ],
   update: [hooks.disable()],
   patch: [hooks.disable()],
   remove: [hooks.disable()]
