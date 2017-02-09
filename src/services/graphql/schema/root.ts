@@ -15,6 +15,7 @@ type RootQuery {
   allLubricantsAndCapacities(midID: String): LubricantsAndCapacities
   
   checkDistance(zipOrCoordinates: String): DistanceMatrix
+  
 
 }
 

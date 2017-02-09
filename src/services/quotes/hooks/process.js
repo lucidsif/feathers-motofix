@@ -17,7 +17,7 @@ module.exports = function(options) {
     const cart_json = hook.data.cart_json;
 
     hook.data = {
-      fk_users_id: user.dataValues.id,
+      fk_user_id: user.dataValues.id,
       motorcycle_json,
       part_json,
       cart_json,
