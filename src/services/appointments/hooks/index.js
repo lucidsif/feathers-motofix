@@ -13,9 +13,9 @@ exports.before = {
   find: [],
   get: [],
   create: [],
-  update: [],
-  patch: [],
-  remove: []
+  update: [hooks.disable()],
+  patch: [hooks.disable()],
+  remove: [hooks.disable()]
 };
 
 exports.after = {

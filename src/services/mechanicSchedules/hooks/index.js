@@ -6,16 +6,14 @@ const auth = require('feathers-authentication').hooks;
 
 exports.before = {
   all: [
-    auth.verifyToken(),
     auth.populateUser(),
-    auth.restrictToAuthenticated()
   ],
   find: [],
   get: [],
-  create: [],
-  update: [],
-  patch: [],
-  remove: []
+  create: [hooks.disable()],
+  update: [hooks.disable()],
+  patch: [hooks.disable()],
+  remove: [hooks.disable()]
 };
 
 exports.after = {
