@@ -13,7 +13,7 @@ exports.before = {
     auth.restrictToAuthenticated(),
   ],
   find: [
-    auth.queryWithCurrentUser({ idField: 'id', as: 'fk_users_id' })
+    auth.queryWithCurrentUser({ idField: 'id', as: 'fk_user_id' })
   ],
   get: [
   ],
