@@ -17,6 +17,7 @@ import PartModel from './models/part'
 import { VehicleModel } from './models/sql'
 import UserModel from './models/feathersUser'
 import QuoteModel from './models/feathersQuote'
+import AppointmentModel from './models/feathersAppointment'
 import GoogleModel from './models/google-maps'
 
 import OpticsAgent from 'optics-agent';
@@ -67,7 +68,9 @@ module.exports = function(){
         provider,
         user: new UserModel(app),
         quote: new QuoteModel(app),
-        google: new GoogleModel(googleConnector)
+        // DO I need to pass the app for quote or appointment?
+        appointment: new AppointmentModel(app),
+        google: new GoogleModel(googleConnector),
       },
     })}));
 

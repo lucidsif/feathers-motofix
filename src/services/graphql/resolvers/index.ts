@@ -7,6 +7,7 @@ import part from './part'
 import labor from './labor'
 import authPayload from './authPayload'
 import quote from './quote'
+import appointment from './appointment'
 
 // autodata
 import model from './model'
@@ -33,6 +34,7 @@ export default Object.assign(
   labor,
   authPayload,
   quote,
+  appointment,
 // autodata
   model,
   subModel,

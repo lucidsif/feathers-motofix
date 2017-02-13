@@ -40,10 +40,10 @@ module.exports = function(sequelize) {
       type: Sequelize.JSONB
     },
     created_at: {
-      type: DataTypes.DATE,
+      type: Sequelize.DATE,
     },
     updated_at: {
-      type: DataTypes.DATE,
+      type: Sequelize.DATE,
     },
   }, {
     classMethods: {
