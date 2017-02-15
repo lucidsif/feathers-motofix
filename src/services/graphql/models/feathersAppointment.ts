@@ -1,8 +1,7 @@
 /**
  * Created by Sif on 2/13/17.
  */
-const Promise = require('bluebird')
-const rp = Promise.promisify(require('request-promise'))
+import * as rp from 'request-promise';
 const host = process.env.WEB_ADDRESS_EXT || 'localhost:3010';
 const googleBaseURL = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 
@@ -19,46 +18,49 @@ export default class Appointment {
   // for each returned mechanic, get their schedules and their appointments
 
   public getAppointments(zipOrCoordinates?: any){
-    console.log(zipOrCoordinates);
     const mechanics = {
       method: 'GET',
       uri: `http://${host}/mechanics?available=true`,
       json: true
     }
-    let allMechanics
+    var nearMechanics = []
+
     rp(mechanics)
       .then((mechanicsArr) => {
-      allMechanics = mechanicsArr.body;
-      const distanceMatrixPromises = allMechanics.map((mechanic) => {
+      return mechanicsArr;
+    })
+      .reduce((arr, mechanic) => {
         const url = `origins=${mechanic.zipcode}&destinations=${zipOrCoordinates}&mode=driving&sensor=false&units=imperial`
         const mechanicMatrixUrl = `${googleBaseURL}${url}`
         const mechanicReq = {
-          method: 'GET',
+        method: 'GET',
           uri: mechanicMatrixUrl,
           json: true
-        }
-        return rp(mechanicReq)
-      })
-      return distanceMatrixPromises // should be an array of promises
-    })
-      .filter((promiseResultObj) => {
-      if(promiseResultObj.body.rows[0].elements[0].distance.value <= 79200){
-        return promiseResultObj
       }
-    })
-      .then((nearMechanics) => {
-      const extract = nearMechanics.map((obj) => {
-        return obj.body
+      return rp(mechanicReq)
+        .then((distanceMatrixResult) => {
+          console.log('ran distance matrix for mechanic: ' + mechanic.first_name)
+          if (distanceMatrixResult.rows[0].elements[0].distance.value <= mechanic.travel_radius * 5280) {
+            console.log(`${mechanic.first_name} is willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value/5280} away from the rider`)
+            nearMechanics.push(mechanic)
+          } else {
+            console.log(`${mechanic.first_name} did not meet predicate. willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value/5280} away from the rider`)
+          }
       })
-        console.log(extract)
+    }, Promise.resolve())
+      .then(() => {
+      console.log(nearMechanics);
       })
       .catch((err) => {
       console.log(err)
-      })
-
-
+    })
 
   }
 }
+
+/*
+ if(distanceMatrixResult.rows[0].elements[0].distance.value >= 20200){
+}
+ */
 
 
