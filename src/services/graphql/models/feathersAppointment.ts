@@ -24,8 +24,10 @@ export default class Appointment {
       json: true
     }
     var nearMechanics = []
+    var appointments = []
+    var schedules = []
 
-    rp(mechanics)
+    return rp(mechanics)
       .then((mechanicsArr) => {
       return mechanicsArr;
     })
@@ -59,7 +61,6 @@ export default class Appointment {
           uri: mechanicScheduleUrl,
           json: true
         }
-
         const mechanicAppointmentUrl = `http://${host}/appointments?fk_mechanic_id=${nearMechanic.id}`
         const mechanicAppointmentReq = {
           method: 'GET',
@@ -67,15 +68,31 @@ export default class Appointment {
           json: true
         }
 
-        const mechanicSchedulePromise = rp(mechanicScheduleReq)
-        const mechanicAppointmentPromise = rp(mechanicAppointmentReq)
-        const mechanicPromises = [mechanicSchedulePromise, mechanicAppointmentPromise]
-        return Promise.all(mechanicPromises)
+        return rp(mechanicScheduleReq)
+          .then((scheduleResults) => {
+          schedules.push(scheduleResults)
+        })
+          .then(() => {
+         return rp(mechanicAppointmentReq)
+            .then((appointmentResults) => {
+            appointments.push(appointmentResults)
+            })
+          })
+
+        //const mechanicAppointmentPromise = rp(mechanicAppointmentReq)
+        //const mechanicPromises = [mechanicSchedulePromise, mechanicAppointmentPromise]
+        //return Promise.all(mechanicPromises)
 
       }, Promise.resolve())
-      .then((results) => {
-      console.log(results)
-      return results;
+      .then(() => {
+      console.log(schedules[0])
+      console.log(appointments[0])
+        const payload = {
+        schedules: schedules[0],
+          appointments: appointments[0]
+        }
+        console.log(payload)
+        return payload
       })
       .catch((err) => {
       console.log(err)

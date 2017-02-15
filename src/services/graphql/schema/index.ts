@@ -13,6 +13,8 @@ import lubricantsAndCapacities from './lubricants_and_capacities'
 
 import distanceMatrix from './distance-matrix'
 import appointment from './appointment'
+import mechanicSchedule from './mechanic-schedule'
+import appointmentSchedule from './appointment-schedule'
 
 //import film from './film'
 //import people from './people'
@@ -50,7 +52,9 @@ export default [
   lubricantsAndCapacities,
 
   distanceMatrix,
-  appointment
+  appointment,
+  mechanicSchedule,
+  appointmentSchedule
 //  film,
 //  people,
 //  planet,

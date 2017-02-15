@@ -15,7 +15,7 @@ type RootQuery {
   allLubricantsAndCapacities(midID: String): LubricantsAndCapacities
   
   checkDistance(zipOrCoordinates: String): DistanceMatrix
-  allNearAppointments(zipOrCoordinates: String): [Appointment]
+  allNearAppointmentsAndSchedules(zipOrCoordinates: String): AppointmentSchedule
   
 
 }

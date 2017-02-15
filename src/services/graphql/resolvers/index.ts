@@ -8,6 +8,8 @@ import labor from './labor'
 import authPayload from './authPayload'
 import quote from './quote'
 import appointment from './appointment'
+import mechanicSchedule from './mechanic_schedule'
+import appointmentSchedule from './appointment-schedule'
 
 // autodata
 import model from './model'
@@ -35,6 +37,8 @@ export default Object.assign(
   authPayload,
   quote,
   appointment,
+  mechanicSchedule,
+  appointmentSchedule,
 // autodata
   model,
   subModel,
