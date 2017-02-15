@@ -12,10 +12,6 @@ export default class Appointment {
   constructor(app){
     this.app = app
   }
-  // get arr of available mechanics
-  // run google distance matrix query on each mechanic
-  // if mechanic has acceptable distance matrix, return mechanic
-  // for each returned mechanic, get their schedules and their appointments
 
   public getAppointments(zipOrCoordinates?: any){
     const mechanics = {
@@ -41,7 +37,6 @@ export default class Appointment {
       }
       return rp(mechanicReq)
         .then((distanceMatrixResult) => {
-          console.log('ran distance matrix for mechanic: ' + mechanic.first_name)
           if (distanceMatrixResult.rows[0].elements[0].distance.value <= mechanic.travel_radius * 5280) {
             console.log(`${mechanic.first_name} is willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value/5280} away from the rider`)
             nearMechanics.push(mechanic)
@@ -67,7 +62,6 @@ export default class Appointment {
           uri: mechanicAppointmentUrl,
           json: true
         }
-
         return rp(mechanicScheduleReq)
           .then((scheduleResults) => {
           schedules.push(scheduleResults)
@@ -79,19 +73,14 @@ export default class Appointment {
             })
           })
 
-        //const mechanicAppointmentPromise = rp(mechanicAppointmentReq)
-        //const mechanicPromises = [mechanicSchedulePromise, mechanicAppointmentPromise]
-        //return Promise.all(mechanicPromises)
-
       }, Promise.resolve())
       .then(() => {
-      console.log(schedules[0])
-      console.log(appointments[0])
+      let mergedSchedules = [].concat.apply([], schedules)
+      let mergedAppointments = [].concat.apply([], appointments)
         const payload = {
-        schedules: schedules[0],
-          appointments: appointments[0]
+        schedules: mergedSchedules,
+          appointments: mergedAppointments
         }
-        console.log(payload)
         return payload
       })
       .catch((err) => {
