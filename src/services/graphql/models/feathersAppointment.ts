@@ -49,7 +49,33 @@ export default class Appointment {
       })
     }, Promise.resolve())
       .then(() => {
-      console.log(nearMechanics);
+      return nearMechanics;
+      })
+      .reduce((arr, nearMechanic) => {
+      // return an array of appointments and schedules for each near mechanic
+        const mechanicScheduleUrl = `http://${host}/mechanicschedules?fk_mechanic_id=${nearMechanic.id}`
+        const mechanicScheduleReq = {
+          method: 'GET',
+          uri: mechanicScheduleUrl,
+          json: true
+        }
+
+        const mechanicAppointmentUrl = `http://${host}/appointments?fk_mechanic_id=${nearMechanic.id}`
+        const mechanicAppointmentReq = {
+          method: 'GET',
+          uri: mechanicAppointmentUrl,
+          json: true
+        }
+
+        const mechanicSchedulePromise = rp(mechanicScheduleReq)
+        const mechanicAppointmentPromise = rp(mechanicAppointmentReq)
+        const mechanicPromises = [mechanicSchedulePromise, mechanicAppointmentPromise]
+        return Promise.all(mechanicPromises)
+
+      }, Promise.resolve())
+      .then((results) => {
+      console.log(results)
+      return results;
       })
       .catch((err) => {
       console.log(err)
@@ -57,10 +83,5 @@ export default class Appointment {
 
   }
 }
-
-/*
- if(distanceMatrixResult.rows[0].elements[0].distance.value >= 20200){
-}
- */
 
 
