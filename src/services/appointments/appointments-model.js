@@ -9,27 +9,23 @@ const Sequelize = require('sequelize');
 
 module.exports = function(sequelize) {
   const appointments = sequelize.define('appointments', {
-    date: {
-      type: Sequelize.DATE,
-      allowNull: false
-    },
     motorcycle_address: {
       type: Sequelize.STRING,
       allowNull: false
     },
     estimated_start_time: {
-      type: Sequelize.TIME,
+      type: Sequelize.DATE,
       allowNull: false
     },
     estimated_end_time: {
-      type: Sequelize.TIME,
+      type: Sequelize.DATE,
       allowNull: false
     },
     actual_start_time: {
-      type: Sequelize.TIME,
+      type: Sequelize.DATE,
     },
     actual_end_time: {
-      type: Sequelize.TIME
+      type: Sequelize.DATE
     },
     status: {
       type: Sequelize.ENUM(
