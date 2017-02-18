@@ -39,7 +39,7 @@ module.exports = function(sequelize) {
     classMethods: {
       associate: (models) => {
         mechanicSchedules.belongsTo(models.mechanics, {
-          foreignKey: 'fk_mechanic_id'
+          foreignKey: {name: 'fk_mechanic_id', allowNull: false},
         });
       },
     },

@@ -12,6 +12,7 @@ const Sequelize = require('sequelize');
 // Where should I store location?
 module.exports = function(sequelize) {
   const quotes = sequelize.define('quotes', {
+    // TODO: this should be non-nullable
     region: {
       type: Sequelize.STRING,
     },
@@ -19,7 +20,7 @@ module.exports = function(sequelize) {
       type: Sequelize.BOOLEAN,
     },
     total_labor_time: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     total_labor_price: {
       type: Sequelize.INTEGER
@@ -31,13 +32,16 @@ module.exports = function(sequelize) {
       type: Sequelize.INTEGER
     },
     motorcycle_json: {
-      type: Sequelize.JSONB
+      type: Sequelize.JSONB,
+      allowNull: false
     },
     cart_json: {
-      type: Sequelize.JSONB
+      type: Sequelize.JSONB,
+      allowNull: false
     },
     part_json: {
-      type: Sequelize.JSONB
+      type: Sequelize.JSONB,
+      allowNull: false
     },
     created_at: {
       type: Sequelize.DATE,

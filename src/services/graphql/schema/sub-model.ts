@@ -1,6 +1,6 @@
 export default `
 type SubModel  {
-  mid: String
+  mid: String!
   manufacturer: String
   model: String
   model_variant: String
