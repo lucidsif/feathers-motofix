@@ -3,7 +3,7 @@
  */
 import * as rp from 'request-promise';
 // use production env or local
-const host = process.env.WEB_ADDRESS_EXT || 'localhost:3000';
+const host = process.env.WEB_ADDRESS_EXT || 'localhost:3010';
 
 export default class Quote {
   public app: any
