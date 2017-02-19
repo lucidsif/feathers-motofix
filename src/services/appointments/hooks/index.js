@@ -9,16 +9,21 @@ const auth = require('feathers-authentication').hooks;
 // only authenticated users can create an appointment
 // authenticated users should be able to see his own appointments
 
-// TODO: hide motorcycle address
+// TODO: get all appointments associated with the jwt token provided
 exports.before = {
-  all: [
-    auth.populateUser(),
+  all: [],
+  find: [
+    auth.verifyToken(),
+    //auth.populateUser(),
   ],
-  find: [],
-  get: [],
+  get: [
+    auth.verifyToken(),
+    //auth.populateUser(),
+  ],
   create: [
     auth.verifyToken(),
-    auth.restrictToAuthenticated()
+    auth.populateUser(),
+    auth.restrictToAuthenticated(),
   ],
   update: [hooks.disable()],
   patch: [hooks.disable()],
