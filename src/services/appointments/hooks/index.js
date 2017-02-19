@@ -4,26 +4,17 @@ const globalHooks = require('../../../hooks');
 const hooks = require('feathers-hooks');
 const auth = require('feathers-authentication').hooks;
 
-//  any-user can see all appointments
-// any-user can only see appointments that are pending
-// only authenticated users can create an appointment
-// authenticated users should be able to see his own appointments
+// user can get all appointments, get only his own appointments, and can only create an appointment for himself if he provides his jwt
 
-// TODO: get all appointments associated with the jwt token provided
 exports.before = {
   all: [],
-  find: [
-    auth.verifyToken(),
-    //auth.populateUser(),
-  ],
-  get: [
-    auth.verifyToken(),
-    //auth.populateUser(),
-  ],
+  find: [],
+  get: [],
   create: [
     auth.verifyToken(),
     auth.populateUser(),
     auth.restrictToAuthenticated(),
+    auth.associateCurrentUser({ idField: 'id', as: 'fk_user_id' })
   ],
   update: [hooks.disable()],
   patch: [hooks.disable()],

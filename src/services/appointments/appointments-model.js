@@ -37,10 +37,13 @@ module.exports = function(sequelize) {
     classMethods: {
       associate: (models) => {
         appointments.belongsTo(models.quotes, {
-          foreignKey: 'fk_quote_id',
+          foreignKey: {name: 'fk_quote_id', allowNull: false},
         });
         appointments.belongsTo(models.mechanics, {
-          foreignKey: 'fk_mechanic_id'
+          foreignKey: {name: 'fk_mechanic_id', allowNull: false},
+        });
+        appointments.belongsTo(models.users, {
+          foreignKey: {name: 'fk_user_id', allowNull: false},
         });
       },
     },
