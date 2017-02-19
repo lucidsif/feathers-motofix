@@ -17,6 +17,7 @@ exports.before = {
   ],
   get: [
   ],
+  // use associatecurrent user instead?
   create: [
     process()
   ],
