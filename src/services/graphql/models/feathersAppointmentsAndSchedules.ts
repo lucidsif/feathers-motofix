@@ -100,6 +100,33 @@ export default class Appointment {
   ){
     console.log(token, motorcycle_address, estimated_start_time, estimated_end_time, status, fk_quote_id, fk_mechanic_id)
 
+    const options = {
+      method: 'POST',
+      uri: `http://${host}/appointments`,
+      headers: {
+        authorization: token
+      },
+      body: {
+        motorcycle_address,
+        estimated_start_time,
+        estimated_end_time,
+        status,
+        fk_quote_id,
+        fk_mechanic_id
+      },
+      json: true
+    }
+
+    return rp(options)
+      .then((response) => {
+      console.log(response);
+      return response;
+      })
+      .catch((e) => {
+      console.log(e)
+      })
+
+
 
   }
 }

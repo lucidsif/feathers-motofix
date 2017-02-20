@@ -46,7 +46,7 @@ export default class User {
   // TODO: get user id from token
   // TODO: figure out how to automatically extract jwt from feathers and use it - maybe first has something to do with tokenKey which is extracted from localstorage?
   public postToken(token?: any){
-    let Users = this.app['service']('users')
+    //let Users = this.app['service']('users')
 
     const jwtOptions = {
       method: 'POST',
