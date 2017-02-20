@@ -7,6 +7,8 @@ const node = (id: number) => ({})
 // feathers
 const validateToken = (_, params, context) => context.user.postToken(params.token)
 const allUserQuotes = (_, params, context) => context.quote.getQuotes(params.token)
+const allUserAppointments = (_, params, context) => context.appointment.getUserAppointments(params.fk_user_id)
+
 const allNearAppointmentsAndSchedules = (_, params, context) => context.appointment.getAppointments(params.zipOrCoordinates)
 // autodata
 const allModels = (_, params, context) => context.autoData.getModels(params.manufacturer)
@@ -51,6 +53,8 @@ export default {
     // feathers
     validateToken,
     allUserQuotes,
+    allUserAppointments,
+
     allNearAppointmentsAndSchedules,
     // autodata
     allModels,

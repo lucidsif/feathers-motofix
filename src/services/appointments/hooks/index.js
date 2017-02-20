@@ -6,6 +6,7 @@ const auth = require('feathers-authentication').hooks;
 
 // user can get all appointments, get only his own appointments, and can only create an appointment for himself if he provides his jwt
 
+// TODO: create a custom hook for appointments where if a token is provided, only the associated users'a appts are returned. else, return all appts.
 exports.before = {
   all: [],
   find: [],

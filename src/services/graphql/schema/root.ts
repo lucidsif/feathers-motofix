@@ -10,6 +10,7 @@ type RootQuery {
   allVehicles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Vehicle]
   validateToken(token: String): User
   allUserQuotes(token: String): [Quote]
+  allUserAppointments(fk_user_id: Int!): [Appointment]
   
   allModels(manufacturer: String): [Model]
   allSubModels(modelID: Int): [SubModel]
@@ -27,13 +28,13 @@ type RootMutation {
   logIn (email: String!, password: String!): AuthPayload
   createUserQuote(token: String, motorcycleJSON: JSON, cartJSON: JSON, partJSON: JSON): Quote
   createUserAppointment(
-  token: String!,
-  motorcycle_address: String!, 
-  estimated_start_time: String!, 
-  estimated_end_time: String!, 
-  status: String!, 
-  fk_quote_id: Int!,  
-  fk_mechanic_id: Int!
+    token: String!,
+    motorcycle_address: String!, 
+    estimated_start_time: String!, 
+    estimated_end_time: String!, 
+    status: String!, 
+    fk_quote_id: Int!,  
+    fk_mechanic_id: Int!
   ): Appointment
  }
 `

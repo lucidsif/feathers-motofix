@@ -12,7 +12,7 @@ export default class Appointment {
   constructor(app){
     this.app = app
   }
-
+// get all available mechanics who are willing to travel the distance they listed and among those, return an array of mechanics with their schedules and appointments
   public getAppointments(zipOrCoordinates?: any){
     const mechanics = {
       method: 'GET',
@@ -88,7 +88,7 @@ export default class Appointment {
     })
 
   }
-
+  // TODO: modularize createAppointment and getOwnAppointments by exporting to a different model
   public createAppointment(
     token?: string,
     motorcycle_address?: string,
@@ -119,15 +119,29 @@ export default class Appointment {
 
     return rp(options)
       .then((response) => {
-      console.log(response);
       return response;
       })
       .catch((e) => {
       console.log(e)
       })
+  }
 
+  public getUserAppointments(fk_user_id?: number){
+      console.log(fk_user_id);
 
+    const options = {
+      method: 'GET',
+      uri: `http://${host}/appointments?fk_user_id=${fk_user_id}`,
+      json: true
+    }
 
+    return rp(options)
+      .then((response) => {
+        return response;
+      })
+      .catch((e) => {
+        console.log(e)
+      })
   }
 }
 
