@@ -18,13 +18,13 @@ const signUp = (_, params, context) => context.user.createUser(params.email, par
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
 const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON)
 const createUserAppointment = (_, params, context) => context.appointment.createAppointment(
+  params.token,
   params.motorcycle_address,
   params.estimated_start_time,
   params.estimated_end_time,
   params.status,
   params.fk_quote_id,
   params.fk_mechanic_id,
-  params.fk_user_id
 )
 // google maps
 const checkDistance = (_, params, context) => context.google.getDistanceMatrix(params.zipOrCoordinates)
