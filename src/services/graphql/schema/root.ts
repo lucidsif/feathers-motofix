@@ -24,6 +24,15 @@ type RootMutation {
   signUp (email: String!, password: String!): User
   logIn (email: String!, password: String!): AuthPayload
   createUserQuote(token: String, motorcycleJSON: JSON, cartJSON: JSON, partJSON: JSON): Quote
+  createUserAppointment(
+  motorcycle_address: String!, 
+  estimated_start_time: String!, 
+  estimated_end_time: String!, 
+  status: String!, 
+  fk_quote_id: Int!,  
+  fk_mechanic_id: Int!,
+  fk_user_id: Int!
+  ): Appointment
  }
 `
 

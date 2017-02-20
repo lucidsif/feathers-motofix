@@ -88,6 +88,18 @@ export default class Appointment {
     })
 
   }
+
+  public createAppointment(
+    motorcycle_address?: string,
+    estimated_start_time?: string,
+    estimated_end_time?: string,
+    status?: string,
+    fk_quote_id?: number,
+    fk_mechanic_id?: number,
+    fk_user_id?: number
+  ){
+    console.log(motorcycle_address, estimated_start_time, estimated_end_time, status, fk_quote_id, fk_mechanic_id, fk_user_id)
+  }
 }
 
 
