@@ -9,8 +9,9 @@ const maxPriceFilter = '&itemFilter(1).name=MaxPrice&itemFilter(1).value='
 const maxDistanceFilter = '&itemFilter(2).name=MaxDistance&itemFilter(2).value=3200'
 
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
+const AUTODATA_API_KEY = 'z66tkk6dh45n5a8mq4hvga6j';
+
 // Modularize API key
-const autoDataAPIKey = 'f'
 
 
 export default class SWAPIConnector {
@@ -111,7 +112,7 @@ export default class SWAPIConnector {
     }
 
     function fetchLubricantsAndCapacities(){
-      var getLubricationURL = `${autoDataURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      var getLubricationURL = `${autoDataURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=${AUTODATA_API_KEY}`
       return rp(getLubricationURL)
         .then((result) => {
           console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`)

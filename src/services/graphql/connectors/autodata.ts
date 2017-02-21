@@ -1,11 +1,12 @@
 import * as request from 'request'
 import * as rp from 'request-promise'
-import { searchForModel, searchForMid } from '../script/search-mid'
-const Fuse = require('fuse.js');
+// import { searchForModel, searchForMid } from '../script/search-mid'
+// const Fuse = require('fuse.js');
 const DataLoader = require('dataloader')
 
 const manufacturerCodes =  [{"Aprilia":"APR"},{"Arctic Cat":"ARC"},{"Benelli":"BEN"},{"BMW":"BMM"},{"BSA":"BSA"},{"Buell":"BUE"},{"Cagiva":"CAG"},{"Can-Am":"CAA"},{"Cannondale":"CAN"},{"CZ":"CZ-"},{"Derbi":"DER"},{"Ducati":"DUC"},{"EBR Motorcycles":"EBR"},{"Enfield":"ENF"},{"Eurospeed":"EUR"},{"Gas Gas":"GGS"},{"Harley-Davidson":"HAR"},{"Honda":"HDA"},{"Husqvarna":"HUS"},{"Hyosung":"HYO"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"},{"Indian":"IND"},{"Italjet":"ITA"},{"Jawa":"JAW"},{"Kawasaki":"KAW"},{"Keeway":"KEE"},{"KTM":"KTM"},{"Kymco":"KYM"},{"Laverda":"LAV"},{"Morini":"MOR"},{"Moto Guzzi":"MOT"},{"MV Agusta":"MVA"},{"MZ/MUZ":"MZ-"},{"Piaggio":"PIA"},{"Polaris":"POL"},{"Suzuki":"SZK"},{"SYM":"SYM"},{"TGB":"TGB"},{"Triumph":"TRI"},{"Ural":"URA"},{"Victory":"VIC"}]
-const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
+const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
+const API_KEY = 'z66tkk6dh45n5a8mq4hvga6j';
 
 // TODO: Test allRepairTimes
 // TODO: 5/10 find a proper way to throttle sequential promises
@@ -67,7 +68,7 @@ constructor(rootURL: string) {
     console.log(manufacturerID)
 
     function getModels(){
-      var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=${API_KEY}`
       return rp(getModelURL)
         .then((result) => {
           console.log(`rp'd url: ${getModelURL}`)
@@ -85,7 +86,7 @@ constructor(rootURL: string) {
   public fetchSubModels(resource: string, modelID: number){
     function getSubModels(){
       console.log(`modelid: ${modelID}`)
-      var getMidURL = `${baseURL}vehicles?model_id=${modelID}&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      var getMidURL = `${baseURL}vehicles?model_id=${modelID}&country-code=us&page=1&limit=90&api_key=${API_KEY}`
       console.time('submodel')
       return rp(getMidURL)
         .then((result) => {
@@ -110,7 +111,7 @@ constructor(rootURL: string) {
 
     function getVariantIDByMidID(){
       console.log(`mid: ${midID}`)
-      var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=${API_KEY}`
       return rp(getVariantIDURL)
         .then((result) => {
         console.log(result)
@@ -131,7 +132,7 @@ constructor(rootURL: string) {
 
     function getRepairTimesByVariantAndMid(n){
       console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`)
-      var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=wjvfv42uwdvq74qxqwz9sfda`
+      var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`
       return rp(getRepairTimesURL)
         .then((result) => {
           console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`)
@@ -173,7 +174,7 @@ constructor(rootURL: string) {
 
   public fetchLubricantsAndCapacities(resource: string, midID: string){
     console.log(`midid: ${midID}`)
-    var getLubricationURL = `${baseURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=wjvfv42uwdvq74qxqwz9sfda`
+    var getLubricationURL = `${baseURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=${API_KEY}`
     return rp(getLubricationURL)
       .then((result) => {
         console.log(`rp'd url: ${getLubricationURL} with midID: ${midID}`)
