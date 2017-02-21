@@ -30,6 +30,8 @@ const createUserAppointment = (_, params, context) => context.appointment.create
 )
 // google maps
 const checkDistance = (_, params, context) => context.google.getDistanceMatrix(params.zipOrCoordinates)
+//stripe
+const createStripeCharge = (_, params, context) => context.stripe.createCharge(params.token)
 
 
 // const allFilms = (_, params, context) => context.film.getFilms(params.offset, params.limit)
@@ -77,6 +79,7 @@ export default {
     signUp,
     logIn,
     createUserQuote,
-    createUserAppointment
+    createUserAppointment,
+    createStripeCharge
   },
 }

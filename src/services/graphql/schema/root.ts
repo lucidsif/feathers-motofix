@@ -19,8 +19,6 @@ type RootQuery {
   
   checkDistance(zipOrCoordinates: String): DistanceMatrix
   allNearAppointmentsAndSchedules(zipOrCoordinates: String): AppointmentSchedule
-  
-
 }
 
 type RootMutation {
@@ -36,6 +34,7 @@ type RootMutation {
     fk_quote_id: Int!,  
     fk_mechanic_id: Int!
   ): Appointment
+  createStripeCharge(token: JSON!): StripeResponse
  }
 `
 

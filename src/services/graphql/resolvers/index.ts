@@ -19,6 +19,9 @@ import lubricantsAndCapacities from './lubricants_and_capacities'
 //google
 import distanceMatrix from './distance-matrix'
 
+//stripe
+import stripeResponse from './stripe-response'
+
 //import film from './film'
 //import people from './people'
 //import planet from './planet'
@@ -44,5 +47,7 @@ export default Object.assign(
   subModel,
   lubricantsAndCapacities,
   //google
-  distanceMatrix
+  distanceMatrix,
+  //stripe
+  stripeResponse
 )

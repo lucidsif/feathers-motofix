@@ -19,6 +19,7 @@ import UserModel from './models/feathersUser'
 import QuoteModel from './models/feathersQuote'
 import AppointmentScheduleModel from './models/feathersAppointmentsAndSchedules'
 import GoogleModel from './models/google-maps'
+import StripeModel from './models/stripe'
 
 import OpticsAgent from 'optics-agent';
 OpticsAgent.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q'})
@@ -71,6 +72,7 @@ module.exports = function(){
         // DO I need to pass the app for quote or appointment?
         appointment: new AppointmentScheduleModel(app),
         google: new GoogleModel(googleConnector),
+        stripe: new StripeModel(app)
       },
     })}));
 

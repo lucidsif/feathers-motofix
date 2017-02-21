@@ -1,5 +1,4 @@
 'use strict';
-const stripe = require('./stripe');
 const mechanicSchedules = require('./mechanicSchedules');
 const appointments = require('./appointments');
 const mechanics = require('./mechanics');
@@ -33,5 +32,4 @@ module.exports = function() {
     .forEach(model => model.associate(models));
 
   sequelize.sync();
-  app.configure(stripe);
 };

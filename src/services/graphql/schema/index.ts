@@ -16,6 +16,8 @@ import appointment from './appointment'
 import mechanicSchedule from './mechanic-schedule'
 import appointmentSchedule from './appointment-schedule'
 
+import stripeResponse from './stripe-response'
+
 //import film from './film'
 //import people from './people'
 //import planet from './planet'
@@ -54,7 +56,9 @@ export default [
   distanceMatrix,
   appointment,
   mechanicSchedule,
-  appointmentSchedule
+  appointmentSchedule,
+
+  stripeResponse
 //  film,
 //  people,
 //  planet,
