@@ -21,6 +21,7 @@
     "test": "npm run jshint && npm run mocha",
     "jshint": "jshint src/. test/. --config",
     "start": "npm run build && node ./dist/index.js",
+    "start-cloud": "node ./dist/index.js",
     "mocha": "mocha test/ --recursive"
   },
   "dependencies": {

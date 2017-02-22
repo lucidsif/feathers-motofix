@@ -1,0 +1,1 @@
+{"version":3,"file":"model.js","sourceRoot":"","sources":["../../../../src/services/graphql/resolvers/model.ts"],"names":[],"mappings":";AAAA,MAAM,QAAQ,GAAI,CAAC,KAAK,KAAK,KAAK,CAAC,QAAQ,CAAA;AAC3C,MAAM,KAAK,GAAG,CAAC,KAAK,KAAK,KAAK,CAAC,KAAK,CAAA;;AAElC,kBAAe;IACb,KAAK,EAAE;QACL,QAAQ;QACR,KAAK;KACN;CACF,CAAA"}

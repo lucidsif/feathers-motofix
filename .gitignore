@@ -33,7 +33,6 @@ data/
 node_modules
 npm-debug.log
 typings
-dist
 .DS_Store
 .env
 
