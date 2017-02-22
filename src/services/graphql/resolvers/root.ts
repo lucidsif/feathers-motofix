@@ -18,7 +18,7 @@ const allLubricantsAndCapacities = (_, params, context) => context.autoData.getL
 // feathers mutations
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
-const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON)
+const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON, params.useOwnParts)
 const createUserAppointment = (_, params, context) => context.appointment.createAppointment(
   params.token,
   params.motorcycle_address,

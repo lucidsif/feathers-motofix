@@ -32,8 +32,8 @@ export default class Quote {
         console.log(e)
       })
   }
-
-  public createQuote(token?: string, motorcycleJSON?: any, cartJSON?: any, partJSON?: any){
+// fix types for params
+  public createQuote(token?: string, motorcycleJSON?: any, cartJSON?: any, partJSON?: any, useOwnParts?: any){
     const options = {
       method: 'POST',
       uri: `http://${host}/quotes`,
@@ -43,7 +43,8 @@ export default class Quote {
       body: {
         motorcycle_json: motorcycleJSON,
         cart_json: cartJSON,
-        part_json: partJSON
+        part_json: partJSON,
+        use_own_parts: useOwnParts
       },
         json: true
       }

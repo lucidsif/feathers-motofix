@@ -6,25 +6,25 @@ type RootQuery {
   node(id: ID!): Node
   allStarships(offset: Int, limit: Int): [Starship]
   starship(id: ID, starshipID: ID): Starship
-  searchParts(vehicle: String, service: String, midID: String): [Part]
+  searchParts(vehicle: String!, service: String!, midID: String!): [Part]
   allVehicles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Vehicle]
-  validateToken(token: String): User
-  allUserQuotes(token: String): [Quote]
+  validateToken(token: String!): User
+  allUserQuotes(token: String!): [Quote]
   allUserAppointments(fk_user_id: Int!): [Appointment]
   
-  allModels(manufacturer: String): [Model]
-  allSubModels(modelID: Int): [SubModel]
-  allRepairTimes(midID: String): Labor
-  allLubricantsAndCapacities(midID: String): LubricantsAndCapacities
+  allModels(manufacturer: String!): [Model]
+  allSubModels(modelID: Int!): [SubModel]
+  allRepairTimes(midID: String!): Labor
+  allLubricantsAndCapacities(midID: String!): LubricantsAndCapacities
   
-  checkDistance(zipOrCoordinates: String): DistanceMatrix
-  allNearAppointmentsAndSchedules(zipOrCoordinates: String): AppointmentSchedule
+  checkDistance(zipOrCoordinates: String!): DistanceMatrix
+  allNearAppointmentsAndSchedules(zipOrCoordinates: String!): AppointmentSchedule
 }
 
 type RootMutation {
   signUp (email: String!, password: String!): User
   logIn (email: String!, password: String!): AuthPayload
-  createUserQuote(token: String, motorcycleJSON: JSON, cartJSON: JSON, partJSON: JSON): Quote
+  createUserQuote(token: String!, motorcycleJSON: JSON!, cartJSON: JSON!, partJSON: JSON!, useOwnParts: Boolean! ): Quote
   createUserAppointment(
     token: String!,
     motorcycle_address: String!, 

@@ -43,6 +43,10 @@ module.exports = function(sequelize) {
       type: Sequelize.JSONB,
       allowNull: false
     },
+    use_own_parts: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false
+    },
     created_at: {
       type: Sequelize.DATE,
     },

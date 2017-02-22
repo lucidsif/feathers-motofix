@@ -16,12 +16,14 @@ module.exports = function(options) {
     const motorcycle_json = hook.data.motorcycle_json;
     const part_json = hook.data.part_json;
     const cart_json = hook.data.cart_json;
+    const use_own_parts = hook.data.use_own_parts;
 
     hook.data = {
       fk_user_id: user.dataValues.id,
       motorcycle_json,
       part_json,
       cart_json,
+      use_own_parts
     }
   };
 };
