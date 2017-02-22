@@ -57,7 +57,7 @@ module.exports = function(sequelize) {
     classMethods: {
       associate: (models) => {
         quotes.belongsTo(models.users, {
-          foreignKey: 'fk_user_id'
+          foreignKey: {name: 'fk_user_id', allowNull: false},
         });
       },
     },
