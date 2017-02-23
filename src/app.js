@@ -18,6 +18,10 @@ const app = feathers();
 
 app.configure(configuration(path.join(__dirname, '..')));
 
+app.get('/E3424ECA21B42B64D26E4AF8622D383F.txt', function(req, res) {
+  res.send('E758BBBEDFD34086ABCDDDA468E5B0807EE04115 comodoca.com');
+});
+
 app.use(compress())
   .options('*', cors())
   .use(cors())
