@@ -13,13 +13,27 @@ const bodyParser = require('body-parser');
 const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
+const Raven = require('raven');
 
 const app = feathers();
 
 app.configure(configuration(path.join(__dirname, '..')));
 
-app.use(compress())
-  .options('*', cors())
+// Must configure Raven before doing anything else with it
+Raven.config('https://e07c37debc08407cbb4f50a17f00cea3:4b1a88c408314007ac59628ab74c8251@sentry.io/142151').install();
+
+// The request handler must be the first middleware on the app
+// The error handler must be before any other error middleware
+// Optional fallthrough error handler
+app.use(Raven.requestHandler())
+  .use(Raven.errorHandler())
+  .use(function onError(err, req, res, next) {
+    // The error id is attached to `res.sentry` to be returned
+    // and optionally displayed to the user for support.
+    res.statusCode = 500;
+    res.end(res.sentry + '\n');
+  })
+  .use(compress())
   .use(cors())
   .use(favicon( path.join(app.get('public'), 'favicon.ico') ))
   .use('/', serveStatic( app.get('public') ))

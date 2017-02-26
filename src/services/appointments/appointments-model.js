@@ -33,6 +33,10 @@ module.exports = function(sequelize) {
       ),
       allowNull: false
     },
+    contact_number: {
+      type: Sequelize.STRING,
+      allowNull: false
+    }
   }, {
     classMethods: {
       associate: (models) => {

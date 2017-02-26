@@ -28,6 +28,7 @@ type RootMutation {
   createUserAppointment(
     token: String!,
     motorcycle_address: String!, 
+    contact_number: String!,
     estimated_start_time: String!, 
     estimated_end_time: String!, 
     status: String!, 

@@ -78,7 +78,7 @@ class Appointment {
             console.log(err);
         });
     }
-    createAppointment(token, motorcycle_address, estimated_start_time, estimated_end_time, status, fk_quote_id, fk_mechanic_id) {
+    createAppointment(token, motorcycle_address, contact_number, estimated_start_time, estimated_end_time, status, fk_quote_id, fk_mechanic_id) {
         const options = {
             method: 'POST',
             uri: `http://${host}/appointments`,
@@ -87,6 +87,7 @@ class Appointment {
             },
             body: {
                 motorcycle_address,
+                contact_number,
                 estimated_start_time,
                 estimated_end_time,
                 status,

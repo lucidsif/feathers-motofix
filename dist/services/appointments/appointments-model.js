@@ -24,6 +24,10 @@ module.exports = function (sequelize) {
             type: Sequelize.ENUM('pending', 'completed', 'cancelled', 'refunded'),
             allowNull: false
         },
+        contact_number: {
+            type: Sequelize.STRING,
+            allowNull: false
+        }
     }, {
         classMethods: {
             associate: (models) => {

@@ -12,13 +12,17 @@ const bodyParser = require('body-parser');
 const socketio = require('feathers-socketio');
 const middleware = require('./middleware');
 const services = require('./services');
+const Raven = require('raven');
 const app = feathers();
 app.configure(configuration(path.join(__dirname, '..')));
-app.get('/E3424ECA21B42B64D26E4AF8622D383F.txt', function (req, res) {
-    res.send('E758BBBEDFD34086ABCDDDA468E5B0807EE04115 comodoca.com');
-});
-app.use(compress())
-    .options('*', cors())
+Raven.config('https://e07c37debc08407cbb4f50a17f00cea3:4b1a88c408314007ac59628ab74c8251@sentry.io/142151').install();
+app.use(Raven.requestHandler())
+    .use(Raven.errorHandler())
+    .use(function onError(err, req, res, next) {
+    res.statusCode = 500;
+    res.end(res.sentry + '\n');
+})
+    .use(compress())
     .use(cors())
     .use(favicon(path.join(app.get('public'), 'favicon.ico')))
     .use('/', serveStatic(app.get('public')))
