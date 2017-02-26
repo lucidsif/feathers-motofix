@@ -92,6 +92,7 @@ export default class Appointment {
   public createAppointment(
     token?: string,
     motorcycle_address?: string,
+    contact_name?: string,
     contact_number?: string,
     estimated_start_time?: string,
     estimated_end_time?: string,
@@ -109,6 +110,7 @@ export default class Appointment {
       },
       body: {
         motorcycle_address,
+        contact_name,
         contact_number,
         estimated_start_time,
         estimated_end_time,

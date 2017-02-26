@@ -8,6 +8,7 @@ const id = (appointment) => appointment.id
 const motorcycle_address = (appointment) => appointment.motorcycle_address
 const estimated_start_time = (appointment) => appointment.estimated_start_time
 const estimated_end_time = (appointment) => appointment.estimated_end_time
+const contact_name = (appointment) => appointment.contact_name
 const contact_number = (appointment) => appointment.contact_number
 const status = (appointment) => appointment.status
 const fk_quote_id = (appointment) => appointment.fk_quote_id
@@ -20,6 +21,7 @@ export default {
     motorcycle_address,
     estimated_start_time,
     estimated_end_time,
+    contact_name,
     contact_number,
     status,
     fk_quote_id,

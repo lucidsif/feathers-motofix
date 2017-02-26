@@ -33,6 +33,10 @@ module.exports = function(sequelize) {
       ),
       allowNull: false
     },
+    contact_name: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
     contact_number: {
       type: Sequelize.STRING,
       allowNull: false
