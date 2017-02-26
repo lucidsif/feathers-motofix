@@ -4,7 +4,7 @@
 export default `
   type Quote implements Node {
     id: ID!
-    fk_users_id: Int
+    fk_user_id: Int
     motorcycle_json: JSON!
     cart_json: JSON!
     part_json: JSON!
