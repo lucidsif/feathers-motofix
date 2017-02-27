@@ -14,6 +14,7 @@ export default class Stripe {
   }
 
   public createCharge(token: any) {
+    console.log(token.id);
 
     return stripe.charges.create({
       amount: token.amount,

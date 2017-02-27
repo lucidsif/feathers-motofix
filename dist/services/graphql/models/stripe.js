@@ -6,6 +6,7 @@ class Stripe {
         this.app = app;
     }
     createCharge(token) {
+        console.log(token.id);
         return stripe.charges.create({
             amount: token.amount,
             currency: "usd",
