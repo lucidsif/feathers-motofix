@@ -6,12 +6,12 @@ class Stripe {
         this.app = app;
     }
     createCharge(token) {
-        console.log(token.id);
+        const parsedToken = JSON.parse(token);
         return stripe.charges.create({
-            amount: token.amount,
+            amount: parsedToken.amount,
             currency: "usd",
             description: "motofix services",
-            source: token.id,
+            source: parsedToken.id,
         }).then((response) => {
             console.log(response);
             return {
