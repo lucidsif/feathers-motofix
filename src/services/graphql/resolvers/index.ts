@@ -22,6 +22,9 @@ import distanceMatrix from './distance-matrix'
 //stripe
 import stripeResponse from './stripe-response'
 
+//vauchar
+import voucher from './voucher';
+
 //import film from './film'
 //import people from './people'
 //import planet from './planet'
@@ -49,5 +52,7 @@ export default Object.assign(
   //google
   distanceMatrix,
   //stripe
-  stripeResponse
+  stripeResponse,
+  //vauchar
+  voucher
 )

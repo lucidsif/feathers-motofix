@@ -19,6 +19,8 @@ type RootQuery {
   
   checkDistance(zipOrCoordinates: String!): DistanceMatrix
   allNearAppointmentsAndSchedules(zipOrCoordinates: String!): AppointmentSchedule
+  
+  validateVoucher(voucherCode: String!): Voucher
 }
 
 type RootMutation {

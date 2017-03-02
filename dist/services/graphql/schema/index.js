@@ -15,6 +15,7 @@ const appointment_1 = require("./appointment");
 const mechanic_schedule_1 = require("./mechanic-schedule");
 const appointment_schedule_1 = require("./appointment-schedule");
 const stripe_response_1 = require("./stripe-response");
+const voucher_1 = require("./voucher");
 const schema = `
   schema {
     query: RootQuery
@@ -45,6 +46,7 @@ exports.default = [
     appointment_1.default,
     mechanic_schedule_1.default,
     appointment_schedule_1.default,
-    stripe_response_1.default
+    stripe_response_1.default,
+    voucher_1.default
 ];
 //# sourceMappingURL=index.js.map

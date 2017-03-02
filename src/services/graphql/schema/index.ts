@@ -18,6 +18,8 @@ import appointmentSchedule from './appointment-schedule'
 
 import stripeResponse from './stripe-response'
 
+import voucher from './voucher'
+
 //import film from './film'
 //import people from './people'
 //import planet from './planet'
@@ -58,7 +60,8 @@ export default [
   mechanicSchedule,
   appointmentSchedule,
 
-  stripeResponse
+  stripeResponse,
+  voucher
 //  film,
 //  people,
 //  planet,

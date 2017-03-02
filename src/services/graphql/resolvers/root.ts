@@ -34,6 +34,8 @@ const createUserAppointment = (_, params, context) => context.appointment.create
 const checkDistance = (_, params, context) => context.google.getDistanceMatrix(params.zipOrCoordinates)
 //stripe
 const createStripeCharge = (_, params, context) => context.stripe.createCharge(params.token)
+//vauchar
+const validateVoucher =  (_, params, context) => context.vauchar.validateVoucherCode(params.voucherCode)
 
 
 // const allFilms = (_, params, context) => context.film.getFilms(params.offset, params.limit)
@@ -66,6 +68,7 @@ export default {
     allRepairTimes,
     allLubricantsAndCapacities,
     checkDistance,
+    validateVoucher
 //    allFilms,
 //    film,
 //    allPeople,

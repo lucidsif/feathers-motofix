@@ -18,6 +18,7 @@ const feathersQuote_1 = require("./models/feathersQuote");
 const feathersAppointmentsAndSchedules_1 = require("./models/feathersAppointmentsAndSchedules");
 const google_maps_1 = require("./models/google-maps");
 const stripe_1 = require("./models/stripe");
+const vauchar_1 = require("./models/vauchar");
 const optics_agent_1 = require("optics-agent");
 optics_agent_1.default.configureAgent({ apiKey: 'service:apollo-boilerplate:C1eurtOys51IglSKs_jR-Q' });
 const swapiHost = process.env.SWAPI_HOST ? `${process.env.API_HOST}/api` : 'http://swapi.co/api';
@@ -58,7 +59,8 @@ module.exports = function () {
                 quote: new feathersQuote_1.default(app),
                 appointment: new feathersAppointmentsAndSchedules_1.default(app),
                 google: new google_maps_1.default(googleConnector),
-                stripe: new stripe_1.default(app)
+                stripe: new stripe_1.default(app),
+                vauchar: new vauchar_1.default()
             },
         });
     }));

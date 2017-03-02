@@ -18,6 +18,7 @@ const createUserQuote = (_, params, context) => context.quote.createQuote(params
 const createUserAppointment = (_, params, context) => context.appointment.createAppointment(params.token, params.motorcycle_address, params.contact_name, params.contact_number, params.estimated_start_time, params.estimated_end_time, params.status, params.fk_quote_id, params.fk_mechanic_id);
 const checkDistance = (_, params, context) => context.google.getDistanceMatrix(params.zipOrCoordinates);
 const createStripeCharge = (_, params, context) => context.stripe.createCharge(params.token);
+const validateVoucher = (_, params, context) => context.vauchar.validateVoucherCode(params.voucherCode);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     RootQuery: {
@@ -35,6 +36,7 @@ exports.default = {
         allRepairTimes,
         allLubricantsAndCapacities,
         checkDistance,
+        validateVoucher
     },
     RootMutation: {
         signUp,
