@@ -103,6 +103,7 @@ class Appointment {
         })
             .catch((e) => {
             console.log(e);
+            return e;
         });
     }
     getUserAppointments(fk_user_id) {

@@ -36,6 +36,7 @@ const checkDistance = (_, params, context) => context.google.getDistanceMatrix(p
 const createStripeCharge = (_, params, context) => context.stripe.createCharge(params.token)
 //vauchar
 const validateVoucher =  (_, params, context) => context.vauchar.validateVoucherCode(params.voucherCode)
+const redeemVoucher = (_, params, context) => context.vauchar.createVoucherRedemption(params.voucherCode, params.user_id)
 
 
 // const allFilms = (_, params, context) => context.film.getFilms(params.offset, params.limit)
@@ -85,6 +86,7 @@ export default {
     logIn,
     createUserQuote,
     createUserAppointment,
-    createStripeCharge
+    createStripeCharge,
+    redeemVoucher
   },
 }

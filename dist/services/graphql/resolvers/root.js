@@ -19,6 +19,7 @@ const createUserAppointment = (_, params, context) => context.appointment.create
 const checkDistance = (_, params, context) => context.google.getDistanceMatrix(params.zipOrCoordinates);
 const createStripeCharge = (_, params, context) => context.stripe.createCharge(params.token);
 const validateVoucher = (_, params, context) => context.vauchar.validateVoucherCode(params.voucherCode);
+const redeemVoucher = (_, params, context) => context.vauchar.createVoucherRedemption(params.voucherCode, params.user_id);
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     RootQuery: {
@@ -43,7 +44,8 @@ exports.default = {
         logIn,
         createUserQuote,
         createUserAppointment,
-        createStripeCharge
+        createStripeCharge,
+        redeemVoucher
     },
 };
 //# sourceMappingURL=root.js.map

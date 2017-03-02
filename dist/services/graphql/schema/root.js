@@ -39,6 +39,8 @@ type RootMutation {
     fk_mechanic_id: Int!
   ): Appointment
   createStripeCharge(token: JSON!): StripeResponse
+  
+  redeemVoucher(voucherCode: String!, user_id: Int!): Voucher
  }
 `;
 //# sourceMappingURL=root.js.map
