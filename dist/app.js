@@ -15,7 +15,6 @@ const services = require('./services');
 const Raven = require('raven');
 const app = feathers();
 app.configure(configuration(path.join(__dirname, '..')));
-Raven.config('https://e07c37debc08407cbb4f50a17f00cea3:4b1a88c408314007ac59628ab74c8251@sentry.io/142151').install();
 app.use(Raven.requestHandler())
     .use(Raven.errorHandler())
     .use(function onError(err, req, res, next) {

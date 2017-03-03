@@ -16,7 +16,7 @@ const allSubModels = (_, params, context) => context.autoData.getSubModels(param
 const allRepairTimes = (_, params, context) => context.autoData.getRepairTimes(params.midID)
 const allLubricantsAndCapacities = (_, params, context) => context.autoData.getLubricantsAndCapacities(params.midID)
 // feathers mutations
-const signUp = (_, params, context) => context.user.createUser(params.email, params.password)
+const signUp = (_, params, context) => context.user.createUser(params.email, params.password, params.name)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
 const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON, params.useOwnParts)
 const createUserAppointment = (_, params, context) => context.appointment.createAppointment(

@@ -2,8 +2,7 @@ export default `
 
   type User implements Node {
     id: ID!
-    firstName: String
-    lastName: String
+    name: String!
     email: String!
   }
 `

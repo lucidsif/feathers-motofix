@@ -5,10 +5,10 @@ class User {
     constructor(app) {
         this.app = app;
     }
-    createUser(email, password) {
+    createUser(email, password, name) {
         console.log('createuser parameters: ' + email + ',' + password);
         let Users = this.app['service']('users');
-        let args = { email, password };
+        let args = { email, password, name };
         return Users.create(args).then((response) => {
             console.log(response);
             return response.dataValues;

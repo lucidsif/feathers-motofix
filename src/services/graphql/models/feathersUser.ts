@@ -11,10 +11,10 @@ export default class User {
     this.app = app
   }
 
-  public createUser(email?: string, password?: string){
+  public createUser(email?: string, password?: string, name?: string){
     console.log('createuser parameters: ' + email + ',' + password);
     let Users = this.app['service']('users')
-    let args = { email, password };
+    let args = { email, password, name };
 
     return Users.create(args).then((response) => {
       console.log(response);

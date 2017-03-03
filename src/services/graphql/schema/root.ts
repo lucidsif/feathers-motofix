@@ -24,7 +24,7 @@ type RootQuery {
 }
 
 type RootMutation {
-  signUp (email: String!, password: String!): User
+  signUp (email: String!, password: String!, name: String!): User
   logIn (email: String!, password: String!): AuthPayload
   createUserQuote(token: String!, motorcycleJSON: JSON!, cartJSON: JSON!, partJSON: JSON!, useOwnParts: Boolean! ): Quote
   createUserAppointment(
