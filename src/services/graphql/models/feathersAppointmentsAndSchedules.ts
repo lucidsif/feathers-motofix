@@ -100,7 +100,7 @@ export default class Appointment {
     fk_quote_id?: number,
     fk_mechanic_id?: number,
   ){
-    //console.log(token, motorcycle_address, estimated_start_time, estimated_end_time, status, fk_quote_id, fk_mechanic_id)
+    //console.log(token, motorcycle_address, contact_number, note, estimated_start_time, estimated_end_time, status, fk_quote_id, fk_mechanic_id)
 
     const options = {
       method: 'POST',

@@ -22,8 +22,8 @@ const createUserQuote = (_, params, context) => context.quote.createQuote(params
 const createUserAppointment = (_, params, context) => context.appointment.createAppointment(
   params.token,
   params.motorcycle_address,
-  params.contact_name,
   params.contact_number,
+  params.note,
   params.estimated_start_time,
   params.estimated_end_time,
   params.status,
