@@ -24,9 +24,9 @@ module.exports = function (sequelize) {
             type: Sequelize.ENUM('pending', 'completed', 'cancelled', 'refunded'),
             allowNull: false
         },
-        contact_name: {
+        note: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         contact_number: {
             type: Sequelize.STRING,
