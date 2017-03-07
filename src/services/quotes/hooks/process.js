@@ -7,7 +7,6 @@
 
 //const defaults = {};
 
-// TODO: attach the rest of the quote fields..created and updated are null particularly
 module.exports = function(options) {
 
   return function(hook) {
@@ -17,13 +16,15 @@ module.exports = function(options) {
     const part_json = hook.data.part_json;
     const cart_json = hook.data.cart_json;
     const use_own_parts = hook.data.use_own_parts;
+    const voucher_code_status = hook.data.voucher_code_status;
 
     hook.data = {
       fk_user_id: user.dataValues.id,
       motorcycle_json,
       part_json,
       cart_json,
-      use_own_parts
+      use_own_parts,
+      voucher_code_status
     }
   };
 };
