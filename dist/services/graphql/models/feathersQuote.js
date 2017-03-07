@@ -24,7 +24,7 @@ class Quote {
             console.log(e);
         });
     }
-    createQuote(token, motorcycleJSON, cartJSON, partJSON, useOwnParts) {
+    createQuote(token, motorcycleJSON, cartJSON, partJSON, useOwnParts, voucherCodeStatus) {
         const options = {
             method: 'POST',
             uri: `http://${host}/quotes`,
@@ -35,7 +35,8 @@ class Quote {
                 motorcycle_json: motorcycleJSON,
                 cart_json: cartJSON,
                 part_json: partJSON,
-                use_own_parts: useOwnParts
+                use_own_parts: useOwnParts,
+                voucher_code_status: voucherCodeStatus
             },
             json: true
         };

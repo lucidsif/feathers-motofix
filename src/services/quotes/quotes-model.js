@@ -47,6 +47,10 @@ module.exports = function(sequelize) {
       type: Sequelize.BOOLEAN,
       allowNull: false
     },
+    voucher_code_status: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true
+    },
     created_at: {
       type: Sequelize.DATE,
     },

@@ -9,6 +9,7 @@ export default `
     cart_json: JSON!
     part_json: JSON!
     use_own_parts: Boolean!
+    voucher_code_status: Boolean!
     created_at: String!
     updated_at: String
   }

@@ -33,7 +33,7 @@ export default class Quote {
       })
   }
 // fix types for params
-  public createQuote(token?: string, motorcycleJSON?: any, cartJSON?: any, partJSON?: any, useOwnParts?: any){
+  public createQuote(token?: string, motorcycleJSON?: any, cartJSON?: any, partJSON?: any, useOwnParts?: any, voucherCodeStatus?: any){
     const options = {
       method: 'POST',
       uri: `http://${host}/quotes`,
@@ -44,7 +44,8 @@ export default class Quote {
         motorcycle_json: motorcycleJSON,
         cart_json: cartJSON,
         part_json: partJSON,
-        use_own_parts: useOwnParts
+        use_own_parts: useOwnParts,
+        voucher_code_status: voucherCodeStatus
       },
         json: true
       }
