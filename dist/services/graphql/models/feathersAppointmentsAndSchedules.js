@@ -97,6 +97,18 @@ class Appointment {
             },
             json: true
         };
+        const slackOptions = {
+            method: 'POST',
+            uri: 'https://hooks.slack.com/services/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',
+            body: {
+                "text": `appointment created for ${fk_mechanic_id} to start ${estimated_start_time}`
+            },
+            json: true
+        };
+        rp(slackOptions)
+            .then((result) => {
+            console.log(result);
+        });
         return rp(options)
             .then((response) => {
             return response;
