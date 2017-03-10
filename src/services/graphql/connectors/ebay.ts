@@ -11,7 +11,7 @@ const maxDistanceFilter = '&itemFilter(2).name=MaxDistance&itemFilter(2).value=3
 const autoDataURL = 'https://api.autodata-group.com/docs/motorcycles/v1/'
 const AUTODATA_API_KEY = 'z66tkk6dh45n5a8mq4hvga6j';
 
-// Modularize API key
+// TODO: reorganize code
 
 
 export default class SWAPIConnector {
@@ -42,10 +42,7 @@ export default class SWAPIConnector {
     })
   }
 
-// TODO: add concept of quantity
   //TODO: FUTURE build try another part (returning an array of servicepartsobjs from each item in arry?)
-
-  // TODO: normalize search query casing
   // TODO: do rp.all instead of chaining parts
   public fetchPage(resource: string, vehicle: string, service: string, midID: string) {
     console.log(`params sent to fetchPage are vehicle: ${vehicle}, service: ${service}, and mid: ${midID}`);
@@ -65,13 +62,14 @@ export default class SWAPIConnector {
         return URLkeywords;
       }
     }
-// TODO: only construct part if listings > 0
-// TODO: create an arr of valid listings to create partsObjects from
+
+    // this function will parse the data returned from the ebay search api, extract the relevant data for the part,
+    // and create a custom part object that will be sent to the client
     function destructureEbayDataAndConstructPart(partsJSON, partName){
         let partsObj = JSON.parse(partsJSON)
         let searchResult = partsObj.findItemsByKeywordsResponse[0].searchResult[0]["@count"]
       console.log('searchresults: ' + searchResult)
-
+// this logic is if search result is empty
         if(searchResult > 0) {
           try {
             let valid = true
@@ -90,18 +88,31 @@ export default class SWAPIConnector {
             servicePartsObj[partName] = {valid: false}
           }
         } else {
-          servicePartsObj[partName] = {valid: false}
-          console.log(servicePartsObj)
+          switch (service) {
+            case 'OilChange':
+              switch (partName) {
+                case 'EngineOil':
+                  servicePartsObj['EngineOil'].valid = false;
+                  servicePartsObj['EngineOil'].partTitle = 'Brand and spec of engine oil will be determined';
+                  servicePartsObj['EngineOil'].imageURL = 'https://3.imimg.com/data3/PS/EM/MY-8901671/castrol-activ-xtra-engine-oil-250x250.jpg';
+                  servicePartsObj['EngineOil'].ebayURL = null;
+                  servicePartsObj['EngineOil'].shippingCost = null;
+                  servicePartsObj['EngineOil'].price = 6;
+                  servicePartsObj['EngineOil'].condition = 'brand new';
+                  servicePartsObj['EngineOil'].quantity = 4;
+                case 'OilFilter':
+                  servicePartsObj['OilFilter'].valid = false;
+                  servicePartsObj['OilFilter'].partTitle = 'Brand of oil filter will be determined';
+                  servicePartsObj['OilFilter'].imageURL = 'https://ad-discountperformance.com/images/CH6012.jpg';
+                  servicePartsObj['OilFilter'].ebayURL = null;
+                  servicePartsObj['OilFilter'].shippingCost = null;
+                  servicePartsObj['OilFilter'].price = 10;
+                  servicePartsObj['OilFilter'].condition = 'brand new';
+                  servicePartsObj['OilFilter'].quantity = 1;
+              }
+          }
         }
-        //let partListings = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item
-        // filter for items that have the following properties
 
-        //console.log(partListings)
-        /*
-        let filteredListings = partListings.filter((listing) => {
-          return listing.title[0] && listing.galleryURL[0] && listing.viewItemURL[0] && listing.shippingInfo && listing.sellingStatus[0].currentPrice[0] && listing.condition[1]
-        })
-        */
     }
 
     function fetchOilChangePartsSeries(list){
@@ -128,67 +139,95 @@ export default class SWAPIConnector {
           return { data: [{oilSpec: "10w-30"}, {filter: "Ninja OEM"}]}
         })
     }
-// TODO: Add concept of quantity
     if(service === "OilChange"){
       // washer property removed for now
-      var servicePartsObj = { OilFilter: {valid: false}, EngineOil: {valid: false} }
+      var servicePartsObj = {
+        OilFilter: {
+          valid: null,
+          partTitle: null,
+          imageURL: null,
+          ebayURL: null,
+          shippingCost: null,
+          price: null,
+          condition: null,
+          quantity: null
+        },
+        EngineOil: {
+          valid: null,
+          partTitle: null,
+          imageURL: null,
+          ebayURL: null,
+          shippingCost: null,
+          price: null,
+          condition: null,
+          quantity: null
+        }
+      }
       var oilWeight
       var oilVolume
       var oilQuantity
 
       let oilFilterURL
       let oilURL
-      //let washerURL
 // TODO: add error handling
       function getOilParts(lubricantsAndCapacities) {
         console.log(lubricantsAndCapacities)
-        if(!lubricantsAndCapacities.length){
-          console.log('err conditional met')
-          let stringifiedObj = JSON.stringify(servicePartsObj)
-          return [stringifiedObj];
-        }
-        const lubricantsAndCapacitiesGroup = lubricantsAndCapacities[0].group_items
-        let oilWeightGroup = lubricantsAndCapacitiesGroup.filter((group) => {
-          return group.description === 'Engine oil grade'
-        })
-        let oilVolumeGroup = lubricantsAndCapacitiesGroup.filter((group) => {
-          return group.description === 'Engine oil with filter'
-        })
-        oilWeight = oilWeightGroup[0].other
-        oilVolume = 1
-        oilQuantity = oilVolumeGroup[0].value
-        // add oil quantity in some form
-        console.log(`oil weight extracted: ${oilWeight}`)
-        console.log(`oil volume extracted: ${oilVolume}`)
-        console.log(`oil quantity in units of oil volume: ${oilQuantity}`)
-        let oilFilterMaxPriceValue = 20
-        oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`
-        return rp(oilFilterURL)
-          .then((data) => {
-            console.log(`fetched: ${oilFilterURL}`)
-            destructureEbayDataAndConstructPart(data, 'OilFilter')
+        if(lubricantsAndCapacities.length) {
+          const lubricantsAndCapacitiesGroup = lubricantsAndCapacities[0].group_items
+          let oilWeightGroup = lubricantsAndCapacitiesGroup.filter((group) => {
+            return group.description === 'Engine oil grade'
           })
-          .catch((e) => {
-            console.log(e)
-            console.log(`failed: ${oilFilterURL}`)
+          let oilVolumeGroup = lubricantsAndCapacitiesGroup.filter((group) => {
+            return group.description === 'Engine oil with filter'
           })
-          .then(() => {
-          let oilMaxPriceValue = 10
-            oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`
-            return rp(oilURL)
-              .then((data) => {
-                console.log(`fetched: ${oilURL}`)
-                destructureEbayDataAndConstructPart(data, 'EngineOil')
-                servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity)
-                const stringifiedObj = JSON.stringify(servicePartsObj)
-                console.log('rounded oil quantity:' + Math.ceil(oilQuantity))
-                return [stringifiedObj];
-              })
-              .catch((e) => {
-                console.log(e)
-                console.log(`failed: ${oilURL}`)
-              })
+          oilWeight = oilWeightGroup[0].other
+          oilVolume = 1
+          oilQuantity = oilVolumeGroup[0].value
+        } else { // if autodata api fails
+          oilWeight = '';
+          oilVolume = 1;
+          oilQuantity = 4
+
+          // add oil quantity in some form
+          console.log(`oil weight extracted: ${oilWeight}`)
+          console.log(`oil volume extracted: ${oilVolume}`)
+          console.log(`oil quantity in units of oil volume: ${oilQuantity}`)
+          let oilFilterMaxPriceValue = 20
+          oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`
+          return rp(oilFilterURL)
+            .then((data) => {
+              console.log(`fetched: ${oilFilterURL}`)
+              destructureEbayDataAndConstructPart(data, 'OilFilter')
             })
+            .catch((e) => {
+              console.log(e)
+              console.log(`failed: ${oilFilterURL}`)
+            })
+            .then(() => {
+              let oilMaxPriceValue = 10
+              oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`
+              return rp(oilURL)
+                .then((data) => {
+                  console.log(`fetched: ${oilURL}`)
+                  destructureEbayDataAndConstructPart(data, 'EngineOil')
+                  servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity)
+                  // if oilspec was not retrieved from autodata, change name
+                  if (!lubricantsAndCapacities.length) {
+                    servicePartsObj['EngineOil'].partTitle = 'BRAND & SPEC TO BE DETERMINED BY MOTOFIX';
+                  }
+                  const stringifiedObj = JSON.stringify(servicePartsObj)
+                  console.log('rounded oil quantity:' + Math.ceil(oilQuantity))
+                  return [stringifiedObj];
+                })
+                .catch((e) => {
+                  console.log(e)
+                  console.log(`failed: ${oilURL}`)
+                  const stringifiedObj = JSON.stringify(servicePartsObj)
+                  return [stringifiedObj];
+                })
+            })
+        }
+
           /*
           .then(() => {
           let washerMaxPriceValue = 10

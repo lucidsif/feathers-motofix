@@ -106,6 +106,7 @@ constructor(rootURL: string) {
 
   // it should return the entire repairtimes array
   public fetchRepairTimes(resource: string, midID: string){
+    midID = '42342'
     console.log(`midID: ${midID}`)
     var variantID;
 
@@ -146,7 +147,7 @@ constructor(rootURL: string) {
           if(e.statusCode === 403) {
             return JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: 'limited'})
           }
-          //return JSON.stringify({ service: 'labortime not found', time: 0.01})
+          // for unavailable services, render an estimated labortime
           return JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: true})
         })
     }
@@ -386,5 +387,14 @@ constructor(rootURL: string) {
 //autodata
 //https://api.autodata-group.com/docs/motorcycles/v1/vehicles/HDA06327/repair-times?&api_key=wjvfv42uwdvq74qxqwz9sfdacountry-code=us&page=1&limit=90
 
-
+/*
+ servicePartsObj['EngineOil'].valid = false,
+ servicePartsObj['EngineOil'].partTitle = 'Unknownpart',
+ servicePartsObj['EngineOil'].imageURL = 'https://3.imimg.com/data3/PS/EM/MY-8901671/castrol-activ-xtra-engine-oil-250x250.jpg',
+ servicePartsObj['EngineOil'].ebayURL = null,
+ servicePartsObj['EngineOil'].shippingCost = null,
+ servicePartsObj['EngineOil'].price = 6,
+ servicePartsObj['EngineOil'].condition = 'brand new',
+ servicePartsObj['EngineOil'].quantitity = 1,
+ */
 

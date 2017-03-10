@@ -70,8 +70,29 @@ class SWAPIConnector {
                 }
             }
             else {
-                servicePartsObj[partName] = { valid: false };
-                console.log(servicePartsObj);
+                switch (service) {
+                    case 'OilChange':
+                        switch (partName) {
+                            case 'EngineOil':
+                                servicePartsObj['EngineOil'].valid = false;
+                                servicePartsObj['EngineOil'].partTitle = 'Brand and spec of engine oil will be determined';
+                                servicePartsObj['EngineOil'].imageURL = 'https://3.imimg.com/data3/PS/EM/MY-8901671/castrol-activ-xtra-engine-oil-250x250.jpg';
+                                servicePartsObj['EngineOil'].ebayURL = null;
+                                servicePartsObj['EngineOil'].shippingCost = null;
+                                servicePartsObj['EngineOil'].price = 6;
+                                servicePartsObj['EngineOil'].condition = 'brand new';
+                                servicePartsObj['EngineOil'].quantity = 4;
+                            case 'OilFilter':
+                                servicePartsObj['OilFilter'].valid = false;
+                                servicePartsObj['OilFilter'].partTitle = 'Brand of oil filter will be determined';
+                                servicePartsObj['OilFilter'].imageURL = 'https://ad-discountperformance.com/images/CH6012.jpg';
+                                servicePartsObj['OilFilter'].ebayURL = null;
+                                servicePartsObj['OilFilter'].shippingCost = null;
+                                servicePartsObj['OilFilter'].price = 10;
+                                servicePartsObj['OilFilter'].condition = 'brand new';
+                                servicePartsObj['OilFilter'].quantity = 1;
+                        }
+                }
             }
         }
         function fetchOilChangePartsSeries(list) {
@@ -96,7 +117,28 @@ class SWAPIConnector {
             });
         }
         if (service === "OilChange") {
-            var servicePartsObj = { OilFilter: { valid: false }, EngineOil: { valid: false } };
+            var servicePartsObj = {
+                OilFilter: {
+                    valid: null,
+                    partTitle: null,
+                    imageURL: null,
+                    ebayURL: null,
+                    shippingCost: null,
+                    price: null,
+                    condition: null,
+                    quantity: null
+                },
+                EngineOil: {
+                    valid: null,
+                    partTitle: null,
+                    imageURL: null,
+                    ebayURL: null,
+                    shippingCost: null,
+                    price: null,
+                    condition: null,
+                    quantity: null
+                }
+            };
             var oilWeight;
             var oilVolume;
             var oilQuantity;
@@ -104,52 +146,59 @@ class SWAPIConnector {
             let oilURL;
             function getOilParts(lubricantsAndCapacities) {
                 console.log(lubricantsAndCapacities);
-                if (!lubricantsAndCapacities.length) {
-                    console.log('err conditional met');
-                    let stringifiedObj = JSON.stringify(servicePartsObj);
-                    return [stringifiedObj];
+                if (lubricantsAndCapacities.length) {
+                    const lubricantsAndCapacitiesGroup = lubricantsAndCapacities[0].group_items;
+                    let oilWeightGroup = lubricantsAndCapacitiesGroup.filter((group) => {
+                        return group.description === 'Engine oil grade';
+                    });
+                    let oilVolumeGroup = lubricantsAndCapacitiesGroup.filter((group) => {
+                        return group.description === 'Engine oil with filter';
+                    });
+                    oilWeight = oilWeightGroup[0].other;
+                    oilVolume = 1;
+                    oilQuantity = oilVolumeGroup[0].value;
                 }
-                const lubricantsAndCapacitiesGroup = lubricantsAndCapacities[0].group_items;
-                let oilWeightGroup = lubricantsAndCapacitiesGroup.filter((group) => {
-                    return group.description === 'Engine oil grade';
-                });
-                let oilVolumeGroup = lubricantsAndCapacitiesGroup.filter((group) => {
-                    return group.description === 'Engine oil with filter';
-                });
-                oilWeight = oilWeightGroup[0].other;
-                oilVolume = 1;
-                oilQuantity = oilVolumeGroup[0].value;
-                console.log(`oil weight extracted: ${oilWeight}`);
-                console.log(`oil volume extracted: ${oilVolume}`);
-                console.log(`oil quantity in units of oil volume: ${oilQuantity}`);
-                let oilFilterMaxPriceValue = 20;
-                oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`;
-                return rp(oilFilterURL)
-                    .then((data) => {
-                    console.log(`fetched: ${oilFilterURL}`);
-                    destructureEbayDataAndConstructPart(data, 'OilFilter');
-                })
-                    .catch((e) => {
-                    console.log(e);
-                    console.log(`failed: ${oilFilterURL}`);
-                })
-                    .then(() => {
-                    let oilMaxPriceValue = 10;
-                    oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`;
-                    return rp(oilURL)
+                else {
+                    oilWeight = '';
+                    oilVolume = 1;
+                    oilQuantity = 4;
+                    console.log(`oil weight extracted: ${oilWeight}`);
+                    console.log(`oil volume extracted: ${oilVolume}`);
+                    console.log(`oil quantity in units of oil volume: ${oilQuantity}`);
+                    let oilFilterMaxPriceValue = 20;
+                    oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`;
+                    return rp(oilFilterURL)
                         .then((data) => {
-                        console.log(`fetched: ${oilURL}`);
-                        destructureEbayDataAndConstructPart(data, 'EngineOil');
-                        servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity);
-                        const stringifiedObj = JSON.stringify(servicePartsObj);
-                        console.log('rounded oil quantity:' + Math.ceil(oilQuantity));
-                        return [stringifiedObj];
+                        console.log(`fetched: ${oilFilterURL}`);
+                        destructureEbayDataAndConstructPart(data, 'OilFilter');
                     })
                         .catch((e) => {
                         console.log(e);
-                        console.log(`failed: ${oilURL}`);
+                        console.log(`failed: ${oilFilterURL}`);
+                    })
+                        .then(() => {
+                        let oilMaxPriceValue = 10;
+                        oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`;
+                        return rp(oilURL)
+                            .then((data) => {
+                            console.log(`fetched: ${oilURL}`);
+                            destructureEbayDataAndConstructPart(data, 'EngineOil');
+                            servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity);
+                            if (!lubricantsAndCapacities.length) {
+                                servicePartsObj['EngineOil'].partTitle = 'BRAND & SPEC TO BE DETERMINED BY MOTOFIX';
+                            }
+                            const stringifiedObj = JSON.stringify(servicePartsObj);
+                            console.log('rounded oil quantity:' + Math.ceil(oilQuantity));
+                            return [stringifiedObj];
+                        })
+                            .catch((e) => {
+                            console.log(e);
+                            console.log(`failed: ${oilURL}`);
+                            const stringifiedObj = JSON.stringify(servicePartsObj);
+                            return [stringifiedObj];
+                        });
                     });
-                });
+                }
             }
             const oilChangeFuncs = [fetchLubricantsAndCapacities, getOilParts];
             return fetchOilChangePartsSeries(oilChangeFuncs);
