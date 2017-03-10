@@ -47,6 +47,7 @@ class SWAPIConnector {
             }
         }
         function destructureEbayDataAndConstructPart(partsJSON, partName) {
+            console.log(`searching for ${partName}`);
             let partsObj = JSON.parse(partsJSON);
             let searchResult = partsObj.findItemsByKeywordsResponse[0].searchResult[0]["@count"];
             console.log('searchresults: ' + searchResult);
@@ -70,12 +71,13 @@ class SWAPIConnector {
                 }
             }
             else {
+                console.log('search result is 0');
                 switch (service) {
                     case 'OilChange':
                         switch (partName) {
                             case 'EngineOil':
-                                servicePartsObj['EngineOil'].valid = false;
-                                servicePartsObj['EngineOil'].partTitle = 'Brand and spec of engine oil will be determined';
+                                servicePartsObj['EngineOil'].valid = true;
+                                servicePartsObj['EngineOil'].partTitle = 'BRAND AND SPEC OF ENGINE OIL WILL BE DETERMINED BY MOTOFIX';
                                 servicePartsObj['EngineOil'].imageURL = 'https://3.imimg.com/data3/PS/EM/MY-8901671/castrol-activ-xtra-engine-oil-250x250.jpg';
                                 servicePartsObj['EngineOil'].ebayURL = null;
                                 servicePartsObj['EngineOil'].shippingCost = null;
@@ -83,12 +85,14 @@ class SWAPIConnector {
                                 servicePartsObj['EngineOil'].condition = 'brand new';
                                 servicePartsObj['EngineOil'].quantity = 4;
                             case 'OilFilter':
-                                servicePartsObj['OilFilter'].valid = false;
-                                servicePartsObj['OilFilter'].partTitle = 'Brand of oil filter will be determined';
+                                servicePartsObj['OilFilter'].valid = true;
+                                servicePartsObj['OilFilter'].partTitle = 'BRAND OF OIL FILTER WILL BE DETERMINED BY MOTOFIX';
                                 servicePartsObj['OilFilter'].imageURL = 'https://ad-discountperformance.com/images/CH6012.jpg';
                                 servicePartsObj['OilFilter'].ebayURL = null;
                                 servicePartsObj['OilFilter'].shippingCost = null;
-                                servicePartsObj['OilFilter'].price = 10;
+                                servicePartsObj['OilFilter'].price = {};
+                                servicePartsObj['OilFilter'].price['@currencyId'] = 'USD';
+                                servicePartsObj['OilFilter'].price.__value__ = '10.00';
                                 servicePartsObj['OilFilter'].condition = 'brand new';
                                 servicePartsObj['OilFilter'].quantity = 1;
                         }
