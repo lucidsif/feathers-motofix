@@ -48,7 +48,7 @@ export default class SWAPIConnector {
   // => first function will fetch oilSpec data from autodata api => second function will run the getParts function which return an array of parts to send to the client
   public fetchPage(resource: string, vehicle: string, service: string, midID: string) {
     console.log(`params sent to fetchPage are vehicle: ${vehicle}, service: ${service}, and mid: ${midID}`);
-
+    midID = 'balls';
     // this function will take a vehicle model and part name and encode a URL
     function createURLKeywords(vehicleModel, partName, partSpec){
       var keywords;
@@ -69,55 +69,55 @@ export default class SWAPIConnector {
     // and create a custom part object that will be sent to the client
     function destructureEbayDataAndConstructPart(partsJSON, partName){
       console.log(`searching for ${partName}`)
-        let partsObj = JSON.parse(partsJSON)
-        let searchResult = partsObj.findItemsByKeywordsResponse[0].searchResult[0]["@count"]
+      let partsObj = JSON.parse(partsJSON)
+      let searchResult = partsObj.findItemsByKeywordsResponse[0].searchResult[0]["@count"]
       console.log('searchresults: ' + searchResult)
 // if no parts were found from the ebay search api, create a default generic part
-        if(searchResult > 0) {
-          try {
-            let valid = true
-            let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0]
-            let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0]
-            let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0]
-            let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
-            let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
-            let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
-            let quantity = 1
-            servicePartsObj[partName] = {valid, partTitle, imageURL, ebayURL, shippingCost, price, condition, quantity}
-            console.log(servicePartsObj[partName])
-          } catch(e){
-            console.log('json extracting problem during part construction')
-            console.log(e)
-            servicePartsObj[partName] = {valid: false}
-          }
-        } else {
-        console.log('search result is 0')
-          switch (service) {
-            case 'OilChange':
-              switch (partName) {
-                case 'EngineOil':
-                  servicePartsObj['EngineOil'].valid = true;
-                  servicePartsObj['EngineOil'].partTitle = 'BRAND AND SPEC OF ENGINE OIL WILL BE DETERMINED BY MOTOFIX';
-                  servicePartsObj['EngineOil'].imageURL = 'https://3.imimg.com/data3/PS/EM/MY-8901671/castrol-activ-xtra-engine-oil-250x250.jpg';
-                  servicePartsObj['EngineOil'].ebayURL = null;
-                  servicePartsObj['EngineOil'].shippingCost = null;
-                  servicePartsObj['EngineOil'].price = 6;
-                  servicePartsObj['EngineOil'].condition = 'brand new';
-                  servicePartsObj['EngineOil'].quantity = 4;
-                case 'OilFilter':
-                  servicePartsObj['OilFilter'].valid = true;
-                  servicePartsObj['OilFilter'].partTitle = 'BRAND OF OIL FILTER WILL BE DETERMINED BY MOTOFIX';
-                  servicePartsObj['OilFilter'].imageURL = 'https://ad-discountperformance.com/images/CH6012.jpg';
-                  servicePartsObj['OilFilter'].ebayURL = null;
-                  servicePartsObj['OilFilter'].shippingCost = null;
-                  servicePartsObj['OilFilter'].price = {};
-                  servicePartsObj['OilFilter'].price['@currencyId'] = 'USD';
-                  servicePartsObj['OilFilter'].price.__value__ = '10.00';
-                  servicePartsObj['OilFilter'].condition = 'brand new';
-                  servicePartsObj['OilFilter'].quantity = 1;
-              }
-          }
+      if(searchResult > 0) {
+        try {
+          let valid = true
+          let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0]
+          let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0]
+          let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0]
+          let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo
+          let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0]
+          let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1]
+          let quantity = 1
+          servicePartsObj[partName] = {valid, partTitle, imageURL, ebayURL, shippingCost, price, condition, quantity}
+          console.log(servicePartsObj[partName])
+        } catch(e){
+          console.log('json extracting problem during part construction')
+          console.log(e)
+          servicePartsObj[partName] = {valid: false}
         }
+      } else {
+        console.log('search result is 0')
+        switch (service) {
+          case 'OilChange':
+            switch (partName) {
+              case 'EngineOil':
+                servicePartsObj['EngineOil'].valid = true;
+                servicePartsObj['EngineOil'].partTitle = 'BRAND AND SPEC OF ENGINE OIL WILL BE DETERMINED BY MOTOFIX';
+                servicePartsObj['EngineOil'].imageURL = 'https://3.imimg.com/data3/PS/EM/MY-8901671/castrol-activ-xtra-engine-oil-250x250.jpg';
+                servicePartsObj['EngineOil'].ebayURL = null;
+                servicePartsObj['EngineOil'].shippingCost = null;
+                servicePartsObj['EngineOil'].price = 6;
+                servicePartsObj['EngineOil'].condition = 'brand new';
+                servicePartsObj['EngineOil'].quantity = 4;
+              case 'OilFilter':
+                servicePartsObj['OilFilter'].valid = true;
+                servicePartsObj['OilFilter'].partTitle = 'BRAND OF OIL FILTER WILL BE DETERMINED BY MOTOFIX';
+                servicePartsObj['OilFilter'].imageURL = 'https://ad-discountperformance.com/images/CH6012.jpg';
+                servicePartsObj['OilFilter'].ebayURL = null;
+                servicePartsObj['OilFilter'].shippingCost = null;
+                servicePartsObj['OilFilter'].price = {};
+                servicePartsObj['OilFilter'].price['@currencyId'] = 'USD';
+                servicePartsObj['OilFilter'].price.__value__ = '10.00';
+                servicePartsObj['OilFilter'].condition = 'brand new';
+                servicePartsObj['OilFilter'].quantity = 1;
+            }
+        }
+      }
 
     }
 
@@ -193,65 +193,49 @@ export default class SWAPIConnector {
           oilWeight = '';
           oilVolume = 1;
           oilQuantity = 4
-
-          // add oil quantity in some form
-          console.log(`oil weight extracted: ${oilWeight}`)
-          console.log(`oil volume extracted: ${oilVolume}`)
-          console.log(`oil quantity in units of oil volume: ${oilQuantity}`)
-          let oilFilterMaxPriceValue = 20
-          oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`
-          return rp(oilFilterURL)
-            .then((data) => {
-              console.log(`fetched: ${oilFilterURL}`)
-              destructureEbayDataAndConstructPart(data, 'OilFilter')
-            })
-            .catch((e) => {
-              console.log(e)
-              console.log(`failed: ${oilFilterURL}`)
-            })
-            .then(() => {
-              let oilMaxPriceValue = 10
-              oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`
-              return rp(oilURL)
-                .then((data) => {
-                  console.log(`fetched: ${oilURL}`)
-                  destructureEbayDataAndConstructPart(data, 'EngineOil')
-                  servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity)
-                  // if oilspec was not retrieved from autodata, change name
-                  if (!lubricantsAndCapacities.length) {
-                    servicePartsObj['EngineOil'].partTitle = 'BRAND & SPEC TO BE DETERMINED BY MOTOFIX';
-                  }
-                  const stringifiedObj = JSON.stringify(servicePartsObj)
-                  console.log('rounded oil quantity:' + Math.ceil(oilQuantity))
-                  return [stringifiedObj];
-                })
-                .catch((e) => {
-                  console.log(e)
-                  console.log(`failed: ${oilURL}`)
-                  const stringifiedObj = JSON.stringify(servicePartsObj)
-                  return [stringifiedObj];
-                })
-            })
         }
 
-          /*
+
+        // add oil quantity in some form
+        console.log(`oil weight extracted: ${oilWeight}`)
+        console.log(`oil volume extracted: ${oilVolume}`)
+        console.log(`oil quantity in units of oil volume: ${oilQuantity}`)
+        let oilFilterMaxPriceValue = 20
+        oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`
+        return rp(oilFilterURL)
+          .then((data) => {
+            console.log(`fetched: ${oilFilterURL}`)
+            destructureEbayDataAndConstructPart(data, 'OilFilter')
+          })
+          .catch((e) => {
+            console.log(e)
+            console.log(`failed: ${oilFilterURL}`)
+          })
           .then(() => {
-          let washerMaxPriceValue = 10
-            washerURL = `${ebayURL}${createURLKeywords(vehicle, 'drain plug washer', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${washerMaxPriceValue}${maxDistanceFilter}`
-            return rp(washerURL)
+            let oilMaxPriceValue = 10
+            oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`
+            return rp(oilURL)
               .then((data) => {
-                console.log(`fetched: ${washerURL}`)
-                destructureEbayDataAndConstructPart(data, 'Washer')
+                console.log(`fetched: ${oilURL}`)
+                destructureEbayDataAndConstructPart(data, 'EngineOil')
+                servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity)
+                // if oilspec was not retrieved from autodata, change name
+                if (!lubricantsAndCapacities.length) {
+                  servicePartsObj['EngineOil'].partTitle = 'BRAND & SPEC TO BE DETERMINED BY MOTOFIX';
+                }
                 const stringifiedObj = JSON.stringify(servicePartsObj)
+                console.log('rounded oil quantity:' + Math.ceil(oilQuantity))
                 return [stringifiedObj];
               })
               .catch((e) => {
                 console.log(e)
-                console.log(`failed: ${washerURL}`)
+                console.log(`failed: ${oilURL}`)
+                const stringifiedObj = JSON.stringify(servicePartsObj)
+                return [stringifiedObj];
               })
           })
-          */
       }
+
       const oilChangeFuncs = [fetchLubricantsAndCapacities, getOilParts]
       return fetchOilChangePartsSeries(oilChangeFuncs)
     }
