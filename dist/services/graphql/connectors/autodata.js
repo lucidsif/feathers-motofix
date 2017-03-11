@@ -86,7 +86,6 @@ class AUTODATAConnector {
         return getSubModels();
     }
     fetchRepairTimes(resource, midID) {
-        midID = '42342';
         console.log(`midID: ${midID}`);
         var variantID;
         function getVariantIDByMidID() {

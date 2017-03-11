@@ -166,43 +166,43 @@ class SWAPIConnector {
                     oilWeight = '';
                     oilVolume = 1;
                     oilQuantity = 4;
-                    console.log(`oil weight extracted: ${oilWeight}`);
-                    console.log(`oil volume extracted: ${oilVolume}`);
-                    console.log(`oil quantity in units of oil volume: ${oilQuantity}`);
-                    let oilFilterMaxPriceValue = 20;
-                    oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`;
-                    return rp(oilFilterURL)
+                }
+                console.log(`oil weight extracted: ${oilWeight}`);
+                console.log(`oil volume extracted: ${oilVolume}`);
+                console.log(`oil quantity in units of oil volume: ${oilQuantity}`);
+                let oilFilterMaxPriceValue = 20;
+                oilFilterURL = `${ebayURL}${createURLKeywords(vehicle, 'oil filter', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilFilterMaxPriceValue}${maxDistanceFilter}`;
+                return rp(oilFilterURL)
+                    .then((data) => {
+                    console.log(`fetched: ${oilFilterURL}`);
+                    destructureEbayDataAndConstructPart(data, 'OilFilter');
+                })
+                    .catch((e) => {
+                    console.log(e);
+                    console.log(`failed: ${oilFilterURL}`);
+                })
+                    .then(() => {
+                    let oilMaxPriceValue = 10;
+                    oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`;
+                    return rp(oilURL)
                         .then((data) => {
-                        console.log(`fetched: ${oilFilterURL}`);
-                        destructureEbayDataAndConstructPart(data, 'OilFilter');
+                        console.log(`fetched: ${oilURL}`);
+                        destructureEbayDataAndConstructPart(data, 'EngineOil');
+                        servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity);
+                        if (!lubricantsAndCapacities.length) {
+                            servicePartsObj['EngineOil'].partTitle = 'BRAND & SPEC TO BE DETERMINED BY MOTOFIX';
+                        }
+                        const stringifiedObj = JSON.stringify(servicePartsObj);
+                        console.log('rounded oil quantity:' + Math.ceil(oilQuantity));
+                        return [stringifiedObj];
                     })
                         .catch((e) => {
                         console.log(e);
-                        console.log(`failed: ${oilFilterURL}`);
-                    })
-                        .then(() => {
-                        let oilMaxPriceValue = 10;
-                        oilURL = `${ebayURL}${createURLKeywords(vehicle, 'synthetic oil', `${oilWeight} ${oilVolume} quart`)}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${oilMaxPriceValue}${maxDistanceFilter}`;
-                        return rp(oilURL)
-                            .then((data) => {
-                            console.log(`fetched: ${oilURL}`);
-                            destructureEbayDataAndConstructPart(data, 'EngineOil');
-                            servicePartsObj.EngineOil['quantity'] = Math.ceil(oilQuantity);
-                            if (!lubricantsAndCapacities.length) {
-                                servicePartsObj['EngineOil'].partTitle = 'BRAND & SPEC TO BE DETERMINED BY MOTOFIX';
-                            }
-                            const stringifiedObj = JSON.stringify(servicePartsObj);
-                            console.log('rounded oil quantity:' + Math.ceil(oilQuantity));
-                            return [stringifiedObj];
-                        })
-                            .catch((e) => {
-                            console.log(e);
-                            console.log(`failed: ${oilURL}`);
-                            const stringifiedObj = JSON.stringify(servicePartsObj);
-                            return [stringifiedObj];
-                        });
+                        console.log(`failed: ${oilURL}`);
+                        const stringifiedObj = JSON.stringify(servicePartsObj);
+                        return [stringifiedObj];
                     });
-                }
+                });
             }
             const oilChangeFuncs = [fetchLubricantsAndCapacities, getOilParts];
             return fetchOilChangePartsSeries(oilChangeFuncs);

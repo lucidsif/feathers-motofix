@@ -106,7 +106,6 @@ constructor(rootURL: string) {
 
   // it should return the entire repairtimes array
   public fetchRepairTimes(resource: string, midID: string){
-    midID = '42342'
     console.log(`midID: ${midID}`)
     var variantID;
 

@@ -193,6 +193,8 @@ export default class SWAPIConnector {
           oilWeight = '';
           oilVolume = 1;
           oilQuantity = 4
+        }
+
 
           // add oil quantity in some form
           console.log(`oil weight extracted: ${oilWeight}`)
@@ -232,26 +234,8 @@ export default class SWAPIConnector {
                   return [stringifiedObj];
                 })
             })
-        }
-
-          /*
-          .then(() => {
-          let washerMaxPriceValue = 10
-            washerURL = `${ebayURL}${createURLKeywords(vehicle, 'drain plug washer', '')}${buyerPostalCode}${buyItNowFilter}${maxPriceFilter}${washerMaxPriceValue}${maxDistanceFilter}`
-            return rp(washerURL)
-              .then((data) => {
-                console.log(`fetched: ${washerURL}`)
-                destructureEbayDataAndConstructPart(data, 'Washer')
-                const stringifiedObj = JSON.stringify(servicePartsObj)
-                return [stringifiedObj];
-              })
-              .catch((e) => {
-                console.log(e)
-                console.log(`failed: ${washerURL}`)
-              })
-          })
-          */
       }
+
       const oilChangeFuncs = [fetchLubricantsAndCapacities, getOilParts]
       return fetchOilChangePartsSeries(oilChangeFuncs)
     }
