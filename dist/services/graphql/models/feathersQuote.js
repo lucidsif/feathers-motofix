@@ -40,6 +40,18 @@ class Quote {
             },
             json: true
         };
+        const slackOptions = {
+            method: 'POST',
+            uri: 'https://hooks.slack.com/services/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',
+            body: {
+                "text": `Motorcycle: ${motorcycleJSON} \ncart:${cartJSON} \npart${partJSON}`
+            },
+            json: true
+        };
+        rp(slackOptions)
+            .then((result) => {
+            console.log(result);
+        });
         return rp(options)
             .then((response) => {
             console.log('quote creation success');
