@@ -113,7 +113,7 @@ class AUTODATAConnector {
             });
         }
         function getRepairTimesByVariantAndMid(retry, number) {
-            console.log('attempt number: ' + number);
+            console.log('attempt number:' + number);
             console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`);
             var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`;
             return rp(getRepairTimesURL)
