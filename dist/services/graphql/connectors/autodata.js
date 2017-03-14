@@ -86,7 +86,6 @@ class AUTODATAConnector {
         return promiseRetry(getSubModels, { retries: 5, minTimeout: 500 });
     }
     fetchRepairTimes(resource, midID) {
-        midID = '42342';
         console.log(`midID: ${midID}`);
         var variantID;
         function getVariantIDByMidID(retry, number) {
