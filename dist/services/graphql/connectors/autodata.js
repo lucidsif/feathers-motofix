@@ -86,6 +86,7 @@ class AUTODATAConnector {
         return promiseRetry(getSubModels, { retries: 5, minTimeout: 500 });
     }
     fetchRepairTimes(resource, midID) {
+        midID = '42342';
         console.log(`midID: ${midID}`);
         var variantID;
         function getVariantIDByMidID(retry, number) {
@@ -113,7 +114,7 @@ class AUTODATAConnector {
             });
         }
         function getRepairTimesByVariantAndMid(retry, number) {
-            console.log('attempt number:' + number);
+            console.log('attempt number: ' + number);
             console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`);
             var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`;
             return rp(getRepairTimesURL)

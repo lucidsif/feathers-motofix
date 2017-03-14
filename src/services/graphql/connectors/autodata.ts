@@ -11,7 +11,7 @@ export default class AUTODATAConnector {
   public loader
   private rootURL: string
 
-constructor(rootURL: string) {
+  constructor(rootURL: string) {
     this.rootURL = rootURL
     this.loader = new DataLoader((urls) => {
       const promises = urls.map((url) => {
@@ -104,6 +104,7 @@ constructor(rootURL: string) {
 
   // it should return the entire repairtimes array
   public fetchRepairTimes(resource: string, midID: string){
+    midID = '42342'
     console.log(`midID: ${midID}`)
     var variantID;
 
@@ -134,7 +135,7 @@ constructor(rootURL: string) {
     }
 
     function getRepairTimesByVariantAndMid(retry, number){
-      console.log('attempt number:' + number)
+      console.log('attempt number: ' + number)
       console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`)
       var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`
       return rp(getRepairTimesURL)
@@ -199,5 +200,3 @@ constructor(rootURL: string) {
       })
   }
 }
-
-
