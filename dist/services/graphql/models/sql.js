@@ -5,7 +5,8 @@ class VehicleModel {
         console.log(`make is: ${filterByMake}, year is: ${filterByYear}`);
         console.time('graphql');
         if (filterByYear && filterByMake) {
-            return postgresql_1.default('vehicle')
+            console.log('first');
+            return postgresql_1.default('motorcycles')
                 .select()
                 .distinct('model')
                 .where({
@@ -17,10 +18,12 @@ class VehicleModel {
                 return rows;
             })
                 .catch((err) => {
+                console.log(err);
             });
         }
         if (filterByYear && !filterByMake) {
-            return postgresql_1.default('vehicle')
+            console.log('second');
+            return postgresql_1.default('motorcycles')
                 .select()
                 .distinct('make')
                 .where({
@@ -31,6 +34,7 @@ class VehicleModel {
                 return rows;
             })
                 .catch((err) => {
+                console.log(err);
             });
         }
     }

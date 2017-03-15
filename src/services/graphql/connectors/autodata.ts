@@ -63,14 +63,14 @@ export default class AUTODATAConnector {
         .catch( function(err) {
           console.log(`failed getModelIdByManufacturer: ${getModelURL}`);
           console.log(err.statusCode);
-          if (err.statusCode === 403 && number <= 5) {
+          if (err.statusCode === 403 && number <= 3) {
             // if developer over qps, retry
             return retry(err);
           }
           return JSON.stringify({ service: 'model array not found', time: 0.01})
         })
     }
-    return promiseRetry(getModels, { retries: 5, minTimeout: 500 })
+    return promiseRetry(getModels, { retries: 3, minTimeout: 500 })
 
   }
 
@@ -90,7 +90,7 @@ export default class AUTODATAConnector {
         .catch( function(err) {
           console.log(`failed getMidIDByModelId: ${getMidURL}`)
           console.log(err.statusCode);
-          if (err.statusCode === 403 && number <= 5) {
+          if (err.statusCode === 403 && number <= 3) {
             // if developer over qps, retry
             return retry(err);
           }
@@ -98,7 +98,7 @@ export default class AUTODATAConnector {
         })
     }
 
-    return promiseRetry(getSubModels, { retries: 5, minTimeout: 500 })
+    return promiseRetry(getSubModels, { retries: 3, minTimeout: 500 })
   }
 
   // it should return the entire repairtimes array
