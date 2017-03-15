@@ -107,10 +107,12 @@ class AUTODATAConnector {
                 getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`;
                 return rp(getRepairTimesURL);
             })
-                .then((response) => {
+                .then((repairTimes) => {
                 console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`);
-                console.log(response);
-                return response;
+                console.log(repairTimes);
+                let parsedResult = JSON.parse(repairTimes);
+                let repairTimesObj = parsedResult.data.repair_times;
+                return JSON.stringify(repairTimesObj);
             })
                 .catch(function (err) {
                 console.log(`failed`);
