@@ -2,7 +2,7 @@
 const allStarships = (_, params, context) => context.starship.getStarships(params.offset, params.limit);
 const starship = (_, params, context) => context.starship.getStarship(params.id, params.starshipID);
 const searchParts = (_, params, context) => context.part.getParts(params.vehicle, params.service, params.midID);
-const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.offset, params.limit, params.filterByYear, params.filterByMake);
+const allVehicles = (_, params, context) => context.vehicle.getVehicles(params.offset, params.limit, params.filterByMake, params.filterByModel, params.filterBySubmodel);
 const node = (id) => ({});
 const validateToken = (_, params, context) => context.user.postToken(params.token);
 const allUserQuotes = (_, params, context) => context.quote.getQuotes(params.token);
