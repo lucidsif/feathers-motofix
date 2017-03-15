@@ -127,7 +127,7 @@ export default class SWAPIConnector {
         return pacc = pacc.then(fn)
       }, p)
     }
-
+// TODO: add proper error handling for this or remove this
     function fetchLubricantsAndCapacities(){
       var getLubricationURL = `${autoDataURL}vehicles/${midID}/technical-data?group=lubricants_and_capacities&country-code=us&api_key=${AUTODATA_API_KEY}`
       return rp(getLubricationURL)
