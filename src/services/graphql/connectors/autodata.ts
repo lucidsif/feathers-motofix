@@ -102,6 +102,7 @@ export default class AUTODATAConnector {
   }
 
   // it should return the entire repairtimes array
+  // TODO: retry only the second request if that is the only one that fails
   public fetchRepairTimes(resource: string, midID: string){
 
     function getVariantIDByMidIDAndGetRepairTimes(retry, number){
