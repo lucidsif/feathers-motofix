@@ -51,7 +51,6 @@ export default class AUTODATAConnector {
       }
       return JSON.stringify({ service: `${manufacturer} does not exist in autodata', time: 0.01` })
     }()
-    console.log(manufacturerID)
 
     function getModels(retry, number){
       var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=${API_KEY}`
@@ -104,49 +103,39 @@ export default class AUTODATAConnector {
 
   // it should return the entire repairtimes array
   public fetchRepairTimes(resource: string, midID: string){
-    midID = '42342'
-    console.log(`midID: ${midID}`)
-    var variantID;
 
-    function getVariantIDByMidID(retry, number){
+    function getVariantIDByMidIDAndGetRepairTimes(retry, number){
+      var variantID;
+      var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=${API_KEY}`;
+      var getRepairTimesURL;
       console.log('attempt number: ' + number)
       console.log(`mid: ${midID}`)
-      var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=${API_KEY}`
+
       return rp(getVariantIDURL)
         .then((result) => {
           console.log(result)
           console.log(`rp'd url: ${getVariantIDURL} with midID: ${midID}`)
           let parsedResult = JSON.parse(result)
           variantID = parsedResult.data[0].variant_id
-          return {
+          return { // return mid and variant id
             midID,
             variantID,
           }
         })
-        .catch(function (err) {
-          console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`)
-          console.log(err.statusCode);
-          if(err.statusCode === 403 && number <= 5) {
-            // if developer over qps, retry
-            return retry(err);
-          }
-          return JSON.stringify({ service: 'variant not found', time: 0.01})
+        .then((response) => {
+        console.log(response)
+          getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`
+          return rp(getRepairTimesURL)
         })
-    }
-
-    function getRepairTimesByVariantAndMid(retry, number){
-      console.log('attempt number: ' + number)
-      console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`)
-      var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`
-      return rp(getRepairTimesURL)
-        .then((result) => {
+        .then((response) => {
           console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`)
-          let parsedResult = JSON.parse(result)
-          let repairTimesObj = parsedResult.data.repair_times
-          return JSON.stringify(repairTimesObj)
+          console.log(response);
+        return response;
         })
         .catch(function (err) {
-          console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`)
+          console.log(`failed`)
+          console.log(getVariantIDURL)
+          console.log(getRepairTimesURL)
           console.log(err.statusCode);
           if(err.statusCode === 403 && number <= 5) {
             // if developer over qps, retry
@@ -155,26 +144,7 @@ export default class AUTODATAConnector {
           return JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: 'limited'})
         })
     }
-
-    function delayBuffer(n){
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          console.log('delay buffer of 250ms')
-          resolve(JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: 'balls'}))
-        }, 250)
-      })
-    }
-
-    function pSeries(list){
-      var p = Promise.resolve()
-      return list.reduce((pacc, fn) => {
-        return pacc = pacc.then(fn)
-      }, p)
-    }
-
-    const fnList = [promiseRetry(getVariantIDByMidID, { retries: 5, minTimeout: 500 }), delayBuffer, promiseRetry(getRepairTimesByVariantAndMid, { retries: 5, minTimeout: 500 })]
-    return pSeries(fnList)
-
+    return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 5, minTimeout: 500});
   }
 
   public fetchLubricantsAndCapacities(resource: string, midID: string){

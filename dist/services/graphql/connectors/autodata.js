@@ -41,7 +41,6 @@ class AUTODATAConnector {
             }
             return JSON.stringify({ service: `${manufacturer} does not exist in autodata', time: 0.01` });
         }();
-        console.log(manufacturerID);
         function getModels(retry, number) {
             var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=${API_KEY}`;
             return rp(getModelURL)
@@ -86,13 +85,12 @@ class AUTODATAConnector {
         return promiseRetry(getSubModels, { retries: 5, minTimeout: 500 });
     }
     fetchRepairTimes(resource, midID) {
-        midID = '42342';
-        console.log(`midID: ${midID}`);
-        var variantID;
-        function getVariantIDByMidID(retry, number) {
+        function getVariantIDByMidIDAndGetRepairTimes(retry, number) {
+            var variantID;
+            var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=${API_KEY}`;
+            var getRepairTimesURL;
             console.log('attempt number: ' + number);
             console.log(`mid: ${midID}`);
-            var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=${API_KEY}`;
             return rp(getVariantIDURL)
                 .then((result) => {
                 console.log(result);
@@ -104,28 +102,20 @@ class AUTODATAConnector {
                     variantID,
                 };
             })
-                .catch(function (err) {
-                console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`);
-                console.log(err.statusCode);
-                if (err.statusCode === 403 && number <= 5) {
-                    return retry(err);
-                }
-                return JSON.stringify({ service: 'variant not found', time: 0.01 });
-            });
-        }
-        function getRepairTimesByVariantAndMid(retry, number) {
-            console.log('attempt number: ' + number);
-            console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`);
-            var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`;
-            return rp(getRepairTimesURL)
-                .then((result) => {
+                .then((response) => {
+                console.log(response);
+                getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`;
+                return rp(getRepairTimesURL);
+            })
+                .then((response) => {
                 console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`);
-                let parsedResult = JSON.parse(result);
-                let repairTimesObj = parsedResult.data.repair_times;
-                return JSON.stringify(repairTimesObj);
+                console.log(response);
+                return response;
             })
                 .catch(function (err) {
-                console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`);
+                console.log(`failed`);
+                console.log(getVariantIDURL);
+                console.log(getRepairTimesURL);
                 console.log(err.statusCode);
                 if (err.statusCode === 403 && number <= 5) {
                     return retry(err);
@@ -133,22 +123,7 @@ class AUTODATAConnector {
                 return JSON.stringify({ data: [{ laborTime: 0.0 }, { laborTime: 0.0 }], unavailable: 'limited' });
             });
         }
-        function delayBuffer(n) {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    console.log('delay buffer of 250ms');
-                    resolve(JSON.stringify({ data: [{ laborTime: 0.0 }, { laborTime: 0.0 }], unavailable: 'balls' }));
-                }, 250);
-            });
-        }
-        function pSeries(list) {
-            var p = Promise.resolve();
-            return list.reduce((pacc, fn) => {
-                return pacc = pacc.then(fn);
-            }, p);
-        }
-        const fnList = [promiseRetry(getVariantIDByMidID, { retries: 5, minTimeout: 500 }), delayBuffer, promiseRetry(getRepairTimesByVariantAndMid, { retries: 5, minTimeout: 500 })];
-        return pSeries(fnList);
+        return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 5, minTimeout: 500 });
     }
     fetchLubricantsAndCapacities(resource, midID) {
         console.log(`midid: ${midID}`);
