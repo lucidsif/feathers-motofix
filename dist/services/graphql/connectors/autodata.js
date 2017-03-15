@@ -2,6 +2,7 @@
 const request = require("request");
 const rp = require("request-promise");
 const DataLoader = require('dataloader');
+const promiseRetry = require('promise-retry');
 const manufacturerCodes = [{ "Aprilia": "APR" }, { "Arctic Cat": "ARC" }, { "Benelli": "BEN" }, { "BMW": "BMM" }, { "BSA": "BSA" }, { "Buell": "BUE" }, { "Cagiva": "CAG" }, { "Can-Am": "CAA" }, { "Cannondale": "CAN" }, { "CZ": "CZ-" }, { "Derbi": "DER" }, { "Ducati": "DUC" }, { "EBR Motorcycles": "EBR" }, { "Enfield": "ENF" }, { "Eurospeed": "EUR" }, { "Gas Gas": "GGS" }, { "Harley-Davidson": "HAR" }, { "Honda": "HDA" }, { "Husqvarna": "HUS" }, { "Hyosung": "HYO" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }, { "Indian": "IND" }, { "Italjet": "ITA" }, { "Jawa": "JAW" }, { "Kawasaki": "KAW" }, { "Keeway": "KEE" }, { "KTM": "KTM" }, { "Kymco": "KYM" }, { "Laverda": "LAV" }, { "Morini": "MOR" }, { "Moto Guzzi": "MOT" }, { "MV Agusta": "MVA" }, { "MZ/MUZ": "MZ-" }, { "Piaggio": "PIA" }, { "Polaris": "POL" }, { "Suzuki": "SZK" }, { "SYM": "SYM" }, { "TGB": "TGB" }, { "Triumph": "TRI" }, { "Ural": "URA" }, { "Victory": "VIC" }];
 const baseURL = 'https://api.autodata-group.com/docs/motorcycles/v1/';
 const API_KEY = 'z66tkk6dh45n5a8mq4hvga6j';
@@ -14,16 +15,6 @@ class AUTODATAConnector {
             });
             return Promise.all(promises);
         }, { batch: false });
-    }
-    isJsonString(str) {
-        try {
-            JSON.parse(str);
-        }
-        catch (e) {
-            console.log('not valid json');
-            return false;
-        }
-        return true;
     }
     fetch(resource) {
         const url = resource.indexOf(this.rootURL) === 0 ? resource : this.rootURL + resource;
@@ -50,8 +41,7 @@ class AUTODATAConnector {
             }
             return JSON.stringify({ service: `${manufacturer} does not exist in autodata', time: 0.01` });
         }();
-        console.log(manufacturerID);
-        function getModels() {
+        function getModels(retry, number) {
             var getModelURL = `${baseURL}manufacturers/${manufacturerID}?country-code=us&api_key=${API_KEY}`;
             return rp(getModelURL)
                 .then((result) => {
@@ -59,15 +49,20 @@ class AUTODATAConnector {
                 let parsedResult = JSON.parse(result);
                 return parsedResult.data.models;
             })
-                .catch((e) => {
+                .catch(function (err) {
                 console.log(`failed getModelIdByManufacturer: ${getModelURL}`);
+                console.log(err.statusCode);
+                if (err.statusCode === 403 && number <= 5) {
+                    return retry(err);
+                }
                 return JSON.stringify({ service: 'model array not found', time: 0.01 });
             });
         }
-        return getModels();
+        return promiseRetry(getModels, { retries: 5, minTimeout: 500 });
     }
     fetchSubModels(resource, modelID) {
-        function getSubModels() {
+        function getSubModels(retry, number) {
+            console.log('attempt number: ' + number);
             console.log(`modelid: ${modelID}`);
             var getMidURL = `${baseURL}vehicles?model_id=${modelID}&country-code=us&page=1&limit=90&api_key=${API_KEY}`;
             console.time('submodel');
@@ -78,19 +73,24 @@ class AUTODATAConnector {
                 console.timeEnd('submodel');
                 return parsedResult.data;
             })
-                .catch((e) => {
+                .catch(function (err) {
                 console.log(`failed getMidIDByModelId: ${getMidURL}`);
+                console.log(err.statusCode);
+                if (err.statusCode === 403 && number <= 5) {
+                    return retry(err);
+                }
                 return JSON.stringify({ service: 'mid not found', time: 0.01 });
             });
         }
-        return getSubModels();
+        return promiseRetry(getSubModels, { retries: 5, minTimeout: 500 });
     }
     fetchRepairTimes(resource, midID) {
-        console.log(`midID: ${midID}`);
-        var variantID;
-        function getVariantIDByMidID() {
-            console.log(`mid: ${midID}`);
+        function getVariantIDByMidIDAndGetRepairTimes(retry, number) {
+            var variantID;
             var getVariantIDURL = `${baseURL}vehicles/${midID}/repair-times?country-code=us&page=1&limit=90&api_key=${API_KEY}`;
+            var getRepairTimesURL;
+            console.log('attempt number: ' + number);
+            console.log(`mid: ${midID}`);
             return rp(getVariantIDURL)
                 .then((result) => {
                 console.log(result);
@@ -102,46 +102,28 @@ class AUTODATAConnector {
                     variantID,
                 };
             })
-                .catch((e) => {
-                console.log(`failed getVariantIDByMidID: ${getVariantIDURL}`);
-                return JSON.stringify({ service: 'variant not found', time: 0.01 });
-            });
-        }
-        function getRepairTimesByVariantAndMid(n) {
-            console.log(` arguments received for getRepairTimes are midID: ${midID}, variantID: ${variantID}`);
-            var getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`;
-            return rp(getRepairTimesURL)
-                .then((result) => {
-                console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`);
-                let parsedResult = JSON.parse(result);
-                let repairTimesObj = parsedResult.data.repair_times;
-                return JSON.stringify(repairTimesObj);
+                .then((response) => {
+                console.log(response);
+                getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`;
+                return rp(getRepairTimesURL);
             })
-                .catch((e) => {
-                console.log(`failed getRepairTimesByVariantAndMid: ${getRepairTimesURL}`);
-                console.log(e);
-                if (e.statusCode === 403) {
-                    return JSON.stringify({ data: [{ laborTime: 0.0 }, { laborTime: 0.0 }], unavailable: 'limited' });
+                .then((response) => {
+                console.log(`rp'd url: ${getRepairTimesURL} with midID: ${midID} and variantID: ${variantID}`);
+                console.log(response);
+                return response;
+            })
+                .catch(function (err) {
+                console.log(`failed`);
+                console.log(getVariantIDURL);
+                console.log(getRepairTimesURL);
+                console.log(err.statusCode);
+                if (err.statusCode === 403 && number <= 5) {
+                    return retry(err);
                 }
-                return JSON.stringify({ data: [{ laborTime: 0.0 }, { laborTime: 0.0 }], unavailable: true });
+                return JSON.stringify({ data: [{ laborTime: 0.0 }, { laborTime: 0.0 }], unavailable: 'limited' });
             });
         }
-        function delayBuffer(n) {
-            return new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    console.log('delay buffer of 250ms');
-                    resolve('balls');
-                }, 250);
-            });
-        }
-        function pSeries(list) {
-            var p = Promise.resolve();
-            return list.reduce((pacc, fn) => {
-                return pacc = pacc.then(fn);
-            }, p);
-        }
-        const fnList = [getVariantIDByMidID, delayBuffer, getRepairTimesByVariantAndMid];
-        return pSeries(fnList);
+        return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 5, minTimeout: 500 });
     }
     fetchLubricantsAndCapacities(resource, midID) {
         console.log(`midid: ${midID}`);
