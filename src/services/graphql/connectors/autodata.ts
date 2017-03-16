@@ -145,7 +145,7 @@ export default class AUTODATAConnector {
           return JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: 'limited'})
         })
     }
-    return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 5, minTimeout: 500});
+    return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 3, minTimeout: 500});
   }
 
   public fetchLubricantsAndCapacities(resource: string, midID: string){
