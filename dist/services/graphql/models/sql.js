@@ -37,7 +37,7 @@ class VehicleModel {
             });
         }
         if (filterBySubmodel) {
-            console.log('second');
+            console.log('third');
             return postgresql_1.default('motorcycles')
                 .select()
                 .distinct('year')

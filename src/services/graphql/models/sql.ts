@@ -41,7 +41,7 @@ export class VehicleModel {
         }
         // return distinct years
         if(filterBySubmodel){
-          console.log('second')
+          console.log('third')
             return knex('motorcycles')
                 .select()
                 .distinct('year')
