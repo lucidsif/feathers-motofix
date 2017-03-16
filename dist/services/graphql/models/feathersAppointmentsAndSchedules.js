@@ -83,7 +83,7 @@ class Appointment {
             method: 'POST',
             uri: `http://${host}/appointments`,
             headers: {
-                authorization: token
+                authorization: token,
             },
             body: {
                 motorcycle_address,

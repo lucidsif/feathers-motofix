@@ -7,7 +7,7 @@ type RootQuery {
   allStarships(offset: Int, limit: Int): [Starship]
   starship(id: ID, starshipID: ID): Starship
   searchParts(vehicle: String!, service: String!, midID: String!): [Part]
-  allVehicles(offset: Int, limit: Int, filterByYear: String, filterByMake: String): [Vehicle]
+  allVehicles(offset: Int, limit: Int, filterByMake: String, filterByModel: String, filterBySubmodel: String): [Vehicle]
   validateToken(token: String!): User
   allUserQuotes(token: String!): [Quote]
   allUserAppointments(fk_user_id: Int!): [Appointment]

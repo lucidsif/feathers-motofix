@@ -5,7 +5,7 @@ import * as rp from 'request-promise';
 const host = process.env.WEB_ADDRESS_EXT || 'localhost:3010';
 const googleBaseURL = 'https://maps.googleapis.com/maps/api/distancematrix/json?'
 
-
+// TODO: add error handling if google maps api fails
 export default class Appointment {
   public app: any
 
@@ -106,7 +106,7 @@ export default class Appointment {
       method: 'POST',
       uri: `http://${host}/appointments`,
       headers: {
-        authorization: token
+        authorization: token,
       },
       body: {
         motorcycle_address,

@@ -63,15 +63,14 @@ export default class AUTODATAConnector {
         .catch( function(err) {
           console.log(`failed getModelIdByManufacturer: ${getModelURL}`);
           console.log(err.statusCode);
-          if (err.statusCode === 403 && number <= 5) {
+          if (err.statusCode === 403 && number <= 3) {
             // if developer over qps, retry
             return retry(err);
           }
           return JSON.stringify({ service: 'model array not found', time: 0.01})
         })
     }
-    return promiseRetry(getModels, { retries: 5, minTimeout: 500 })
-
+    return promiseRetry(getModels, { retries: 3, minTimeout: 500 })
   }
 
   public fetchSubModels(resource: string, modelID: number){
@@ -90,15 +89,14 @@ export default class AUTODATAConnector {
         .catch( function(err) {
           console.log(`failed getMidIDByModelId: ${getMidURL}`)
           console.log(err.statusCode);
-          if (err.statusCode === 403 && number <= 5) {
+          if (err.statusCode === 403 && number <= 3) {
             // if developer over qps, retry
             return retry(err);
           }
           return JSON.stringify({ service: 'mid not found', time: 0.01})
         })
     }
-
-    return promiseRetry(getSubModels, { retries: 5, minTimeout: 500 })
+    return promiseRetry(getSubModels, { retries: 3, minTimeout: 500 })
   }
 
   // it should return the entire repairtimes array
@@ -124,7 +122,7 @@ export default class AUTODATAConnector {
           }
         })
         .then((response) => {
-          console.log(response)
+        console.log(response)
           getRepairTimesURL = `${baseURL}vehicles/${midID}/repair-times/${variantID}?parts=no&country-code=us&page=1&limit=90&api_key=${API_KEY}`
           return rp(getRepairTimesURL)
         })

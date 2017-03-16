@@ -52,13 +52,13 @@ class AUTODATAConnector {
                 .catch(function (err) {
                 console.log(`failed getModelIdByManufacturer: ${getModelURL}`);
                 console.log(err.statusCode);
-                if (err.statusCode === 403 && number <= 5) {
+                if (err.statusCode === 403 && number <= 3) {
                     return retry(err);
                 }
                 return JSON.stringify({ service: 'model array not found', time: 0.01 });
             });
         }
-        return promiseRetry(getModels, { retries: 5, minTimeout: 500 });
+        return promiseRetry(getModels, { retries: 3, minTimeout: 500 });
     }
     fetchSubModels(resource, modelID) {
         function getSubModels(retry, number) {
@@ -76,13 +76,13 @@ class AUTODATAConnector {
                 .catch(function (err) {
                 console.log(`failed getMidIDByModelId: ${getMidURL}`);
                 console.log(err.statusCode);
-                if (err.statusCode === 403 && number <= 5) {
+                if (err.statusCode === 403 && number <= 3) {
                     return retry(err);
                 }
                 return JSON.stringify({ service: 'mid not found', time: 0.01 });
             });
         }
-        return promiseRetry(getSubModels, { retries: 5, minTimeout: 500 });
+        return promiseRetry(getSubModels, { retries: 3, minTimeout: 500 });
     }
     fetchRepairTimes(resource, midID) {
         function getVariantIDByMidIDAndGetRepairTimes(retry, number) {

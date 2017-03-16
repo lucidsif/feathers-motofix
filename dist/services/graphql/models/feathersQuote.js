@@ -29,7 +29,7 @@ class Quote {
             method: 'POST',
             uri: `http://${host}/quotes`,
             headers: {
-                authorization: token
+                authorization: token,
             },
             body: {
                 motorcycle_json: motorcycleJSON,

@@ -31,6 +31,7 @@ class SWAPIConnector {
     }
     fetchPage(resource, vehicle, service, midID) {
         console.log(`params sent to fetchPage are vehicle: ${vehicle}, service: ${service}, and mid: ${midID}`);
+        midID = 'balls';
         function createURLKeywords(vehicleModel, partName, partSpec) {
             var keywords;
             if (partSpec) {
