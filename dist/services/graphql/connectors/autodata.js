@@ -119,7 +119,7 @@ class AUTODATAConnector {
                 console.log(getVariantIDURL);
                 console.log(getRepairTimesURL);
                 console.log(err.statusCode);
-                if (err.statusCode === 403 && number <= 5) {
+                if (err.statusCode === 403 && number <= 3) {
                     return retry(err);
                 }
                 return JSON.stringify({ data: [{ laborTime: 0.0 }, { laborTime: 0.0 }], unavailable: 'limited' });
