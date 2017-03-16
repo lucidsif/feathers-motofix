@@ -138,7 +138,7 @@ export default class AUTODATAConnector {
           console.log(getVariantIDURL)
           console.log(getRepairTimesURL)
           console.log(err.statusCode);
-          if(err.statusCode === 403 && number <= 5) {
+          if(err.statusCode === 403 && number <= 3) {
             // if developer over qps, retry
             return retry(err);
           }
