@@ -37,7 +37,7 @@
     "feathers-errors": "^2.5.0",
     "feathers-hooks": "^1.7.1",
     "feathers-rest": "^1.6.0",
-    "feathers-sequelize": "^1.4.0",
+    "feathers-sequelize": "^1.4.2",
     "feathers-socketio": "^1.4.2",
     "fuse.js": "^2.6.1",
     "graphql": "^0.8.2",
