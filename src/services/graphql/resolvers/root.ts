@@ -19,6 +19,7 @@ const allLubricantsAndCapacities = (_, params, context) => context.autoData.getL
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password, params.name)
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password)
 const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON, params.useOwnParts, params.voucherCodeStatus)
+const createCustomQuote = (_, params, context) => context.quote.createCustomQuote(params.motorcycle, params.location, params.services, params.notes, params.email, params.completed)
 const createUserAppointment = (_, params, context) => context.appointment.createAppointment(
   params.token,
   params.motorcycle_address,
@@ -85,6 +86,7 @@ export default {
     signUp,
     logIn,
     createUserQuote,
+    createCustomQuote,
     createUserAppointment,
     createStripeCharge,
     redeemVoucher

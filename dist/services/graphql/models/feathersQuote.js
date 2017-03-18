@@ -62,6 +62,42 @@ class Quote {
             console.log(e);
         });
     }
+    createCustomQuote(motorcycle, location, services, notes, email, completed) {
+        const options = {
+            method: 'POST',
+            uri: `http://${host}/customquotes`,
+            body: {
+                motorcycle,
+                location,
+                services,
+                notes,
+                email,
+                completed
+            },
+            json: true
+        };
+        const slackOptions = {
+            method: 'POST',
+            uri: 'https://hooks.slack.com/services/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',
+            body: {
+                "text": `motorcycle: ${motorcycle} \nlocation: ${location} \nservices: ${services} \nnotes: ${notes} \nemail: ${email}`
+            },
+            json: true
+        };
+        rp(slackOptions)
+            .then((result) => {
+            console.log(result);
+        });
+        return rp(options)
+            .then((response) => {
+            console.log('custom quote creation success');
+            console.log(response);
+            return response;
+        })
+            .catch((e) => {
+            console.log(e);
+        });
+    }
 }
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Quote;

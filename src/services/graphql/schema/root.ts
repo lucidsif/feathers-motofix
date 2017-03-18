@@ -27,6 +27,7 @@ type RootMutation {
   signUp (email: String!, password: String!, name: String!): User
   logIn (email: String!, password: String!): AuthPayload
   createUserQuote(token: String!, motorcycleJSON: JSON!, cartJSON: JSON!, partJSON: JSON!, useOwnParts: Boolean!, voucherCodeStatus: Boolean! ): Quote
+  createCustomQuote(motorcycle: String!, location: String!, services: String!, notes: String, email: String!, completed: Boolean!): CustomQuote
   createUserAppointment(
     token: String!,
     motorcycle_address: String!, 
