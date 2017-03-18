@@ -71,7 +71,6 @@ export default class AUTODATAConnector {
         })
     }
     return promiseRetry(getModels, { retries: 3, minTimeout: 500 })
-
   }
 
   public fetchSubModels(resource: string, modelID: number){
@@ -97,7 +96,6 @@ export default class AUTODATAConnector {
           return JSON.stringify({ service: 'mid not found', time: 0.01})
         })
     }
-
     return promiseRetry(getSubModels, { retries: 3, minTimeout: 500 })
   }
 

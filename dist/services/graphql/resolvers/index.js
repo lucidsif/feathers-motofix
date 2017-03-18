@@ -7,6 +7,7 @@ const part_1 = require("./part");
 const labor_1 = require("./labor");
 const authPayload_1 = require("./authPayload");
 const quote_1 = require("./quote");
+const custom_quote_1 = require("./custom-quote");
 const appointment_1 = require("./appointment");
 const mechanic_schedule_1 = require("./mechanic_schedule");
 const appointment_schedule_1 = require("./appointment-schedule");
@@ -18,5 +19,5 @@ const stripe_response_1 = require("./stripe-response");
 const voucher_1 = require("./voucher");
 const obj = { JSON: GraphQLJSON };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = Object.assign(obj, root_1.default, starship_1.default, vehicle_1.default, part_1.default, labor_1.default, authPayload_1.default, quote_1.default, appointment_1.default, mechanic_schedule_1.default, appointment_schedule_1.default, model_1.default, sub_model_1.default, lubricants_and_capacities_1.default, distance_matrix_1.default, stripe_response_1.default, voucher_1.default);
+exports.default = Object.assign(obj, root_1.default, starship_1.default, vehicle_1.default, part_1.default, labor_1.default, authPayload_1.default, quote_1.default, custom_quote_1.default, appointment_1.default, mechanic_schedule_1.default, appointment_schedule_1.default, model_1.default, sub_model_1.default, lubricants_and_capacities_1.default, distance_matrix_1.default, stripe_response_1.default, voucher_1.default);
 //# sourceMappingURL=index.js.map

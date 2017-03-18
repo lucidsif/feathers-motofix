@@ -125,7 +125,7 @@ export default class Appointment {
       method: 'POST',
       uri: 'https://hooks.slack.com/services/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',
       body: {
-        "text" : `appointment is trying to be created for mechanic: ${fk_mechanic_id} to start ${estimated_start_time} at address: ${motorcycle_address}. Notes: ${note} and customer number: ${contact_number}`
+        "text" : `Mechanic: ${fk_mechanic_id} \nEstimated start time:${estimated_start_time} \nMotorcycle Address: ${motorcycle_address}. \nNotes: ${note} \nCustomer contact number: ${contact_number}`
       },
       json: true
     }

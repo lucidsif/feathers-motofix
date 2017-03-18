@@ -15,6 +15,7 @@ const allLubricantsAndCapacities = (_, params, context) => context.autoData.getL
 const signUp = (_, params, context) => context.user.createUser(params.email, params.password, params.name);
 const logIn = (_, params, context) => context.user.logIn(params.email, params.password);
 const createUserQuote = (_, params, context) => context.quote.createQuote(params.token, params.motorcycleJSON, params.cartJSON, params.partJSON, params.useOwnParts, params.voucherCodeStatus);
+const createCustomQuote = (_, params, context) => context.quote.createCustomQuote(params.motorcycle, params.location, params.services, params.notes, params.email, params.completed);
 const createUserAppointment = (_, params, context) => context.appointment.createAppointment(params.token, params.motorcycle_address, params.contact_number, params.note, params.estimated_start_time, params.estimated_end_time, params.status, params.fk_quote_id, params.fk_mechanic_id);
 const checkDistance = (_, params, context) => context.google.getDistanceMatrix(params.zipOrCoordinates);
 const createStripeCharge = (_, params, context) => context.stripe.createCharge(params.token);
@@ -43,6 +44,7 @@ exports.default = {
         signUp,
         logIn,
         createUserQuote,
+        createCustomQuote,
         createUserAppointment,
         createStripeCharge,
         redeemVoucher
