@@ -22,5 +22,9 @@
         "scope": ["profile"]
       }
     }
+  },
+  "forest": {
+    "secretKey": "FOREST_ENV_SECRET",
+    "authKey": "FOREST_AUTH_SECRET"
   }
 }

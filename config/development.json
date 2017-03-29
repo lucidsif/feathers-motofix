@@ -23,5 +23,9 @@
         "scope": ["profile"]
       }
     }
+  },
+  "forest": {
+    "secretKey": "a45c93d45f3f98f423154589c31fd68fa0414285ca908e2c5854ddc95078c71f",
+    "authKey": "GpigdgENMhLyAAo5ed5nI4ekDMbOvw1q"
   }
 }

@@ -43,6 +43,12 @@ app.use(Raven.requestHandler())
   .configure(rest())
   .configure(socketio())
   .configure(services)
+  .use(require('forest-express-sequelize').init({
+    modelsDir: './src/services',
+    secretKey: app.get('forest').secretKey,
+    authKey: app.get('forest').authKey,
+    sequelize: app.get('sequelize')
+  }))
   .configure(middleware);
 
 module.exports = app;
