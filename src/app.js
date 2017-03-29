@@ -19,9 +19,6 @@ const app = feathers();
 
 app.configure(configuration(path.join(__dirname, '..')));
 
-//const FOREST_ENV_SECRET = 'a45c93d45f3f98f423154589c31fd68fa0414285ca908e2c5854ddc95078c71f'
-//const FOREST_AUTH_SECRET = 'GpigdgENMhLyAAo5ed5nI4ekDMbOvw1q'
-
 // Must configure Raven before doing anything else with it
 //Raven.config('https://e07c37debc08407cbb4f50a17f00cea3:4b1a88c408314007ac59628ab74c8251@sentry.io/142151').install();
 
