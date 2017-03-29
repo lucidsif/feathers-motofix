@@ -16,6 +16,9 @@ console.log(process.env.POSTGRESQL_URL)
 console.log(process.env.POSTGRESQL_DATABASE)
 console.log(process.env.POSTGRESQL_USERNAME)
 
+console.log(process.env.FOREST_AUTH_SECRET)
+console.log(process.env.FOREST_ENV_SECRET)
+
 
 const server = app.listen(port);
 
