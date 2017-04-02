@@ -1,6 +1,5 @@
 // Update with your config settings.
 
-// TODO: use environmental variables
 module.exports = {
 
   development: {
@@ -35,7 +34,12 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: process.env.POSTGRESQL_URL_INT,
+    connection: {
+      host: '10.128.5.166',
+      database: 'motofix_shared_backend_test_production',
+      user:     'ut8h3d',
+      password: '3QmSHng0u4JPVy8'
+    },
     pool: {
       min: 2,
       max: 10
