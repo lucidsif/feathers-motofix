@@ -42,7 +42,7 @@ class Quote {
         };
         const slackOptions = {
             method: 'POST',
-            uri: 'https://hooks.slack.com/services/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',
+            uri: 'https://hooks.slack.com/services/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',
             body: {
                 "text": `Motorcycle: ${motorcycleJSON} \ncart:${cartJSON} \npart${partJSON}`
             },
@@ -78,7 +78,7 @@ class Quote {
         };
         const slackOptions = {
             method: 'POST',
-            uri: 'https://hooks.slack.com/services/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',
+            uri: 'https://hooks.slack.com/services/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',
             body: {
                 "text": `motorcycle: ${motorcycle} \nlocation: ${location} \nservices: ${services} \nnotes: ${notes} \nemail: ${email}`
             },
