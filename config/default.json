@@ -1,6 +1,6 @@
 {
-  "host": "POSTGRESQL_ADDRESS_EXT",
-  "postgres": "POSTGRESQL_URL_EXT",
+  "host": "POSTGRESQL_ADDRESS_INT",
+  "postgres": "POSTGRESQL_URL_INT",
   "public": "../public/",
   "auth": {
     "idField": "id",

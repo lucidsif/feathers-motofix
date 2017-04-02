@@ -99,7 +99,7 @@ class Appointment {
         };
         const slackOptions = {
             method: 'POST',
-            uri: 'https://hooks.slack.com/services/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',
+            uri: 'https://hooks.slack.com/services/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',
             body: {
                 "text": `Mechanic: ${fk_mechanic_id} \nEstimated start time:${estimated_start_time} \nMotorcycle Address: ${motorcycle_address}. \nNotes: ${note} \nCustomer contact number: ${contact_number}`
             },
