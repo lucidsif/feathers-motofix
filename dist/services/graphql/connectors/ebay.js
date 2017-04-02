@@ -57,10 +57,9 @@ class SWAPIConnector {
                     let valid = true;
                     let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0];
                     let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0];
+                    imageURL = imageURL.replace(/^http:\/\//i, 'https://');
                     let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0];
-                    console.log(ebayURL);
                     ebayURL = ebayURL.replace(/^http:\/\//i, 'https://');
-                    console.log(ebayURL);
                     let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo;
                     let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0];
                     let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1];
