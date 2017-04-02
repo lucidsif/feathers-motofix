@@ -33,8 +33,8 @@ app.use(Raven.requestHandler())
     .configure(services)
     .use(require('forest-express-sequelize').init({
     modelsDir: './src/services',
-    envSecret: app.get('forest').envSecret,
-    authSecret: app.get('forest').authSecret,
+    secretKey: app.get('forest').secretKey,
+    authKey: app.get('forest').authKey,
     sequelize: app.get('sequelize')
 }))
     .configure(middleware);

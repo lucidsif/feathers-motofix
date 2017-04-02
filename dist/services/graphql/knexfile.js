@@ -1,3 +1,8 @@
+console.log('inside knexfile');
+console.log(process.env.POSTGRESQL_URL_INT);
+console.log(process.env.POSTGRESQL_DATABASE);
+console.log(process.env.POSTGRESQL_USERNAME);
+console.log(process.env.POSTGRESQL_PASSWORD);
 module.exports = {
     development: {
         client: 'postgresql',
@@ -30,10 +35,10 @@ module.exports = {
     production: {
         client: 'postgresql',
         connection: {
-            host: '159.203.187.137',
-            database: 'motofix_shared_backend_production',
-            user: 'uz951x',
-            password: 'swApwmsblDHRyX6'
+            host: '162.243.38.86',
+            database: process.env.POSTGRESQL_DATABASE,
+            user: process.env.POSTGRESQL_USERNAME,
+            password: process.env.POSTGRESQL_PASSWORD
         },
         pool: {
             min: 2,

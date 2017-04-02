@@ -11,8 +11,8 @@ console.log(process.env.POSTGRESQL_SLAVE_ADDRESSES);
 console.log(process.env.POSTGRESQL_URL);
 console.log(process.env.POSTGRESQL_DATABASE);
 console.log(process.env.POSTGRESQL_USERNAME);
-console.log(process.env.FOREST_AUTH_SECRET);
-console.log(process.env.FOREST_ENV_SECRET);
+console.log(process.env.POSTGRESQL_URL_INT);
+console.log(process.env.POSTGRESQL_URL_EXT);
 const server = app.listen(port);
 server.on('listening', () => console.log(`Feathers application started on ${app.get('host')}:${port}`));
 //# sourceMappingURL=index.js.map
