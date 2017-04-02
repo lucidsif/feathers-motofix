@@ -34,12 +34,7 @@ module.exports = {
 
   production: {
     client: 'postgresql',
-    connection: {
-      host: '159.203.187.137',
-      database: 'motofix_shared_backend_production',
-      user:     'uz951x',
-      password: 'swApwmsblDHRyX6'
-    },
+    connection: process.env.POSTGRESQL_URL_INT,
     pool: {
       min: 2,
       max: 10
