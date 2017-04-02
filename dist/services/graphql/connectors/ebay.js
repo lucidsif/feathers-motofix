@@ -2,7 +2,7 @@
 const request = require("request");
 const rp = require("request-promise");
 const DataLoader = require('dataloader');
-const ebayURL = 'http://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=';
+const ebayURL = 'https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=TawsifAh-motoebay-PRD-545f64428-d1251e34&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=';
 const buyerPostalCode = '&buyerPostalCode=11435';
 const buyItNowFilter = `&itemFilter(0).name=ListingType&itemFilter(0).value=FixedPrice`;
 const maxPriceFilter = '&itemFilter(1).name=MaxPrice&itemFilter(1).value=';
@@ -58,7 +58,9 @@ class SWAPIConnector {
                     let partTitle = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].title[0];
                     let imageURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].galleryURL[0];
                     let ebayURL = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].viewItemURL[0];
+                    console.log(ebayURL);
                     ebayURL = ebayURL.replace(/^http:\/\//i, 'https://');
+                    console.log(ebayURL);
                     let shippingCost = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].shippingInfo;
                     let price = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].sellingStatus[0].currentPrice[0];
                     let condition = partsObj.findItemsByKeywordsResponse[0].searchResult[0].item[0].condition[1];
