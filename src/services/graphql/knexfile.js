@@ -1,4 +1,9 @@
 // Update with your config settings.
+console.log('inside knexfile');
+console.log(process.env.POSTGRESQL_URL_INT)
+console.log(process.env.POSTGRESQL_DATABASE)
+console.log(process.env.POSTGRESQL_USERNAME)
+console.log(process.env.POSTGRESQL_PASSWORD)
 
 module.exports = {
 
@@ -35,7 +40,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      host: process.env.POSTGRESQL_ADDRESS_INT,
+      host:  '162.243.38.86',
       database: process.env.POSTGRESQL_DATABASE,
       user:     process.env.POSTGRESQL_USERNAME,
       password: process.env.POSTGRESQL_PASSWORD
