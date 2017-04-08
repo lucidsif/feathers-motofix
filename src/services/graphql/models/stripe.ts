@@ -1,7 +1,7 @@
 /**
  * Created by Sif on 2/20/17.
  */
-const stripe = require('stripe')('sk_test_bKGsU9xuWYRuw7p8WlQ09yl9');
+const stripe = require('stripe')('sk_live_kPHSaGIcHNu0y6M9xuFiNMvi');
 
 // use production env or local
 const host = process.env.WEB_ADDRESS_EXT || 'localhost:3010';
