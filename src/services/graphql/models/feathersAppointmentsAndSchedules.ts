@@ -25,31 +25,31 @@ export default class Appointment {
 
     return rp(mechanics)
       .then((mechanicsArr) => {
-      return mechanicsArr;
-    })
+        return mechanicsArr;
+      })
       .reduce((arr, mechanic) => {
         const url = `origins=${mechanic.zipcode}&destinations=${zipOrCoordinates}&mode=driving&sensor=false&units=imperial`
         const mechanicMatrixUrl = `${googleBaseURL}${url}`
         const mechanicReq = {
-        method: 'GET',
+          method: 'GET',
           uri: mechanicMatrixUrl,
           json: true
-      }
-      return rp(mechanicReq)
-        .then((distanceMatrixResult) => {
-          if (distanceMatrixResult.rows[0].elements[0].distance.value <= mechanic.travel_radius * 5280) {
-            console.log(`${mechanic.first_name} is willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value/5280} away from the rider`)
-            nearMechanics.push(mechanic)
-          } else {
-            console.log(`${mechanic.first_name} did not meet predicate. willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value/5280} away from the rider`)
-          }
-      })
-    }, Promise.resolve())
+        }
+        return rp(mechanicReq)
+          .then((distanceMatrixResult) => {
+            if (distanceMatrixResult.rows[0].elements[0].distance.value <= mechanic.travel_radius * 1.61) {
+              console.log(`${mechanic.first_name} is willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value/1609.34} away from the rider`)
+              nearMechanics.push(mechanic)
+            } else {
+              console.log(`${mechanic.first_name} did not meet predicate. willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value/1609.34} away from the rider`)
+            }
+          })
+      }, Promise.resolve())
       .then(() => {
-      return nearMechanics;
+        return nearMechanics;
       })
       .reduce((arr, nearMechanic) => {
-      // return an array of appointments and schedules for each near mechanic
+        // return an array of appointments and schedules for each near mechanic
         const mechanicScheduleUrl = `http://${host}/mechanicschedules?fk_mechanic_id=${nearMechanic.id}`
         const mechanicScheduleReq = {
           method: 'GET',
@@ -64,28 +64,28 @@ export default class Appointment {
         }
         return rp(mechanicScheduleReq)
           .then((scheduleResults) => {
-          schedules.push(scheduleResults)
-        })
+            schedules.push(scheduleResults)
+          })
           .then(() => {
-         return rp(mechanicAppointmentReq)
-            .then((appointmentResults) => {
-            appointments.push(appointmentResults)
-            })
+            return rp(mechanicAppointmentReq)
+              .then((appointmentResults) => {
+                appointments.push(appointmentResults)
+              })
           })
 
       }, Promise.resolve())
       .then(() => {
-      let mergedSchedules = [].concat.apply([], schedules)
-      let mergedAppointments = [].concat.apply([], appointments)
+        let mergedSchedules = [].concat.apply([], schedules)
+        let mergedAppointments = [].concat.apply([], appointments)
         const payload = {
-        schedules: mergedSchedules,
+          schedules: mergedSchedules,
           appointments: mergedAppointments
         }
         return payload
       })
       .catch((err) => {
-      console.log(err)
-    })
+        console.log(err)
+      })
 
   }
   // TODO: modularize createAppointment and getOwnAppointments by exporting to a different model
@@ -123,7 +123,7 @@ export default class Appointment {
 
     const slackOptions = {
       method: 'POST',
-      uri: 'https://hooks.slack.com/services/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',
+      uri: 'https://hooks.slack.com/services/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',
       body: {
         "text" : `Mechanic: ${fk_mechanic_id} \nEstimated start time:${estimated_start_time} \nMotorcycle Address: ${motorcycle_address}. \nNotes: ${note} \nCustomer contact number: ${contact_number}`
       },
@@ -132,15 +132,15 @@ export default class Appointment {
 
     rp(slackOptions)
       .then((result) => {
-      console.log(result);
+        console.log(result);
       });
 
     return rp(options)
       .then((response) => {
-      return response;
+        return response;
       })
       .catch((e) => {
-      console.log(e)
+        console.log(e)
         return e;
       })
   }
@@ -162,5 +162,3 @@ export default class Appointment {
       })
   }
 }
-
-

@@ -29,12 +29,12 @@ class Appointment {
             };
             return rp(mechanicReq)
                 .then((distanceMatrixResult) => {
-                if (distanceMatrixResult.rows[0].elements[0].distance.value <= mechanic.travel_radius * 5280) {
-                    console.log(`${mechanic.first_name} is willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value / 5280} away from the rider`);
+                if (distanceMatrixResult.rows[0].elements[0].distance.value <= mechanic.travel_radius * 1.61) {
+                    console.log(`${mechanic.first_name} is willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value / 1609.34} away from the rider`);
                     nearMechanics.push(mechanic);
                 }
                 else {
-                    console.log(`${mechanic.first_name} did not meet predicate. willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value / 5280} away from the rider`);
+                    console.log(`${mechanic.first_name} did not meet predicate. willing to drive ${mechanic.travel_radius} miles and is ${distanceMatrixResult.rows[0].elements[0].distance.value / 1609.34} away from the rider`);
                 }
             });
         }, Promise.resolve())
@@ -99,7 +99,7 @@ class Appointment {
         };
         const slackOptions = {
             method: 'POST',
-            uri: 'https://hooks.slack.com/services/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',
+            uri: 'https://hooks.slack.com/services/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',
             body: {
                 "text": `Mechanic: ${fk_mechanic_id} \nEstimated start time:${estimated_start_time} \nMotorcycle Address: ${motorcycle_address}. \nNotes: ${note} \nCustomer contact number: ${contact_number}`
             },
