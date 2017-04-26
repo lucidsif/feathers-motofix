@@ -24,9 +24,14 @@ module.exports = function(sequelize) {
     dba: {
       type: Sequelize.STRING,
       allowNull: true
+    },
+    subscribed: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true
     }
   }, {
-    freezeTableName: true
+    freezeTableName: true,
+    underscored: true
   });
 
   return leads;
