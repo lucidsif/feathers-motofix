@@ -1,4 +1,6 @@
 'use strict';
+const leads = require('./leads');
+const leads = require('./leads');
 const customQuotes = require('./customQuotes');
 const mechanicSchedules = require('./mechanicSchedules');
 const appointments = require('./appointments');
@@ -34,4 +36,6 @@ module.exports = function() {
 
   sequelize.sync();
   app.configure(customQuotes);
+  app.configure(leads);
+  app.configure(leads);
 };

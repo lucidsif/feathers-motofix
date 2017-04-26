@@ -37,7 +37,7 @@
     "feathers-errors": "^2.5.0",
     "feathers-hooks": "^1.7.1",
     "feathers-rest": "^1.6.0",
-    "feathers-sequelize": "^1.4.2",
+    "feathers-sequelize": "^1.4.5",
     "feathers-socketio": "^1.4.2",
     "forest-express-sequelize": "^1.0.8",
     "fuse.js": "^2.6.1",
