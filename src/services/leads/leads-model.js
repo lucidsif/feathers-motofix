@@ -17,6 +17,10 @@ module.exports = function(sequelize) {
       type: Sequelize.STRING,
       allowNull: false
     },
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
     dba: {
       type: Sequelize.STRING,
       allowNull: true
