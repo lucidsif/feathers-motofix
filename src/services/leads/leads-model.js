@@ -29,7 +29,5 @@ module.exports = function(sequelize) {
     freezeTableName: true
   });
 
-  leads.sync();
-
   return leads;
 };

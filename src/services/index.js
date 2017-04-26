@@ -26,6 +26,8 @@ module.exports = function() {
   app.configure(mechanics);
   app.configure(appointments);
   app.configure(mechanicSchedules);
+  app.configure(customQuotes);
+  app.configure(leads);
 
   // Setup relationships
   const models = sequelize.models;
@@ -35,7 +37,4 @@ module.exports = function() {
     .forEach(model => model.associate(models));
 
   sequelize.sync();
-  app.configure(customQuotes);
-  app.configure(leads);
-  app.configure(leads);
 };
