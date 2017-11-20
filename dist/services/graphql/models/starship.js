@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const swapiBase_1 = require("./swapiBase");
 class Starship extends swapiBase_1.default {
     getStarships(offset, limit) {
@@ -9,6 +10,5 @@ class Starship extends swapiBase_1.default {
         return this.connector.fetch(url);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Starship;
 //# sourceMappingURL=starship.js.map

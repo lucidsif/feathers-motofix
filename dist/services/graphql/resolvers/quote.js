@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const id = (quote) => quote.id;
 const fk_user_id = (quote) => quote.fk_user_id;
 const motorcycle_json = (quote) => quote.motorcycle_json;
@@ -8,7 +9,6 @@ const use_own_parts = (quote) => quote.use_own_parts;
 const voucher_code_status = (quote) => quote.voucher_code_status;
 const created_at = (quote) => quote.created_at;
 const updated_at = (quote) => quote.updated_at;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     Quote: {
         id,

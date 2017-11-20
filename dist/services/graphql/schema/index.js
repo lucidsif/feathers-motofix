@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const root_1 = require("./root");
 const starship_1 = require("./starship");
 const vehicle_1 = require("./vehicle");
@@ -29,7 +30,6 @@ const schema = `
 
   scalar JSON
 `;
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = [
     schema,
     root_1.default,

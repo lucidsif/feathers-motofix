@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class BaseModel {
     constructor(connector) {
         this.connector = connector;
@@ -10,6 +11,5 @@ class BaseModel {
         return this.connector.loader.load(url);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = BaseModel;
 //# sourceMappingURL=ebayBase.js.map

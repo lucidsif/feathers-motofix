@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
 const DataLoader = require('dataloader');
 class SWAPIConnector {
@@ -60,6 +61,5 @@ class SWAPIConnector {
         return pagination.call(this, resource);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = SWAPIConnector;
 //# sourceMappingURL=swapi.js.map

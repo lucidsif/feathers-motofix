@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const google_maps_base_1 = require("./google-maps-base");
 class Google extends google_maps_base_1.default {
     getDistanceMatrix(zipOrCoordinates) {
@@ -16,6 +17,5 @@ class Google extends google_maps_base_1.default {
         });
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Google;
 //# sourceMappingURL=google-maps.js.map

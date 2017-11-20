@@ -1,6 +1,6 @@
 "use strict";
-const data = (authPayload) => authPayload.data;
 Object.defineProperty(exports, "__esModule", { value: true });
+const data = (authPayload) => authPayload.data;
 exports.default = {
     AuthPayload: {
         data

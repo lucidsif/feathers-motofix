@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const autoDataBase_1 = require("./autoDataBase");
 class AutoData extends autoDataBase_1.default {
     getModels(manufacturer) {
@@ -18,6 +19,5 @@ class AutoData extends autoDataBase_1.default {
         return this.connector.fetch(url);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = AutoData;
 //# sourceMappingURL=auto-data.js.map

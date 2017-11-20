@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const rp = require("request-promise");
 const host = process.env.WEB_ADDRESS_EXT || 'localhost:3010';
 const googleBaseURL = 'https://maps.googleapis.com/maps/api/distancematrix/json?';
@@ -133,6 +134,5 @@ class Appointment {
         });
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Appointment;
 //# sourceMappingURL=feathersAppointmentsAndSchedules.js.map

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const rp = require("request-promise");
 const vaucharBaseURL = 'https://api.vauchar.com';
 class Voucher {
@@ -62,6 +63,5 @@ class Voucher {
         });
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Voucher;
 //# sourceMappingURL=vauchar.js.map

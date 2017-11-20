@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
 const rp = require("request-promise");
 const DataLoader = require('dataloader');
@@ -145,6 +146,5 @@ class AUTODATAConnector {
         });
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = AUTODATAConnector;
 //# sourceMappingURL=autodata.js.map

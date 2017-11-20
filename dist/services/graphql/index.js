@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const hooks = require('./hooks');
 const bodyParser = require("body-parser");
 const apollo = require("apollo-server");

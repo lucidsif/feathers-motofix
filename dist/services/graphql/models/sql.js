@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const postgresql_1 = require("../connectors/postgresql");
 class VehicleModel {
     getVehicles(offset, limit, filterByMake, filterByModel, filterBySubmodel) {

@@ -1,6 +1,6 @@
 "use strict";
-const response = (voucher) => voucher.response;
 Object.defineProperty(exports, "__esModule", { value: true });
+const response = (voucher) => voucher.response;
 exports.default = {
     Voucher: {
         response,

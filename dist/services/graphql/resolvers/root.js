@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const allStarships = (_, params, context) => context.starship.getStarships(params.offset, params.limit);
 const starship = (_, params, context) => context.starship.getStarship(params.id, params.starshipID);
 const searchParts = (_, params, context) => context.part.getParts(params.vehicle, params.service, params.midID);
@@ -21,7 +22,6 @@ const checkDistance = (_, params, context) => context.google.getDistanceMatrix(p
 const createStripeCharge = (_, params, context) => context.stripe.createCharge(params.token);
 const validateVoucher = (_, params, context) => context.vauchar.validateVoucherCode(params.voucherCode);
 const redeemVoucher = (_, params, context) => context.vauchar.createVoucherRedemption(params.voucherCode, params.user_id);
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = {
     RootQuery: {
         allStarships,

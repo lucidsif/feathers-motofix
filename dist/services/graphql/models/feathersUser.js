@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const rp = require("request-promise");
 const host = process.env.WEB_ADDRESS_EXT || 'localhost:3010';
 class User {
@@ -54,6 +55,5 @@ class User {
         });
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = User;
 //# sourceMappingURL=feathersUser.js.map

@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const ebayBase_1 = require("./ebayBase");
 class Part extends ebayBase_1.default {
     getParts(vehicle, service, midID) {
@@ -9,6 +10,5 @@ class Part extends ebayBase_1.default {
         return this.connector.fetch(url);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Part;
 //# sourceMappingURL=part.js.map

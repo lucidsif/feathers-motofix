@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const GraphQLJSON = require('graphql-type-json');
 const root_1 = require("./root");
 const starship_1 = require("./starship");
@@ -18,6 +19,5 @@ const distance_matrix_1 = require("./distance-matrix");
 const stripe_response_1 = require("./stripe-response");
 const voucher_1 = require("./voucher");
 const obj = { JSON: GraphQLJSON };
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Object.assign(obj, root_1.default, starship_1.default, vehicle_1.default, part_1.default, labor_1.default, authPayload_1.default, quote_1.default, custom_quote_1.default, appointment_1.default, mechanic_schedule_1.default, appointment_schedule_1.default, model_1.default, sub_model_1.default, lubricants_and_capacities_1.default, distance_matrix_1.default, stripe_response_1.default, voucher_1.default);
 //# sourceMappingURL=index.js.map
