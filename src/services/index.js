@@ -8,6 +8,7 @@ const quotes = require('./quotes');
 const graphql = require('./graphql');
 const authentication = require('./authentication');
 const users = require('./users');
+const motorcycles = require('./motorcycles');
 const Sequelize = require('sequelize');
 module.exports = function() {
   const app = this;
@@ -27,6 +28,7 @@ module.exports = function() {
   app.configure(mechanicSchedules);
   app.configure(customQuotes);
   app.configure(leads);
+  app.configure(motorcycles);
 
   // Setup relationships
   const models = sequelize.models;

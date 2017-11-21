@@ -3,7 +3,7 @@ module.exports = {
         client: 'postgresql',
         connection: {
             database: 'motofix_local',
-            user: 'Sif',
+            user: 'sif',
         },
         pool: {
             min: 2,
@@ -17,7 +17,7 @@ module.exports = {
         client: 'postgresql',
         connection: {
             database: 'motofix',
-            user: 'Sif',
+            user: 'sif',
         },
         pool: {
             min: 2,
