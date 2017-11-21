@@ -5,10 +5,10 @@ module.exports = {
   development: {
       client: 'postgresql',
       connection: {
-        host: process.env.POSTGRESQL_HOST || 'localhost',
-        database: process.env.POSTGRESQL_DATABASE || 'motofix_local',
-        user:     process.env.POSTGRESQL_USERNAME || 'sif',
-        password: process.env.POSTGRESQL_PASSWORD || null
+        host: 'localhost',
+        database: 'motofix_local',
+        user: 'sif',
+        password: null
       },
       pool: {
           min: 2,
@@ -22,6 +22,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
+      host: process.env.POSTGRESQL_HOST,
       database: process.env.POSTGRESQL_DATABASE,
       user:     process.env.POSTGRESQL_USERNAME,
       password: process.env.POSTGRESQL_PASSWORD
