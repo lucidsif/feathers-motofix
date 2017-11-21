@@ -1,6 +1,6 @@
 {
-  "host": "POSTGRESQL_ADDRESS_INT",
-  "postgres": "POSTGRESQL_URL_INT",
+  "host": "feathers-motofix.herokuapp.com",
+  "postgres": "DATABASE_URL",
   "public": "../public/",
   "auth": {
     "idField": "id",
