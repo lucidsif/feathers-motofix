@@ -59,7 +59,7 @@ class AUTODATAConnector {
                 return JSON.stringify({ service: 'model array not found', time: 0.01 });
             });
         }
-        return promiseRetry(getModels, { retries: 3, minTimeout: 500 });
+        return promiseRetry(getModels, { retries: 3, minTimeout: 100 });
     }
     fetchSubModels(resource, modelID) {
         function getSubModels(retry, number) {
@@ -83,7 +83,7 @@ class AUTODATAConnector {
                 return JSON.stringify({ service: 'mid not found', time: 0.01 });
             });
         }
-        return promiseRetry(getSubModels, { retries: 3, minTimeout: 500 });
+        return promiseRetry(getSubModels, { retries: 3, minTimeout: 100 });
     }
     fetchRepairTimes(resource, midID) {
         function getVariantIDByMidIDAndGetRepairTimes(retry, number) {
@@ -126,7 +126,7 @@ class AUTODATAConnector {
                 return JSON.stringify({ data: [{ laborTime: 0.0 }, { laborTime: 0.0 }], unavailable: 'limited' });
             });
         }
-        return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 3, minTimeout: 500 });
+        return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 3, minTimeout: 100 });
     }
     fetchLubricantsAndCapacities(resource, midID) {
         console.log(`midid: ${midID}`);

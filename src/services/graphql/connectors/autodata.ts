@@ -70,7 +70,7 @@ export default class AUTODATAConnector {
           return JSON.stringify({ service: 'model array not found', time: 0.01})
         })
     }
-    return promiseRetry(getModels, { retries: 3, minTimeout: 500 })
+    return promiseRetry(getModels, { retries: 3, minTimeout: 100 })
   }
 
   public fetchSubModels(resource: string, modelID: number){
@@ -96,7 +96,7 @@ export default class AUTODATAConnector {
           return JSON.stringify({ service: 'mid not found', time: 0.01})
         })
     }
-    return promiseRetry(getSubModels, { retries: 3, minTimeout: 500 })
+    return promiseRetry(getSubModels, { retries: 3, minTimeout: 100 })
   }
 
   // it should return the entire repairtimes array
@@ -145,7 +145,7 @@ export default class AUTODATAConnector {
           return JSON.stringify({ data: [{laborTime: 0.0}, {laborTime: 0.0}], unavailable: 'limited'})
         })
     }
-    return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 3, minTimeout: 500});
+    return promiseRetry(getVariantIDByMidIDAndGetRepairTimes, { retries: 3, minTimeout: 100});
   }
 
   public fetchLubricantsAndCapacities(resource: string, midID: string){
