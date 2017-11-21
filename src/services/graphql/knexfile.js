@@ -5,8 +5,10 @@ module.exports = {
   development: {
       client: 'postgresql',
       connection: {
-          database: 'motofix_local',
-          user: 'sif',
+        host: process.env.POSTGRESQL_HOST || 'localhost',
+        database: process.env.POSTGRESQL_DATABASE || 'motofix_local',
+        user:     process.env.POSTGRESQL_USERNAME || 'sif',
+        password: process.env.POSTGRESQL_PASSWORD || null
       },
       pool: {
           min: 2,
@@ -15,21 +17,6 @@ module.exports = {
       migrations: {
           tableName: 'knex_migrations'
       }
-  },
-
-  staging: {
-    client: 'postgresql',
-    connection: {
-      database: 'motofix',
-      user:     'sif',
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
-    }
   },
 
   production: {

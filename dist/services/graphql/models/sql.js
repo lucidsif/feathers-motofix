@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const postgresql_1 = require("../connectors/postgresql");
+console.log('inside sql.ts', postgresql_1.default);
 class VehicleModel {
     getVehicles(offset, limit, filterByMake, filterByModel, filterBySubmodel) {
         console.log(`make is: ${filterByMake}, model is: ${filterByModel}, submodel is: ${filterBySubmodel}`);
