@@ -25,7 +25,7 @@
     }
   },
   "forest": {
-    "secretKey": "a45c93d45f3f98f423154589c31fd68fa0414285ca908e2c5854ddc95078c71f",
-    "authKey": "GpigdgENMhLyAAo5ed5nI4ekDMbOvw1q"
+    "envSecret": "aa37e84e1f8b2cdc7e16c9056d26ee06c614b10cd7dcab06cef44a584020670c",
+    "authSecret": "6JCjyB8K3B1bfvE4eIsDB6gBD02KxFqw"
   }
 }
