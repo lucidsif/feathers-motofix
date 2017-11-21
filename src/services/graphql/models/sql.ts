@@ -1,5 +1,4 @@
 import knex from '../connectors/postgresql';
-console.log('inside sql.ts', knex);
 
 export class VehicleModel {
     public getVehicles(offset?: number, limit?: number, filterByMake?: string, filterByModel?: string, filterBySubmodel?: string) {

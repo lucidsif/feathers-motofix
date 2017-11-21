@@ -4,5 +4,7 @@ const env = process.env.ENVIRONMENT || 'development';
 // Eventually we want to wrap Knex to do some batching and caching, but for
 // now this will do since we know none of our queries need it
 //
+console.log('environment**', env);
+console.log(config[env]);
 
 export default knex(config[env]);
